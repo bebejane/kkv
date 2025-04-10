@@ -15,11 +15,25 @@ query Course($slug: String) {
 
 fragment CourseFragment on CourseRecord {
 	id
-	slug
 	title
+	date
+	intro
+	text
+	workshop {
+		...WorkshopLightFragment
+	}
+	openToAll
+	slug
 }
 fragment CourseLightFragment on CourseRecord {
 	id
-	slug
 	title
+	date
+	intro
+	text
+	workshop {
+		...WorkshopLightFragment
+	}
+	openToAll
+	slug
 }

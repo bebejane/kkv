@@ -139,6 +139,8 @@ declare module '*/workshop.gql' {
   const defaultDocument: DocumentNode;
   export const AllWorkshops: DocumentNode;
 export const Workshop: DocumentNode;
+export const AllWorkshopGear: DocumentNode;
+export const WorkshopGearFragment: DocumentNode;
 export const WorkshopFragment: DocumentNode;
 export const WorkshopLightFragment: DocumentNode;
 

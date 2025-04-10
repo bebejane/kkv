@@ -13,13 +13,43 @@ query Workshop($slug: String) {
 	}
 }
 
+query AllWorkshopGear($first: IntType = 100, $skip: IntType = 0) {
+	allWorkshopGears(first: $first, skip: $skip) {
+		...WorkshopGearFragment
+	}
+	_allWorkshopGearsMeta {
+		count
+	}
+}
+
+fragment WorkshopGearFragment on WorkshopGearRecord {
+	id
+}
+
 fragment WorkshopFragment on WorkshopRecord {
 	id
-	slug
 	name
+	email
+	image {
+		...ImageFragment
+	}
+	location
+	street
+	password
+	gear {
+		...WorkshopGearFragment
+	}
+	slug
 }
 fragment WorkshopLightFragment on WorkshopRecord {
 	id
-	slug
 	name
+	image {
+		...ImageFragment
+	}
+	location
+	gear {
+		...WorkshopGearFragment
+	}
+	slug
 }
