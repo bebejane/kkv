@@ -1,0 +1,5 @@
+query Site {
+	site: _site {
+		...SiteFragment
+	}
+}

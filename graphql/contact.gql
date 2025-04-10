@@ -1,0 +1,10 @@
+query Contact {
+	contact {
+		...ContactFragment
+	}
+}
+
+fragment ContactFragment on ContactRecord {
+	id
+	title
+}

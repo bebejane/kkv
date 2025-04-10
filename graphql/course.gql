@@ -1,0 +1,25 @@
+query AllCourses($first: IntType = 100, $skip: IntType = 0) {
+	allCourses(first: $first, skip: $skip, orderBy: [_firstPublishedAt_DESC]) {
+		...CourseLightFragment
+	}
+	_allCoursesMeta {
+		count
+	}
+}
+
+query Course($slug: String) {
+	course(filter: { slug: { eq: $slug } }) {
+		...CourseFragment
+	}
+}
+
+fragment CourseFragment on CourseRecord {
+	id
+	slug
+	title
+}
+fragment CourseLightFragment on CourseRecord {
+	id
+	slug
+	title
+}

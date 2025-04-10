@@ -1,0 +1,62 @@
+.news {
+  position: relative;
+
+  ul {
+    list-style: none;
+    margin-right: calc(var(--full-bleed-margin) + var(--outer-margin));
+
+    li {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      border-top: 1px solid var(--blue);
+      padding-top: var(--space);
+      padding-bottom: var(--space);
+
+      span {
+        display: block;
+        padding-bottom: var(--space-small);
+      }
+
+      figure {
+        margin-top: var(--space-small);
+        margin-bottom: var(--space-small);
+        margin-left: var(--outer-margin);
+        flex: 0 0 16vw;
+        mask-repeat: no-repeat;
+        mask-size: contain;
+
+        img {
+          object-fit: cover;
+        }
+
+        @include mq($until: desktop) {
+          display: none;
+        }
+      }
+
+      aside {
+        position: absolute;
+        top: calc(1.5 * var(--space-small));
+        left: calc(var(--full-bleed-margin) + var(--outer-margin));
+        line-height: 2;
+
+        @include mq($until: desktop) {
+          display: none;
+        }
+      }
+
+      &:nth-child(odd) {
+        figure {
+          mask-image: url("/images/symbol-mask.svg");
+        }
+      }
+
+      &:nth-child(even) {
+        figure {
+          mask-image: url("/images/symbol-mask-alt.svg");
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+.filter {
+  font-family: var(--label-font);
+
+  @include mq($until: desktop) {
+    margin-right: calc(-1 * var(--outer-margin));
+  }
+
+  .wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .show {
+    margin-right: 1rem;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    overflow-x: scroll;
+    scrollbar-width: none;
+
+    @include mq($until: desktop) {
+      padding-right: calc(1 * var(--outer-margin));
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    li {
+      margin-right: 0.5rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      button {
+        margin-top: 0;
+        margin: 0;
+      }
+    }
+  }
+}

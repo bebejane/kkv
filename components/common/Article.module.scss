@@ -1,0 +1,54 @@
+.article {
+  padding-bottom: calc(1.5 * var(--space-big));
+
+  header {
+    position: relative;
+
+    h1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      padding-top: 1.2em;
+      @include mq($until: desktop) {
+        color: var(--white);
+      }
+    }
+
+    figure {
+      margin-left: var(--full-bleed-margin);
+      margin-right: var(--full-bleed-margin);
+      margin-bottom: var(--space);
+
+      img {
+        height: calc(60vh - var(--navbar-height));
+        width: 100%;
+        object-fit: cover;
+
+        @include mq($from: desktop) {
+          height: calc(100vh - var(--navbar-height));
+        }
+      }
+    }
+
+    &.noImage {
+      h1 {
+        position: relative;
+        @include mq($until: desktop) {
+          color: var(--blue);
+        }
+      }
+    }
+
+    &.light {
+      h1 {
+        color: var(--white);
+      }
+    }
+  }
+
+  button {
+    margin-top: 3rem;
+    width: 100%;
+  }
+}

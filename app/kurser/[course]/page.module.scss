@@ -1,0 +1,28 @@
+.project {
+  header {
+    position: relative;
+    margin-left: var(--full-bleed-margin);
+    margin-right: var(--full-bleed-margin);
+
+    h1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      z-index: 1;
+      margin-left: var(--margin);
+      padding: var(--outer-margin);
+    }
+
+    figure {
+      width: 100%;
+      height: 100vh;
+    }
+  }
+
+  button {
+    width: 100%;
+  }
+
+
+}
