@@ -1,0 +1,8 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - var(--main-offset));
+  width: 100%;
+  flex-direction: column;
+}
