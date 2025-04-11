@@ -1,0 +1,64 @@
+.editorWrapper {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden; // Keep children within borders
+}
+
+.menuBar {
+  display: flex;
+  flex: 0 0;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  background-color: #f8f8f8;
+
+  button {
+    margin: 0;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #eee;
+    }
+
+    &.isActive {
+      background-color: #ddd;
+      font-weight: bold;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.editorInput {
+  padding: 0.75rem;
+  min-height: 150px; // Give some space to write
+
+  &:focus {
+    outline: none;
+  }
+
+  // Basic styling for Tiptap content
+  p {
+    margin: 0 0 1rem;
+  }
+
+  a {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  ol {
+    padding-left: 2rem;
+    margin: 0 0 1rem;
+  }
+
+  li {
+    margin-bottom: 0.25rem;
+  }
+}

@@ -2,10 +2,11 @@
 
 import { useState, useTransition } from 'react';
 import s from './CourseForm.module.scss';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form'; // Import Controller
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CourseSchema } from '../actions/utils';
 import type { z } from 'zod';
+import TipTapEditor from '@/components/common/TipTapEditor'; // Import TipTapEditor
 
 type FormData = z.infer<typeof CourseSchema>;
 
@@ -24,6 +25,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 	const {
 		register,
 		handleSubmit,
+		control, // Get control object from useForm
 		formState: { errors },
 	} = useForm<FormData>({
 		resolver: zodResolver(CourseSchema),
@@ -61,13 +63,25 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 
 			<div className={s.field}>
 				<label htmlFor='intro'>Intro</label>
-				<textarea id='intro' {...register('intro')} rows={3} />
+				<Controller
+					name='intro'
+					control={control}
+					render={({ field }) => (
+						<TipTapEditor initialValue={field.value} onChange={field.onChange} />
+					)}
+				/>
 				{errors.intro && <p className={s.error}>{errors.intro.message}</p>}
 			</div>
 
 			<div className={s.field}>
 				<label htmlFor='text'>Text</label>
-				<textarea id='text' {...register('text')} rows={5} />
+				<Controller
+					name='text'
+					control={control}
+					render={({ field }) => (
+						<TipTapEditor initialValue={field.value} onChange={field.onChange} />
+					)}
+				/>
 				{errors.text && <p className={s.error}>{errors.text.message}</p>}
 			</div>
 
