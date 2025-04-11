@@ -6,11 +6,11 @@ import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
 
 export type CourseProps = {
-	params: Promise<{ project: string }>;
+	params: Promise<{ course: string }>;
 };
 
 export default async function CoursePage({ params }: CourseProps) {
-	const { project: slug } = await params;
+	const { course: slug } = await params;
 	const { course, draftUrl } = await apiQuery<CourseQuery, CourseQueryVariables>(CourseDocument, {
 		variables: {
 			slug,

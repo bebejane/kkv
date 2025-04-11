@@ -5,8 +5,8 @@ import { Image } from 'react-datocms';
 import Content from '@/components/common/Content';
 
 export type ArticleProps = {
-	title: string;
-	image?: FileField | ImageFileField;
+	title?: string;
+	image?: FileField;
 	intro?: any;
 	content?: any;
 	light?: boolean;

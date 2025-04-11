@@ -40,7 +40,7 @@
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  background-color: var(--blue);
+  background-color: var(--darkred);
   padding: var(--outer-margin);
   font-size: 1.5rem;
   color: var(--white);
@@ -69,8 +69,8 @@
       }
 
       &.active {
-        > a {
-          color: var(--blue-light);
+        >a {
+          color: var(--darkred-light);
         }
       }
     }
@@ -82,7 +82,7 @@
     list-style: none;
     flex: 1 1 auto;
 
-    > li {
+    >li {
       line-height: 1;
       border-bottom: 1px solid var(--white);
       cursor: pointer;
@@ -99,7 +99,7 @@
         justify-content: flex-end;
       }
 
-      > ul {
+      >ul {
         display: flex;
         flex-direction: column;
         margin-left: 1em;

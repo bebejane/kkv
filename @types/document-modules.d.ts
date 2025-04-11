@@ -24,6 +24,7 @@ declare module '*/course.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
   export const AllCourses: DocumentNode;
+export const AllCoursesByWorkshop: DocumentNode;
 export const Course: DocumentNode;
 export const CourseFragment: DocumentNode;
 export const CourseLightFragment: DocumentNode;

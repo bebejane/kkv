@@ -3,14 +3,14 @@
   flex-direction: column;
   list-style: none;
   margin-top: var(--space);
-  border-bottom: 1px solid var(--blue);
+  border-bottom: 1px solid var(--darkred);
   margin-bottom: var(--space);
 
   .wrap {
     display: flex;
     flex-direction: column;
 
-    border-top: 1px solid var(--blue);
+    border-top: 1px solid var(--darkred);
     padding: 1rem;
     padding-left: 0;
     cursor: pointer;
@@ -20,7 +20,7 @@
       flex-direction: row;
       width: 100%;
       justify-content: center;
-      color: var(--blue);
+      color: var(--darkred);
 
       p {
         margin: 0;

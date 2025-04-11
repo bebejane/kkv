@@ -7,19 +7,20 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { Menu } from '@/lib/menu';
 
+import { Session } from 'next-auth';
 export type NavbarProps = {
 	menu: Menu;
+	session: Session;
 };
 
-export default function Navbar({ menu }: NavbarProps) {
+export default function Navbar({ menu, session }: NavbarProps) {
 	const path = usePathname();
 	const qs = useSearchParams().toString();
 	const pathname = `${path}${qs.length > 0 ? `?${qs}` : ''}`;
 	const [selected, setSelected] = useState<string | null>(null);
-
 	const parent = menu.find(({ id }) => id === selected);
 	const sub = parent?.sub;
-	const contact = menu.find(({ id }) => id === 'contact');
+	const login = menu.find(({ id }) => id === 'login');
 
 	return (
 		<>
@@ -32,7 +33,7 @@ export default function Navbar({ menu }: NavbarProps) {
 
 				<ul className={s.menu}>
 					{menu
-						.filter(({ id }) => id !== 'contact')
+						.filter(({ id }) => id !== 'login')
 						.map(({ id, title, href, slug, sub, hideSub }) => (
 							<li
 								key={id}
@@ -47,12 +48,13 @@ export default function Navbar({ menu }: NavbarProps) {
 							</li>
 						))}
 				</ul>
-				<ul className={s.contact}>
-					<li className={cn(contact.slug === pathname && s.active)}>
-						<Link href={'/kontakt'}>{contact.title}</Link>
-					</li>
-					<li className={cn('/english' === pathname && s.active)}>
-						<Link href={'/english'}>EN</Link>
+				<ul className={s.login}>
+					<li className={cn(login.slug === pathname && s.active)}>
+						{session?.user ? (
+							<Link href={'/medlem'}>Medlem</Link>
+						) : (
+							<Link href={'/logga-in'}>Logga In</Link>
+						)}
 					</li>
 				</ul>
 			</nav>

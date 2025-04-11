@@ -10,6 +10,7 @@ const defaultConfig = {
 	skipDocumentsValidation: false,
 }
 
+
 const config: IGraphQLConfig = {
 	schema: {
 		"https://graphql.datocms.com": {
@@ -21,6 +22,15 @@ const config: IGraphQLConfig = {
 	},
 	documents: "graphql/**/*.gql",
 	extensions: {
+		endpoints: {
+			default: {
+				url: "https://graphql.datocms.com",
+				headers: {
+					"Authorization": process.env.DATOCMS_API_TOKEN as string,
+					"X-Exclude-Invalid": "true",
+				}
+			}
+		},
 		codegen: {
 			overwrite: true,
 			generates: {

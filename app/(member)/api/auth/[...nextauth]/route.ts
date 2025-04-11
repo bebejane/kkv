@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import client from '@/lib/client';
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -10,7 +11,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: '/logga-in',
-    //signOut: '/medlem/logga-ut',
+    signOut: '/logga-ut',
     //error: '/medlem/logga-in?type=error', // Error code passed in query string as ?error=    
     //verifyRequest: '/auth/verify-request', // (used for check email message)    
     //newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)  }
@@ -22,9 +23,12 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       return token
     },
-    async session({ session, token }) {
-      return session;
-    }
+    session({ session, token }) {
+      if (token.sub) {
+        session.user.id = token.sub as string
+      }
+      return session
+    },
   },
   providers: [
     CredentialsProvider({
@@ -37,14 +41,31 @@ export const authOptions: NextAuthOptions = {
         try {
 
           const { username: email, password } = credentials
-          if (password !== process.env.NEXTAUTH_URL_STATIC_PASSWORD) return null
+
+          const user = (await client.items.list({
+            filter: {
+              type: "workshop",
+              fields: {
+                email: {
+                  eq: email,
+                },
+                password: {
+                  eq: password,
+                },
+              },
+            },
+          }))?.[0]
+
+          if (!user) {
+            return null
+          }
 
           const session = {
-            id: email,
+            id: user.id,
             email: email as string,
             image: null
           }
-          console.log('session', session)
+
           return session
         } catch (err) {
           console.error(err)

@@ -11,10 +11,11 @@
   padding: var(--outer-margin);
   background-color: var(--white);
   z-index: var(--z-navbar);
-  border-bottom: 1px solid var(--blue);
+  border-bottom: 1px solid var(--darkred);
 
   .logo {
     flex: 0 0 calc(var(--margin));
+
     &:hover {
       img {
         transform: scaleX(-1);
@@ -38,8 +39,8 @@
         padding-right: 0;
       }
 
-      &.active > * {
-        color: var(--blue) !important;
+      &.active>* {
+        color: var(--darkred) !important;
       }
     }
 
@@ -55,7 +56,7 @@
     }
 
     a:hover {
-      color: var(--blue);
+      color: var(--darkred);
     }
 
     .item {
@@ -77,13 +78,13 @@
 
       &:hover,
       &.active {
-        color: var(--blue) !important;
+        color: var(--darkred) !important;
       }
     }
   }
 }
 
-.contact {
+.login {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -92,14 +93,14 @@
   transition: var(--color-transtion);
 
   a:hover {
-    color: var(--blue);
+    color: var(--darkred);
   }
 }
 
 .sub {
   display: none;
   margin-top: var(--navbar-height);
-  background-color: var(--blue);
+  background-color: var(--darkred);
   box-shadow: 0px 1px 4px #0000002b;
 
   padding-left: calc(var(--margin) + var(--outer-margin));
@@ -109,7 +110,7 @@
   }
 
   a:hover {
-    color: var(--blue-light);
+    color: var(--darkred-light);
   }
 
   * {
@@ -117,8 +118,8 @@
   }
 
   ul {
-    li.active > a {
-      color: var(--blue-light) !important;
+    li.active>a {
+      color: var(--darkred-light) !important;
     }
   }
 }

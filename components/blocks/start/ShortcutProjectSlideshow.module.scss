@@ -22,7 +22,7 @@
 
     a {
       white-space: nowrap;
-      //color: var(--blue);
+      //color: var(--darkred);
     }
 
     .nav {
@@ -46,8 +46,7 @@
         transform: rotate(180deg);
       }
 
-      .forward {
-      }
+      .forward {}
     }
   }
 
@@ -62,7 +61,7 @@
     user-select: none;
     cursor: pointer;
 
-    > div {
+    >div {
       display: flex;
       flex-direction: row;
       align-items: flex-end;
@@ -94,6 +93,7 @@
             padding: var(--outer-margin);
             background-image: var(--gradient);
             width: 100%;
+
             p {
               margin: 0;
             }

@@ -1,54 +1,35 @@
+'use server';
+
 import '@styles/index.scss';
-import s from './layout.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
 import { GlobalDocument } from '@graphql';
 import { Metadata } from 'next';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
-import Footer from '../components/nav/Footer';
-import { buildMenu } from '../lib/menu';
-import Navbar from '../components/nav/Navbar';
-import NavbarMobile from '../components/nav/NavbarMobile';
-import { Suspense } from 'react';
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from './(member)/api/auth/[...nextauth]/route';
+import { buildMenu } from '@lib/menu';
 
 export type LayoutProps = {
 	children: React.ReactNode;
+	backgroundColor?: string;
 };
 
 export default async function RootLayout({ children }: LayoutProps) {
-	const menu = await buildMenu();
-	const session = await getServerSession(authOptions);
-
 	return (
-		<>
-			<html>
-				<body id='root'>
-					<Suspense fallback={null}>
-						<Navbar menu={menu} session={session} />
-						<NavbarMobile menu={menu} />
-						<main className={s.main}>
-							<NuqsAdapter>{children}</NuqsAdapter>
-						</main>
-						<Footer menu={menu} />
-					</Suspense>
-				</body>
-			</html>
-		</>
+		<html lang='sv'>
+			<body id='root'>
+				<main>{children}</main>
+			</body>
+		</html>
 	);
 }
 
 export async function generateMetadata() {
 	const {
 		site: { globalSeo, faviconMetaTags },
-	} = await apiQuery<GlobalQuery, GlobalQueryVariables>(GlobalDocument, {
-		variables: {},
-		revalidate: 60 * 60,
-	});
+	} = await apiQuery<GlobalQuery, GlobalQueryVariables>(GlobalDocument, { generateTags: false });
 
 	return {
 		metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL as string),
+		alternates: { canonical: '/' },
 		title: {
 			template: `${globalSeo?.siteName} — %s`,
 			default: globalSeo?.siteName,
@@ -86,7 +67,7 @@ export async function generateMetadata() {
 					alt: globalSeo?.siteName,
 				},
 			],
-			locale: 'en_US',
+			locale: 'sv_SE',
 			type: 'website',
 		},
 	} as Metadata;

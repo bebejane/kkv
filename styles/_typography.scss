@@ -21,7 +21,7 @@ h3,
 h4,
 h5 {
   font-family: var(--headline-font);
-  color: var(--blue);
+  color: var(--darkred);
   line-height: 1;
   font-weight: normal;
 
@@ -85,7 +85,7 @@ figcaption,
 
 figcaption {
   font-family: var(--sans-font);
-  color: var(--blue);
+  color: var(--darkred);
   font-size: 0.7rem;
   line-height: var(--line-height);
 }
@@ -108,9 +108,10 @@ article {
   blockquote {
     margin-left: 0;
     font-family: var(--label-font);
-    color: var(--blue);
+    color: var(--darkred);
     margin-bottom: 1.5em;
     position: relative;
+
     p {
       padding-top: 0.5em;
       margin-bottom: 0.5em;
@@ -121,6 +122,7 @@ article {
       font-family: var(--sans-font);
       font-size: 0.7rem;
     }
+
     &::before {
       @include mq($from: desktop) {
         content: "’’";
@@ -131,18 +133,18 @@ article {
         font-size: 8rem;
         color: var(--white);
         --line-tickness: 0.06rem;
-        -webkit-text-stroke: var(--line-tickness) var(--blue);
+        -webkit-text-stroke: var(--line-tickness) var(--darkred);
         /* text-shadow:
-          var(--line-tickness) var(--line-tickness) 0 var(--blue),
-          calc(-1 * var(--line-tickness)) var(--line-tickness) 0 var(--blue),
-          calc(-1 * var(--line-tickness)) calc(-1 * var(--line-tickness)) 0 var(--blue),
-          var(--line-tickness) calc(-1 * var(--line-tickness)) 0 var(--blue); */
+          var(--line-tickness) var(--line-tickness) 0 var(--darkred),
+          calc(-1 * var(--line-tickness)) var(--line-tickness) 0 var(--darkred),
+          calc(-1 * var(--line-tickness)) calc(-1 * var(--line-tickness)) 0 var(--darkred),
+          var(--line-tickness) calc(-1 * var(--line-tickness)) 0 var(--darkred); */
       }
     }
   }
 
   a:hover {
-    color: var(--blue);
+    color: var(--darkred);
 
     p {
       color: var(--black);
@@ -153,7 +155,7 @@ article {
     text-decoration: underline;
     text-underline-offset: 0.25em;
     text-decoration-thickness: 1px;
-    text-decoration-color: --blue;
+    text-decoration-color: --darkred;
   }
 
   ul {
@@ -182,10 +184,10 @@ article {
     padding-left: 0;
   }
 
-  p + h3,
-  ul + h3,
-  ul + h2,
-  p + h2 {
+  p+h3,
+  ul+h3,
+  ul+h2,
+  p+h2 {
     padding-top: 1rem;
   }
 
@@ -228,6 +230,6 @@ i {
   font-size: 0.9rem;
 
   &:hover {
-    //  color: var(--blue);
+    //  color: var(--darkred);
   }
 }

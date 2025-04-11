@@ -6,6 +6,19 @@ query AllCourses($first: IntType = 100, $skip: IntType = 0) {
 		count
 	}
 }
+query AllCoursesByWorkshop($workShopId: ItemId, $first: IntType = 100, $skip: IntType = 0) {
+	allCourses(
+		first: $first
+		skip: $skip
+		orderBy: [_firstPublishedAt_DESC]
+		filter: { workshop: { eq: $workShopId } }
+	) {
+		...CourseFragment
+	}
+	_allCoursesMeta(filter: { workshop: { eq: $workShopId } }) {
+		count
+	}
+}
 
 query Course($slug: String) {
 	course(filter: { slug: { eq: $slug } }) {
@@ -25,6 +38,7 @@ fragment CourseFragment on CourseRecord {
 	openToAll
 	slug
 }
+
 fragment CourseLightFragment on CourseRecord {
 	id
 	title
