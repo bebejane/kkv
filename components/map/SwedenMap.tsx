@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { MapContainer, Marker, Popup, GeoJSON } from 'react-leaflet';
-import L, { TileLayer, type LatLngExpression } from 'leaflet';
+import L, { type LatLngExpression } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import s from './SwedenMap.module.scss';
 import swedenGeoJson from './sweden.json' assert { type: 'json' };
@@ -59,9 +59,11 @@ const SwedenMap: React.FC<SwedenMapProps> = ({ items }) => {
 	return (
 		<MapContainer
 			center={center}
-			zoom={zoomLevel}
+			zoom={4.5}
 			className={s.container}
 			attributionControl={false}
+			zoomControl={false}
+			zoomSnap={0.5}
 		>
 			<GeoJSON data={swedenGeoJson as GeoJSON.FeatureCollection} style={geoJsonStyle} />
 			{items.map(({ id, position, label }) => (

@@ -11,24 +11,29 @@ import Link from 'next/link';
 export default async function Home() {
 	const { allWorkshops, draftUrl } = await apiQuery<StartQuery, StartQueryVariables>(StartDocument);
 
-	const items: MapMarker[] = allWorkshops.map(({ id, coordinates, name }) => ({
-		id: id,
-		position: [coordinates.latitude, coordinates.longitude],
-		label: name,
-	}));
+	const items: MapMarker[] = allWorkshops
+		.filter(({ coordinates }) => coordinates)
+		.map(({ id, coordinates, name }) => ({
+			id: id,
+			position: [coordinates.latitude, coordinates.longitude],
+			label: name,
+		}));
+
 	return (
 		<>
 			<div className={s.page}>
 				<div>
 					<SwedenMap items={items} />
 				</div>
-				<ul>
-					{allWorkshops.map((workshop) => (
-						<li key={workshop.id}>
-							<Link href={`/verkstader/${workshop.slug}`}>{workshop.name}</Link>
-						</li>
-					))}
-				</ul>
+				<div>
+					<ul>
+						{allWorkshops.map(({ id, slug, name }) => (
+							<li key={id}>
+								<Link href={`/verkstader/${slug}`}>{name}</Link>
+							</li>
+						))}
+					</ul>
+				</div>
 			</div>
 			<DraftMode url={draftUrl} path={`/`} />
 		</>

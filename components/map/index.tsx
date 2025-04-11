@@ -2,7 +2,7 @@
 import { MapMarker } from './SwedenMap';
 import dynamic from 'next/dynamic';
 const DynamicMap = dynamic(() => import('./SwedenMap'), {
-	loading: () => <p>Loading...</p>,
+	loading: () => <></>,
 	ssr: false,
 });
 
