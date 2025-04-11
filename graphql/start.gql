@@ -1,0 +1,5 @@
+query Start {
+	allWorkshops(first: 100, skip: 0) {
+		...WorkshopLightFragment
+	}
+}

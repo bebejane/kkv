@@ -1,7 +1,12 @@
 .page {
   position: relative;
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  flex-direction: row;
+  padding-top: var(--space);
+  height: calc(100vh);
+
+  >div {
+    flex: 0 0 50%;
+  }
 
 }

@@ -135,6 +135,15 @@ declare module '*/seo.gql' {
 }
     
 
+declare module '*/start.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Start: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/workshop.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
