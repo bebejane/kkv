@@ -6,6 +6,12 @@ const DynamicMap = dynamic(() => import('./SwedenMap'), {
 	ssr: false,
 });
 
-export default function SwedenMapWrapper({ items }: { items: MapMarker[] }) {
-	return <DynamicMap items={items} />;
+export default function SwedenMapWrapper({
+	items,
+	workshopId,
+}: {
+	items: MapMarker[];
+	workshopId: string | null;
+}) {
+	return <DynamicMap items={items} workshopId={workshopId} />;
 }

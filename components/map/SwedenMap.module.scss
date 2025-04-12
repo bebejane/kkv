@@ -28,3 +28,11 @@
   /* background-color: red; */
   /* border-radius: 50%; */
 }
+
+.popup {
+  border-radius: 0px;
+
+  div {
+    border-radius: 2px !important;
+  }
+}

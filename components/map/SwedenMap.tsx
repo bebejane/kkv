@@ -1,11 +1,12 @@
 'use client';
 
+import 'leaflet/dist/leaflet.css';
+import s from './SwedenMap.module.scss';
 import React, { useState, useEffect, useMemo } from 'react';
 import { MapContainer, Marker, Popup, GeoJSON } from 'react-leaflet';
 import L, { type LatLngExpression } from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import s from './SwedenMap.module.scss';
 import swedenGeoJson from './sweden.json' assert { type: 'json' };
+import { markerIcon } from './icons';
 
 export interface MapMarker {
 	id: string | number;
@@ -15,28 +16,17 @@ export interface MapMarker {
 
 interface SwedenMapProps {
 	items: MapMarker[];
+	workshopId: string | null;
 }
 
-const markerIcon = new L.Icon.Default({
-	iconUrl: '/images/circle.svg',
-	iconRetinaUrl: '/images/circle.svg',
-	iconAnchor: null,
-	popupAnchor: null,
-	shadowUrl: null,
-	shadowSize: null,
-	shadowAnchor: null,
-	iconSize: new L.Point(16, 16),
-	//className: 'leaflet-div-icon',
-});
-
 const center: LatLngExpression = [62.0, 15.0];
-const zoomLevel = 4;
+const maxBounds = L.geoJSON(swedenGeoJson as any).getBounds();
 
 const geoJsonStyle = () => ({
 	className: s.border,
 });
 
-const SwedenMap: React.FC<SwedenMapProps> = ({ items }) => {
+const SwedenMap: React.FC<SwedenMapProps> = ({ items, workshopId }) => {
 	const [isClient, setIsClient] = useState(false);
 
 	useEffect(() => {
@@ -64,17 +54,12 @@ const SwedenMap: React.FC<SwedenMapProps> = ({ items }) => {
 			attributionControl={false}
 			zoomControl={false}
 			zoomSnap={0.5}
+			maxBounds={maxBounds}
 		>
 			<GeoJSON data={swedenGeoJson as GeoJSON.FeatureCollection} style={geoJsonStyle} />
 			{items.map(({ id, position, label }) => (
-				<Marker
-					key={id}
-					position={position}
-					//icon={markerIcon}
-				>
-					<Popup>
-						<div>{label}</div>
-					</Popup>
+				<Marker key={id} position={position} icon={markerIcon}>
+					<Popup className={s.popup}>{label}</Popup>
 				</Marker>
 			))}
 		</MapContainer>
