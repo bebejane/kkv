@@ -51,7 +51,7 @@ export default function Navbar({ menu, session }: NavbarProps) {
 				<ul className={s.login}>
 					<li className={cn(login.slug === pathname && s.active)}>
 						{session?.user ? (
-							<Link href={'/medlem'}>Medlem</Link>
+							<Link href={'/medlem'}>Mina kurser</Link>
 						) : (
 							<Link href={'/logga-in'}>Logga In</Link>
 						)}

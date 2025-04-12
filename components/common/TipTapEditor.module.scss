@@ -2,6 +2,14 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   overflow: hidden; // Keep children within borders
+
+  .content {
+
+    >div {
+      background-color: white;
+    }
+  }
+
 }
 
 .menuBar {
@@ -37,6 +45,7 @@
 .editorInput {
   padding: 0.75rem;
   min-height: 150px; // Give some space to write
+  background-color: var(--white);
 
   &:focus {
     outline: none;

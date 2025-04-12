@@ -46,14 +46,11 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
 	const { workshop: slug } = await params;
-	const { workshop, draftUrl } = await apiQuery<WorkshopQuery, WorkshopQueryVariables>(
-		WorkshopDocument,
-		{
-			variables: {
-				slug,
-			},
-		}
-	);
+	const { workshop } = await apiQuery<WorkshopQuery, WorkshopQueryVariables>(WorkshopDocument, {
+		variables: {
+			slug,
+		},
+	});
 
 	return {
 		title: workshop.name,

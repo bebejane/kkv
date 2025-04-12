@@ -2,11 +2,11 @@
 
 import { useState, useTransition } from 'react';
 import s from './CourseForm.module.scss';
-import { useForm, Controller } from 'react-hook-form'; // Import Controller
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CourseSchema } from '../actions/utils';
 import type { z } from 'zod';
-import TipTapEditor from '@/components/common/TipTapEditor'; // Import TipTapEditor
+import TipTapEditor from '@/components/common/TipTapEditor';
 
 type FormData = z.infer<typeof CourseSchema>;
 
@@ -16,6 +16,7 @@ type CourseFormProps = {
 };
 
 import { deleteCourse } from '../actions/delete';
+import Link from '@node_modules/next/link';
 
 export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 	const [submitting, setSubmitting] = useState(false);
@@ -121,6 +122,12 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 						{isPending ? 'Tar bort kurs...' : 'Ta bort'}
 					</button>
 				)}
+
+				<Link href={`/kurser/${course?.slug}`} aria-disabled={!course?.id ? true : false}>
+					<button type='button' disabled={!course?.id ? true : false}>
+						Visa
+					</button>
+				</Link>
 			</div>
 		</form>
 	);

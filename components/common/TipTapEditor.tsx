@@ -101,7 +101,7 @@ export default function TipTapEditor({ initialValue = '', onChange }: TipTapEdit
 	return (
 		<div className={s.editorWrapper}>
 			<MenuBar editor={editor} />
-			<EditorContent editor={editor} />
+			<EditorContent editor={editor} className={s.content} />
 		</div>
 	);
 }
