@@ -135,6 +135,15 @@ declare module '*/seo.gql' {
 }
     
 
+declare module '*/sitemap.gql' {
+  import { DocumentNode } from 'graphql';
+  const defaultDocument: DocumentNode;
+  export const Sitemap: DocumentNode;
+
+  export default defaultDocument;
+}
+    
+
 declare module '*/start.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
