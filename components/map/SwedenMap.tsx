@@ -6,7 +6,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { MapContainer, Marker, Popup, GeoJSON } from 'react-leaflet';
 import L, { type LatLngExpression } from 'leaflet';
 import swedenGeoJson from './sweden.json' assert { type: 'json' };
-import { markerIcon } from './icons';
+import { markerIcon, markerIconActive } from './icons';
 
 export interface MapMarker {
 	id: string | number;
@@ -58,7 +58,11 @@ const SwedenMap: React.FC<SwedenMapProps> = ({ items, workshopId }) => {
 		>
 			<GeoJSON data={swedenGeoJson as GeoJSON.FeatureCollection} style={geoJsonStyle} />
 			{items.map(({ id, position, label }) => (
-				<Marker key={id} position={position} icon={markerIcon}>
+				<Marker
+					key={id}
+					position={position}
+					icon={id === workshopId ? markerIconActive : markerIcon}
+				>
 					<Popup className={s.popup}>{label}</Popup>
 				</Marker>
 			))}
