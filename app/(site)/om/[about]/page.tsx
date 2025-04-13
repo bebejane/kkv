@@ -19,11 +19,11 @@ export default async function AboutPage({ params }: AboutProps) {
 
 	if (!about) return notFound();
 
-	const { title } = about;
+	const { title, content } = about;
 
 	return (
 		<>
-			{title}
+			<Article title={title} content={content}></Article>
 			<DraftMode url={draftUrl} path={`/om/${slug}`} />
 		</>
 	);

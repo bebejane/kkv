@@ -16,5 +16,10 @@ query About($slug: String!) {
 fragment AboutFragment on AboutRecord {
 	id
 	title
+	content {
+		blocks
+		links
+		value
+	}
 	slug
 }

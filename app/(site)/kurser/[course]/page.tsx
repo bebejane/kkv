@@ -19,11 +19,11 @@ export default async function CoursePage({ params }: CourseProps) {
 
 	if (!course) return notFound();
 
-	const { title } = course;
+	const { title, intro, text, date, openToAll } = course;
 
 	return (
 		<>
-			{title}
+			<Article title={title} content={text} intro={intro} markdown={true}></Article>
 			<DraftMode url={draftUrl} path={`/kurser/${slug}`} />
 		</>
 	);

@@ -2,14 +2,15 @@ import s from './Article.module.scss';
 import cn from 'classnames';
 import Link from 'next/link';
 import { Image } from 'react-datocms';
-import Content from '@/components/common/Content';
+import { Markdown } from 'next-dato-utils/components';
+import Content from './Content';
 
 export type ArticleProps = {
 	title?: string;
 	image?: FileField;
 	intro?: any;
 	content?: any;
-	light?: boolean;
+	markdown?: boolean;
 	link?: {
 		href: string;
 		text: string;
@@ -23,14 +24,14 @@ export default function Article({
 	image,
 	intro,
 	content,
-	light = false,
+	markdown = false,
 	link,
 	className,
 	children,
 }: ArticleProps) {
 	return (
 		<article className={cn(s.article, className)}>
-			<header className={cn(!image && s.noImage, light && s.light)}>
+			<header className={cn(!image && s.noImage)}>
 				<h1>{title}</h1>
 				{image && (
 					<figure>
@@ -38,8 +39,10 @@ export default function Article({
 					</figure>
 				)}
 			</header>
-			{intro && <Content content={intro} className={'intro'} />}
-			{content && <Content content={content} className={s.content} />}
+			{intro && markdown && <Markdown content={intro} className={'intro'} />}
+			{content && markdown && <Markdown content={content} className={s.content} />}
+			{intro && !markdown && <Content content={intro} className={'intro'} />}
+			{content && !markdown && <Content content={content} className={s.content} />}
 			{children}
 			{link && (
 				<Link href={link.href}>

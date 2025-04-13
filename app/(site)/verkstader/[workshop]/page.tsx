@@ -22,11 +22,11 @@ export default async function WorkshopPage({ params }: WorkshopProps) {
 
 	if (!workshop) return notFound();
 
-	const { name } = workshop;
+	const { id, name, email, image, street, location, coordinates, text } = workshop;
 
 	return (
 		<>
-			{name}
+			<Article title={name} content={text} image={image as FileField} markdown={true}></Article>
 			<DraftMode url={draftUrl} path={`/verkstader/${slug}`} />
 		</>
 	);

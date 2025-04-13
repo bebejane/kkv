@@ -17,11 +17,33 @@ fragment NewsFragment on NewsRecord {
 	id
 	slug
 	title
+	image {
+		...ImageFragment
+	}
+	intro {
+		blocks
+		links
+		value
+	}
+	content {
+		blocks
+		links
+		value
+	}
 	_firstPublishedAt
 }
+
 fragment NewsLightFragment on NewsRecord {
 	id
 	slug
 	title
+	image {
+		...ImageFragment
+	}
+	intro {
+		blocks
+		links
+		value
+	}
 	_firstPublishedAt
 }

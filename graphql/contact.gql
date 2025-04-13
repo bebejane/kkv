@@ -7,4 +7,9 @@ query Contact {
 fragment ContactFragment on ContactRecord {
 	id
 	title
+	content {
+		blocks
+		links
+		value
+	}
 }

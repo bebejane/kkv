@@ -34,6 +34,9 @@ fragment WorkshopFragment on WorkshopRecord {
 	image {
 		...ImageFragment
 	}
+	text
+	website
+	phone
 	coordinates {
 		latitude
 		longitude

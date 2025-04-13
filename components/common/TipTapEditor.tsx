@@ -6,6 +6,7 @@ import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
 import { useCallback } from 'react';
 import { FaBold, FaItalic, FaLink, FaListOl } from 'react-icons/fa';
+import { Markdown } from 'tiptap-markdown';
 
 const MenuBar = ({ editor }: { editor: Editor | null }) => {
 	const setLink = useCallback(() => {
@@ -86,10 +87,14 @@ export default function TipTapEditor({ initialValue = '', onChange }: TipTapEdit
 				openOnClick: false, // Don't open links when clicking in the editor
 				autolink: true, // Automatically detect links
 			}),
+			Markdown.configure({
+				// Enables the use of the Markdown shortcuts
+				breaks: true,
+			}),
 		],
 		content: initialValue,
 		onUpdate: ({ editor }) => {
-			onChange(editor.getHTML()); // Pass HTML content up
+			onChange(editor.storage.markdown.getMarkdown()); // Pass HTML content up
 		},
 		editorProps: {
 			attributes: {

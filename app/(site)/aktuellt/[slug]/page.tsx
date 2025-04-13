@@ -18,14 +18,15 @@ export default async function NewsPage({ params }: NewsProps) {
 	});
 	if (!news) return notFound();
 
-	const { title } = news;
+	const { title, image, intro, content } = news;
 
 	return (
 		<>
 			<Article
 				title={title}
-				//image={image as FileField}
-				//intro={intro}
+				image={image as FileField}
+				content={content}
+				intro={intro}
 				link={{
 					href: `/aktuellt`,
 					text: `Visa alla i aktuellt`,

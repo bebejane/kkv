@@ -11,11 +11,11 @@ export default async function ContactPage({ searchParams }) {
 	);
 
 	if (!contact) return notFound();
-	const { title } = contact;
+	const { title, content } = contact;
 
 	return (
 		<>
-			{title}
+			<Article title={title} content={content}></Article>
 			<DraftMode url={draftUrl} path={'/kontakt'} />
 		</>
 	);
