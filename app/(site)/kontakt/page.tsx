@@ -1,7 +1,7 @@
 import { apiQuery } from 'next-dato-utils/api';
 import { ContactDocument } from '@/graphql';
 import { DraftMode } from 'next-dato-utils/components';
-import { notFound } from '@node_modules/next/navigation';
+import { notFound } from 'next/navigation';
 import Article from '@/components/common/Article';
 import { Metadata } from 'next';
 

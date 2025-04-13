@@ -20,7 +20,6 @@ export default async function CoursesPage({ searchParams }) {
 	);
 
 	const courses = allCourses;
-	console.log(allCourses);
 
 	return (
 		<>

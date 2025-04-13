@@ -1,6 +1,6 @@
 import { apiQuery } from 'next-dato-utils/api';
 import { AllWorkshopsDocument, WorkshopDocument } from '@/graphql';
-import { notFound } from '@node_modules/next/navigation';
+import { notFound } from 'next/navigation';
 import Article from '@/components/common/Article';
 import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
@@ -11,7 +11,6 @@ export type WorkshopProps = {
 
 export default async function WorkshopPage({ params }: WorkshopProps) {
 	const { workshop: slug } = await params;
-
 	const { workshop, draftUrl } = await apiQuery<WorkshopQuery, WorkshopQueryVariables>(
 		WorkshopDocument,
 		{
@@ -41,7 +40,7 @@ export async function generateStaticParams() {
 		}
 	);
 
-	return allWorkshops.map(({ slug }) => ({ slug }));
+	return allWorkshops.map(({ slug: workshop }) => ({ workshop }));
 }
 
 export async function generateMetadata({ params }) {

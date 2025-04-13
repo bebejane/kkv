@@ -1,6 +1,6 @@
 import { apiQuery } from 'next-dato-utils/api';
 import { AboutDocument, AllAboutsDocument } from '@/graphql';
-import { notFound } from '@node_modules/next/navigation';
+import { notFound } from 'next/navigation';
 import Article from '@/components/common/Article';
 import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 		all: true,
 	});
 
-	return allAbouts.map(({ slug }) => ({ slug }));
+	return allAbouts.map(({ slug: about }) => ({ about }));
 }
 
 export async function generateMetadata({ params }) {

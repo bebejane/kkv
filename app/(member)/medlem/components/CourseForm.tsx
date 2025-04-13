@@ -2,8 +2,10 @@
 
 import { useState, useTransition } from 'react';
 import s from './CourseForm.module.scss';
+import Link from 'next/link';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { deleteCourse } from '../actions/delete';
 import { CourseSchema } from '../actions/utils';
 import type { z } from 'zod';
 import TipTapEditor from '@/components/common/TipTapEditor';
@@ -14,9 +16,6 @@ type CourseFormProps = {
 	course?: FormData & { id?: string };
 	onSubmit: (data: FormData) => Promise<void>;
 };
-
-import { deleteCourse } from '../actions/delete';
-import Link from '@node_modules/next/link';
 
 export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 	const [submitting, setSubmitting] = useState(false);

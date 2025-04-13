@@ -1,6 +1,6 @@
 import { apiQuery } from 'next-dato-utils/api';
 import { AllNewsDocument, NewsDocument } from '@/graphql';
-import { notFound } from '@node_modules/next/navigation';
+import { notFound } from 'next/navigation';
 import Article from '@/components/common/Article';
 import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
@@ -10,7 +10,7 @@ export type NewsProps = {
 };
 
 export default async function NewsPage({ params }: NewsProps) {
-	const { slug, category } = await params;
+	const { slug } = await params;
 	const { news, draftUrl } = await apiQuery<NewsQuery, NewsQueryVariables>(NewsDocument, {
 		variables: {
 			slug,
@@ -41,14 +41,14 @@ export async function generateStaticParams() {
 		all: true,
 	});
 
-	return allNews.map(({ slug, __typename }) => ({
+	return allNews.map(({ slug }) => ({
 		slug,
 	}));
 }
 
 export async function generateMetadata({ params }) {
-	const { slug, category } = await params;
-	const { news, draftUrl } = await apiQuery<NewsQuery, NewsQueryVariables>(NewsDocument, {
+	const { slug } = await params;
+	const { news } = await apiQuery<NewsQuery, NewsQueryVariables>(NewsDocument, {
 		variables: {
 			slug,
 		},
