@@ -16,6 +16,7 @@ export default async function Course({ params }: CourseProps) {
 		variables: {
 			slug,
 		},
+		apiToken: process.env.DATOCMS_API_TOKEN,
 	});
 
 	if (!course) return notFound();

@@ -6,7 +6,7 @@ query AllCourses($first: IntType = 100, $skip: IntType = 0) {
 		count
 	}
 }
-query AllCoursesByWorkshop($workShopId: ItemId, $first: IntType = 100, $skip: IntType = 0) {
+query AllCoursesByWorkshop($workShopId: ItemId!, $first: IntType = 100, $skip: IntType = 0) {
 	allCourses(
 		first: $first
 		skip: $skip
