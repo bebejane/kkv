@@ -1,6 +1,6 @@
 import s from './page.module.scss';
-import { createCourse } from '@/app/(member)/medlem/actions/create';
-import CourseForm from '@/app/(member)/medlem/components/CourseForm';
+import { createCourse } from '@app/(member)/medlem/kurs/actions/create';
+import CourseForm from '@/app/(member)/medlem/kurs/components/CourseForm';
 
 export default async function CreateCourse() {
 	return (

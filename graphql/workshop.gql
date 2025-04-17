@@ -34,15 +34,16 @@ fragment WorkshopFragment on WorkshopRecord {
 	image {
 		...ImageFragment
 	}
-	text
+	description
 	website
 	phone
 	coordinates {
 		latitude
 		longitude
 	}
-	location
-	street
+	address
+	city
+	postalCode
 	password
 	gear {
 		...WorkshopGearFragment
@@ -59,7 +60,8 @@ fragment WorkshopLightFragment on WorkshopRecord {
 		latitude
 		longitude
 	}
-	location
+	address
+	city
 	gear {
 		...WorkshopGearFragment
 	}

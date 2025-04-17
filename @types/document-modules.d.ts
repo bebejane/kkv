@@ -26,6 +26,7 @@ declare module '*/course.gql' {
   export const AllCourses: DocumentNode;
 export const AllCoursesByWorkshop: DocumentNode;
 export const Course: DocumentNode;
+export const CourseById: DocumentNode;
 export const CourseFragment: DocumentNode;
 export const CourseLightFragment: DocumentNode;
 

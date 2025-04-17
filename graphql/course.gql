@@ -26,6 +26,12 @@ query Course($slug: String) {
 	}
 }
 
+query CourseById($id: ItemId) {
+	course(filter: { id: { eq: $id } }) {
+		...CourseFragment
+	}
+}
+
 fragment CourseFragment on CourseRecord {
 	id
 	title

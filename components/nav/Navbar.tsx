@@ -20,7 +20,7 @@ export default function Navbar({ menu, session }: NavbarProps) {
 	const [selected, setSelected] = useState<string | null>(null);
 	const parent = menu.find(({ id }) => id === selected);
 	const sub = parent?.sub;
-	const login = menu.find(({ id }) => id === 'login');
+	const member = menu.find(({ id }) => id === 'member');
 
 	return (
 		<>
@@ -33,7 +33,7 @@ export default function Navbar({ menu, session }: NavbarProps) {
 
 				<ul className={s.menu}>
 					{menu
-						.filter(({ id }) => id !== 'login')
+						.filter(({ id }) => id !== 'member')
 						.map(({ id, title, href, slug, sub, hideSub }) => (
 							<li
 								key={id}
@@ -49,9 +49,12 @@ export default function Navbar({ menu, session }: NavbarProps) {
 						))}
 				</ul>
 				<ul className={s.login}>
-					<li className={cn(login.slug === pathname && s.active)}>
+					<li
+						className={cn(member.slug === pathname && s.active)}
+						onMouseEnter={() => session?.user && setSelected(member.id)}
+					>
 						{session?.user ? (
-							<Link href={'/medlem'}>Mina kurser</Link>
+							<Link href={'/medlem'}>Medlem</Link>
 						) : (
 							<Link href={'/logga-in'}>Logga In</Link>
 						)}
@@ -59,7 +62,7 @@ export default function Navbar({ menu, session }: NavbarProps) {
 				</ul>
 			</nav>
 			<nav
-				className={cn(s.sub, !parent?.hideSub && sub && s.open)}
+				className={cn(s.sub, !parent?.hideSub && sub && s.open, selected === member.id && s.right)}
 				onMouseLeave={() => setSelected(null)}
 			>
 				<ul>

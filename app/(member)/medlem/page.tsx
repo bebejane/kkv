@@ -1,6 +1,6 @@
 import s from './page.module.scss';
 import { AllCoursesByWorkshopDocument } from '@/graphql';
-import { getSession } from './actions/utils';
+import { getSession } from '@/lib/utils';
 import { apiQuery } from 'next-dato-utils/api';
 import Link from 'next/link';
 
@@ -25,13 +25,15 @@ export default async function AllCourses() {
 				<ul>
 					{allCourses.map((course) => (
 						<li key={course.id}>
-							<Link href={`/medlem/kurs/${course.slug}`}>{course.title}</Link>
+							<Link href={`/medlem/kurs/${course.id}`}>{course.title}</Link>
 						</li>
 					))}
 				</ul>
 				<br />
 				<p>
-					<Link href='/medlem/kurs/ny'>Ny kurs</Link>
+					<Link href='/medlem/kurs/ny'>
+						<button>Ny kurs</button>
+					</Link>
 				</p>
 			</article>
 		</>

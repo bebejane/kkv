@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { deleteCourse } from '../actions/delete';
-import { CourseSchema } from '../actions/utils';
+import { CourseSchema } from '../actions/schema';
 import type { z } from 'zod';
 import TipTapEditor from '@/components/common/TipTapEditor';
 

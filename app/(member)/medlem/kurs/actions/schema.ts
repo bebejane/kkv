@@ -1,12 +1,4 @@
-import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/(member)/api/auth/[...nextauth]/route';
 import { z } from "zod";
-
-export const getSession = async () => {
-  const session = await getServerSession(authOptions);
-  if (!session?.user?.id) throw new Error('Unauthorized');
-  return session;
-};
 
 export const CourseSchema = z.object({
   title: z.string().min(2, { message: "Titel måste vara minst 2 bokstaver" }),

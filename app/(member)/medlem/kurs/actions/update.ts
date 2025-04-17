@@ -1,8 +1,8 @@
 'use server';
 
-import { getSession, CourseSchema } from './utils';
+import { getSession } from '@/lib/utils';
+import { CourseSchema } from './schema';
 import client from '@/lib/client';
-import { ca } from 'date-fns/locale';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -24,7 +24,7 @@ export async function updateCourse(id: string, formData: FormData) {
     ...validated,
     workshop: session.user.id,
   });
-
+  await client.items.publish(id);
 
   const path = `/medlem/kurs/${course.slug}`
 

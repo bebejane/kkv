@@ -70,9 +70,14 @@ export const buildMenu = async (): Promise<Menu> => {
       { id: 'instagram', title: 'Instagram', href: 'https://www.instagram.com/pointofyou.se' },
     ]
   }, {
-    id: 'login',
-    title: 'Logga In',
+    id: 'member',
+    title: 'Medlem',
     slug: '/logga-in',
+    sub: [
+      { id: 'member-courses', title: 'Kurser', href: '/medlem' },
+      { id: 'member-profile', title: 'Profil', href: '/medlem/profil' },
+      { id: 'member-logout', title: 'Logga ut', href: '/logga-ut' },
+    ]
   }]
   return menu
 }

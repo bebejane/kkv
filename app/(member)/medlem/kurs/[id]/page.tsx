@@ -1,27 +1,27 @@
 import s from './page.module.scss';
 import { CourseDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
-import { updateCourse } from '../../actions/update';
-import CourseForm from '../../components/CourseForm';
+import { updateCourse } from '../actions/update';
+import CourseForm from '../../kurs/components/CourseForm';
 import notFound from '@app/not-found';
 
 export type CourseProps = {
-	params: Promise<{ slug: string }>;
+	params: Promise<{ id: string }>;
 };
 export const dynamic = 'force-dynamic';
 
 export default async function Course({ params }: CourseProps) {
-	const { slug } = await params;
-	const { course } = await apiQuery<CourseQuery, CourseQueryVariables>(CourseDocument, {
+	const { id: idParam } = await params;
+	const { course } = await apiQuery<CourseByIdQuery, CourseByIdQueryVariables>(CourseDocument, {
 		variables: {
-			slug,
+			id: idParam,
 		},
 		apiToken: process.env.DATOCMS_API_TOKEN,
 	});
 
 	if (!course) return notFound();
 
-	const { id, title, intro, text, date, openToAll } = course;
+	const { id, title, slug, intro, text, date, openToAll } = course;
 
 	const courseData = {
 		id,
