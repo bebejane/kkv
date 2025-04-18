@@ -6,9 +6,8 @@ import client from '@/lib/client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-export async function updateCourse(id: string, formData: FormData) {
+export async function createCourse(formData: FormData) {
   const session = await getSession();
-
   const data = {
     title: formData.get('title'),
     slug: formData.get('slug'),
@@ -20,19 +19,20 @@ export async function updateCourse(id: string, formData: FormData) {
 
   const validated = CourseSchema.parse(data);
 
-  const course = await client.items.update(id, {
+  const course = await client.items.create({
+    item_type: { type: 'item_type', id: process.env.DATOCMS_WORKSHOP_MODEL_ID },
     ...validated,
     workshop: session.user.id,
   });
-  await client.items.publish(id);
 
-  const path = `/medlem/kurs/${course.slug}`
+  const path = `/medlem/kurser/${course.slug}`
 
   try {
     revalidatePath('/medlem');
     revalidatePath(path);
-    redirect(path);
+
   } catch (e) {
     console.log(e)
   }
+  redirect(path);
 }

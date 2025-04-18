@@ -21,16 +21,17 @@ export async function updateWorkshop(data: FormData) {
   }
 
   const userId = session.user.id; // Assuming session.user.id holds the DatoCMS item ID for the profile
-  console.log(userId)
+
   try {
-    const workshop = await client.items.update(userId, {
+    let workshop = await client.items.update(userId, {
       address: validatedData.data.address,
       city: validatedData.data.city,
       postal_code: validatedData.data.postal_code,
       website: validatedData.data.website,
       description: validatedData.data.description,
     });
-    await client.items.publish(userId);
+
+    workshop = await client.items.publish(userId);
 
     revalidatePath('/verkstader');
     revalidatePath(`/verkstader/${workshop.slug}`);

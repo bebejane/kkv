@@ -1,9 +1,12 @@
+'use client';
+
 import s from './Article.module.scss';
 import cn from 'classnames';
 import Link from 'next/link';
 import { Image } from 'react-datocms';
 import { Markdown } from 'next-dato-utils/components';
 import Content from './Content';
+import { useSession } from 'next-auth/react';
 
 export type ArticleProps = {
 	title?: string;
@@ -17,6 +20,10 @@ export type ArticleProps = {
 	};
 	className?: string;
 	children?: React.ReactNode | React.ReactNode[];
+	edit: {
+		id: string;
+		pathname: string;
+	};
 };
 
 export default function Article({
@@ -28,7 +35,10 @@ export default function Article({
 	link,
 	className,
 	children,
+	edit,
 }: ArticleProps) {
+	const { data: session } = useSession();
+
 	return (
 		<article className={cn(s.article, className)}>
 			<header className={cn(!image && s.noImage)}>
@@ -47,6 +57,11 @@ export default function Article({
 			{link && (
 				<Link href={link.href}>
 					<button className='medium-weight shortcut'>{link.text}</button>
+				</Link>
+			)}
+			{edit?.id && session?.user?.id === edit.id && edit.pathname && (
+				<Link href={edit.pathname}>
+					<button className={s.edit}>Editera</button>
 				</Link>
 			)}
 		</article>

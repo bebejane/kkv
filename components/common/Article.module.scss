@@ -1,5 +1,6 @@
 .article {
   padding-bottom: calc(1.5 * var(--space-big));
+  position: relative;
 
   header {
     position: relative;
@@ -52,5 +53,14 @@
   button {
     margin-top: 3rem;
     width: 100%;
+  }
+
+  button.edit {
+    position: absolute;
+    top: 0;
+    right: calc(var(--full-bleed-margin));
+    margin: var(--outer-margin);
+    z-index: 1000;
+    width: 100px;
   }
 }

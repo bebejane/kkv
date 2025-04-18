@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default async function AllCourses() {
 	const session = await getSession();
 
-	const { allCourses, draftUrl } = await apiQuery<
+	const { allCourses } = await apiQuery<
 		AllCoursesByWorkshopQuery,
 		AllCoursesByWorkshopQueryVariables
 	>(AllCoursesByWorkshopDocument, {
@@ -25,13 +25,13 @@ export default async function AllCourses() {
 				<ul>
 					{allCourses.map((course) => (
 						<li key={course.id}>
-							<Link href={`/medlem/kurs/${course.id}`}>{course.title}</Link>
+							<Link href={`/medlem/kurser/${course.id}`}>{course.title}</Link>
 						</li>
 					))}
 				</ul>
 				<br />
 				<p>
-					<Link href='/medlem/kurs/ny'>
+					<Link href='/medlem/kurser/ny'>
 						<button>Ny kurs</button>
 					</Link>
 				</p>
