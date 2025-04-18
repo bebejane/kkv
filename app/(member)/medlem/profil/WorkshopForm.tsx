@@ -9,6 +9,7 @@ import type { z } from 'zod';
 import TipTapEditor from '@components/common/TipTapEditor';
 import Link from '@node_modules/next/link';
 import { useRouter } from 'next/navigation';
+import useSaveKey from '@lib/hooks/useSaveKey';
 
 type FormData = z.infer<typeof WorkshopSchema>;
 
@@ -24,6 +25,7 @@ export default function WorkshopForm({ workshop, onSubmit }: WorkshopFormProps) 
 	const {
 		register,
 		handleSubmit,
+		watch,
 		control,
 		formState: { errors },
 	} = useForm<FormData>({
@@ -52,6 +54,8 @@ export default function WorkshopForm({ workshop, onSubmit }: WorkshopFormProps) 
 			setSubmitting(false);
 		}
 	};
+
+	useSaveKey(() => onSubmitForm(watch()));
 
 	return (
 		<form onSubmit={handleSubmit(onSubmitForm)} className={s.form}>

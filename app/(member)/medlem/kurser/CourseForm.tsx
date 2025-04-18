@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { Key, useEffect, useState, useTransition } from 'react';
 import s from './CourseForm.module.scss';
 import Link from 'next/link';
 import { useForm, Controller } from 'react-hook-form';
@@ -10,6 +10,7 @@ import { CourseSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import TipTapEditor from '@/components/common/TipTapEditor';
 import { useRouter } from 'next/navigation';
+import useSaveKey from '@lib/hooks/useSaveKey';
 
 type FormData = z.infer<typeof CourseSchema>;
 
@@ -32,7 +33,6 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 		formState: { errors },
 	} = useForm<FormData>({
 		resolver: zodResolver(CourseSchema),
-		mode: 'onChange',
 		defaultValues: course || {
 			title: '',
 			slug: '',
@@ -42,8 +42,6 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 			open_to_all: false,
 		},
 	});
-
-	const data = watch();
 
 	const onSubmitForm = async (data: FormData) => {
 		try {
@@ -57,6 +55,8 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 			setSubmitting(false);
 		}
 	};
+
+	useSaveKey(() => onSubmitForm(watch()));
 
 	return (
 		<form onSubmit={handleSubmit(onSubmitForm)} className={s.form}>
