@@ -1,6 +1,6 @@
 'use server';
 
-import { getSession } from '@/lib/utils';
+import { getSession } from '@/lib/auth';
 import { CourseSchema } from '../schemas';
 import client from '@/lib/client';
 import { revalidatePath } from 'next/cache';

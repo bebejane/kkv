@@ -1,10 +1,11 @@
 'use server';
 
-import { getSession } from '@/lib/utils';
+import { getSession } from '@/lib/auth';
 import { CourseSchema } from '../schemas';
 import client from '@/lib/client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { sleep } from 'next-dato-utils/utils';
 
 export async function updateCourse(id: string, formData: FormData) {
   const session = await getSession();
@@ -25,12 +26,13 @@ export async function updateCourse(id: string, formData: FormData) {
     workshop: session.user.id,
   });
   await client.items.publish(id);
+  await sleep(2000);
 
   const paths = [`/medlem/kurser/${course.id}`, '/kurser', `/kurser/${course.slug}`, '/medlem']
-  console.log(paths)
+
   try {
     paths.forEach(path => revalidatePath(path));
-    redirect(paths[0]);
+    //redirect(`/medlem/kurser/${course.id}`);
   } catch (e) {
     console.log(e)
   }

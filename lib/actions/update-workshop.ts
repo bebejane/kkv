@@ -1,10 +1,11 @@
 'use server';
 
+import { getSession } from '@/lib/auth';
 import client from '@/lib/client';
 import { WorkshopSchema } from '../schemas';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
-import { getSession } from '@lib/utils';
+import { sleep } from 'next-dato-utils/utils';
 
 type FormData = z.infer<typeof WorkshopSchema>;
 
@@ -19,7 +20,7 @@ export async function updateWorkshop(data: FormData) {
     throw new Error(`Validation failed: ${errorMessages}`);
   }
 
-  const userId = session.user.id; // Assuming session.user.id holds the DatoCMS item ID for the profile
+  const userId = session.user.id;
 
   try {
     let workshop = await client.items.update(userId, {
@@ -31,6 +32,7 @@ export async function updateWorkshop(data: FormData) {
     });
 
     workshop = await client.items.publish(userId);
+    await sleep(2000);
 
     revalidatePath('/verkstader');
     revalidatePath(`/verkstader/${workshop.slug}`);

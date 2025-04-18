@@ -1,6 +1,6 @@
 'use server';
 
-import { getSession } from '@/lib/utils';
+import { getSession } from '@/lib/auth';
 import client from '@/lib/client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';

@@ -11,7 +11,7 @@ import NavbarMobile from '../components/nav/NavbarMobile';
 import { Suspense } from 'react';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from './(member)/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 
 export type LayoutProps = {
 	children: React.ReactNode;

@@ -27,10 +27,12 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 	const {
 		register,
 		handleSubmit,
-		control, // Get control object from useForm
+		control,
+		watch,
 		formState: { errors },
 	} = useForm<FormData>({
 		resolver: zodResolver(CourseSchema),
+		mode: 'onChange',
 		defaultValues: course || {
 			title: '',
 			slug: '',
@@ -40,6 +42,8 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 			open_to_all: false,
 		},
 	});
+
+	const data = watch();
 
 	const onSubmitForm = async (data: FormData) => {
 		try {

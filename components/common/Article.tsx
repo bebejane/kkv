@@ -20,7 +20,7 @@ export type ArticleProps = {
 	};
 	className?: string;
 	children?: React.ReactNode | React.ReactNode[];
-	edit: {
+	edit?: {
 		id: string;
 		pathname: string;
 	};
@@ -61,7 +61,7 @@ export default function Article({
 			)}
 			{edit?.id && session?.user?.id === edit.id && edit.pathname && (
 				<Link href={edit.pathname}>
-					<button className={s.edit}>Editera</button>
+					<button className={s.edit}>Redigera</button>
 				</Link>
 			)}
 		</article>

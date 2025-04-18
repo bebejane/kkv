@@ -115,6 +115,10 @@ a {
 	text-decoration: none;
 	color: var(--foreground);
 	transition: var(--color-transtion);
+
+	&:has(>button) {
+		text-decoration: none !important;
+	}
 }
 
 button {
@@ -139,7 +143,7 @@ button {
 		background-color: var(--darkred);
 	}
 
-	&:hover {
+	&:hover:not([disabled]) {
 		background-color: var(--darkred);
 		color: var(--white);
 	}

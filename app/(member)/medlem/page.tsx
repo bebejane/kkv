@@ -1,6 +1,6 @@
 import s from './page.module.scss';
 import { AllCoursesByWorkshopDocument } from '@/graphql';
-import { getSession } from '@/lib/utils';
+import { getSession } from '@/lib/auth';
 import { apiQuery } from 'next-dato-utils/api';
 import Link from 'next/link';
 
@@ -20,7 +20,7 @@ export default async function AllCourses() {
 
 	return (
 		<>
-			<article className={s.page}>
+			<article className={s.member}>
 				<h2>Kurser</h2>
 				<ul>
 					{allCourses.map((course) => (

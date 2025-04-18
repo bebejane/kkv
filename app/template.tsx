@@ -9,7 +9,5 @@ export default function RootTemplate({
 	children: React.ReactNode;
 	session: Session;
 }) {
-	//const session = await getServerSession(authOptions);
-
 	return <SessionProvider session={session}>{children}</SessionProvider>;
 }
