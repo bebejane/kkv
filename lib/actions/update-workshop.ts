@@ -1,11 +1,10 @@
 'use server';
 
 import client from '@/lib/client';
-import { WorkshopSchema } from './schema';
+import { WorkshopSchema } from '../schemas';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { getSession } from '@lib/utils';
-import { sleep } from 'next-dato-utils/utils';
 
 type FormData = z.infer<typeof WorkshopSchema>;
 

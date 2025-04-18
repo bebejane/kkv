@@ -1,8 +1,8 @@
 import s from './page.module.scss';
 import { WorkshopDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
-import { updateWorkshop } from './actions/update';
-import WorkshopForm from './components/WorkshopForm';
+import { updateWorkshop } from '@/lib/actions/update-workshop';
+import WorkshopForm from './WorkshopForm';
 import notFound from '@app/not-found';
 
 export type WorkshopProps = {

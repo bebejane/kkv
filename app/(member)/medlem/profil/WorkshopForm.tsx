@@ -4,7 +4,7 @@ import { useState } from 'react';
 import s from './WorkshopForm.module.scss'; // We'll create this file next
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { WorkshopSchema } from '../actions/schema';
+import { WorkshopSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import TipTapEditor from '@components/common/TipTapEditor';
 import Link from '@node_modules/next/link';

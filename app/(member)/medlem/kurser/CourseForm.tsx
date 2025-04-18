@@ -5,8 +5,8 @@ import s from './CourseForm.module.scss';
 import Link from 'next/link';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { deleteCourse } from '../actions/delete';
-import { CourseSchema } from '../actions/schema';
+import { deleteCourse } from '@/lib/actions/delete-course';
+import { CourseSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import TipTapEditor from '@/components/common/TipTapEditor';
 

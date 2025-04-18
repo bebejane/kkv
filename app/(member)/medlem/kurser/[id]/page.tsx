@@ -1,8 +1,8 @@
 import s from './page.module.scss';
 import { CourseDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
-import { updateCourse } from '../actions/update';
-import CourseForm from '../../kurser/components/CourseForm';
+import { updateCourse } from '@/lib/actions/update-course';
+import CourseForm from '../CourseForm';
 import notFound from '@app/not-found';
 
 export type CourseProps = {
