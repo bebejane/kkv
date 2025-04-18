@@ -8,6 +8,7 @@ import { WorkshopSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import TipTapEditor from '@components/common/TipTapEditor';
 import Link from '@node_modules/next/link';
+import { useRouter } from 'next/navigation';
 
 type FormData = z.infer<typeof WorkshopSchema>;
 
@@ -19,7 +20,7 @@ type WorkshopFormProps = {
 export default function WorkshopForm({ workshop, onSubmit }: WorkshopFormProps) {
 	const [submitting, setSubmitting] = useState(false);
 	const [error, setError] = useState<string>();
-
+	const router = useRouter();
 	const {
 		register,
 		handleSubmit,
@@ -27,6 +28,7 @@ export default function WorkshopForm({ workshop, onSubmit }: WorkshopFormProps) 
 		formState: { errors },
 	} = useForm<FormData>({
 		resolver: zodResolver(WorkshopSchema),
+		mode: 'onBlur',
 		defaultValues: {
 			id: workshop?.id || '',
 			slug: workshop?.slug || '',
@@ -43,7 +45,7 @@ export default function WorkshopForm({ workshop, onSubmit }: WorkshopFormProps) 
 			setSubmitting(true);
 			setError(undefined);
 			await onSubmit(data);
-			// Optionally add success feedback here
+			router.refresh();
 		} catch (err) {
 			setError(err instanceof Error ? err.message : 'Ett fel uppstod vid uppdatering');
 		} finally {
@@ -98,10 +100,13 @@ export default function WorkshopForm({ workshop, onSubmit }: WorkshopFormProps) 
 
 			<div className={s.buttons}>
 				<button type='submit' disabled={submitting} className={s.submitButton}>
-					{submitting ? 'Sparar...' : 'Uppdatera profil'}
+					{submitting ? 'Sparar...' : 'Spara'}
 				</button>
-				<Link href={`/verkstader/${workshop?.slug}`} aria-disabled={!workshop?.slug ? true : false}>
-					<button type='button' disabled={!workshop?.slug ? true : false}>
+				<Link
+					href={`/verkstader/${workshop?.slug}`}
+					aria-disabled={!workshop?.slug || submitting ? true : false}
+				>
+					<button type='button' disabled={!workshop?.slug || submitting ? true : false}>
 						Visa
 					</button>
 				</Link>

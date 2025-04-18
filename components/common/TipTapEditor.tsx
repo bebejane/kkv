@@ -36,6 +36,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 	return (
 		<div className={s.menuBar}>
 			<button
+				type='button'
 				onClick={() => editor.chain().focus().toggleBold().run()}
 				disabled={!editor.can().chain().focus().toggleBold().run()}
 				className={editor.isActive('bold') ? s.isActive : ''}
@@ -44,6 +45,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 				<FaBold />
 			</button>
 			<button
+				type='button'
 				onClick={() => editor.chain().focus().toggleItalic().run()}
 				disabled={!editor.can().chain().focus().toggleItalic().run()}
 				className={editor.isActive('italic') ? s.isActive : ''}
@@ -52,6 +54,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 				<FaItalic />
 			</button>
 			<button
+				type='button'
 				onClick={setLink}
 				className={editor.isActive('link') ? s.isActive : ''}
 				aria-label='Link'
@@ -59,6 +62,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 				<FaLink />
 			</button>
 			<button
+				type='button'
 				onClick={() => editor.chain().focus().toggleOrderedList().run()}
 				className={editor.isActive('orderedList') ? s.isActive : ''}
 				aria-label='Ordered List'

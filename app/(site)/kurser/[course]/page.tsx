@@ -20,7 +20,7 @@ export default async function CoursePage({ params }: CourseProps) {
 
 	if (!course) return notFound();
 
-	const { workshop, title, intro, text, date, openToAll } = course;
+	const { id, workshop, title, intro, text, date, openToAll } = course;
 
 	return (
 		<>
@@ -29,7 +29,7 @@ export default async function CoursePage({ params }: CourseProps) {
 				content={text}
 				intro={intro}
 				markdown={true}
-				edit={{ id: workshop?.id, pathname: `/medlem/kurser/${slug}` }}
+				edit={{ id: workshop?.id, pathname: `/medlem/kurser/${id}` }}
 			>
 				<section>
 					<p>

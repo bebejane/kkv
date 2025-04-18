@@ -9,6 +9,7 @@ import { deleteCourse } from '@/lib/actions/delete-course';
 import { CourseSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import TipTapEditor from '@/components/common/TipTapEditor';
+import { useRouter } from 'next/navigation';
 
 type FormData = z.infer<typeof CourseSchema>;
 
@@ -21,6 +22,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 	const [submitting, setSubmitting] = useState(false);
 	const [error, setError] = useState<string>();
 	const [isPending, startTransition] = useTransition();
+	const router = useRouter();
 
 	const {
 		register,
@@ -44,6 +46,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 			setSubmitting(true);
 			setError(undefined);
 			await onSubmit(data);
+			router.refresh();
 		} catch (err) {
 			setError(err instanceof Error ? err.message : 'Ett fel uppstod');
 		} finally {
@@ -104,7 +107,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 
 			<div className={s.buttons}>
 				<button type='submit' disabled={submitting || isPending} className={s.submitButton}>
-					{submitting ? 'Sparar...' : course ? 'Uppdatera' : 'Spara kurs'}
+					{submitting ? 'Sparar...' : 'Spara'}
 				</button>
 
 				{course?.id && (
@@ -122,8 +125,11 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 					</button>
 				)}
 
-				<Link href={`/kurser/${course?.slug}`} aria-disabled={!course?.id ? true : false}>
-					<button type='button' disabled={!course?.id ? true : false}>
+				<Link
+					href={`/kurser/${course?.slug}`}
+					aria-disabled={!course?.id || submitting ? true : false}
+				>
+					<button type='button' disabled={!course?.id || submitting ? true : false}>
 						Visa
 					</button>
 				</Link>
