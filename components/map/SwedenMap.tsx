@@ -9,7 +9,7 @@ import swedenGeoJson from './sweden.json' assert { type: 'json' };
 import { markerIcon, markerIconActive } from './icons';
 
 export interface MapMarker {
-	id: string | number;
+	id: string;
 	position: [number, number]; // [latitude, longitude]
 	label: string;
 }
@@ -17,6 +17,7 @@ export interface MapMarker {
 interface SwedenMapProps {
 	items: MapMarker[];
 	workshopId: string | null;
+	onHover?: (id: string | null) => void;
 }
 
 const center: LatLngExpression = [62.0, 15.0];
@@ -26,7 +27,7 @@ const geoJsonStyle = () => ({
 	className: s.border,
 });
 
-const SwedenMap: React.FC<SwedenMapProps> = ({ items, workshopId }) => {
+const SwedenMap: React.FC<SwedenMapProps> = ({ items, workshopId, onHover }) => {
 	const [isClient, setIsClient] = useState(false);
 
 	useEffect(() => {
@@ -62,6 +63,10 @@ const SwedenMap: React.FC<SwedenMapProps> = ({ items, workshopId }) => {
 					key={id}
 					position={position}
 					icon={id === workshopId ? markerIconActive : markerIcon}
+					eventHandlers={{
+						mouseover: () => onHover?.(id),
+						mouseout: () => onHover?.(null),
+					}}
 				>
 					<Popup className={s.popup}>{label}</Popup>
 				</Marker>

@@ -9,9 +9,11 @@ const DynamicMap = dynamic(() => import('./SwedenMap'), {
 export default function SwedenMapWrapper({
 	items,
 	workshopId,
+	onHover,
 }: {
 	items: MapMarker[];
 	workshopId: string | null;
+	onHover?: (id: string | null) => void;
 }) {
-	return <DynamicMap items={items} workshopId={workshopId} />;
+	return <DynamicMap items={items} workshopId={workshopId} onHover={onHover} />;
 }

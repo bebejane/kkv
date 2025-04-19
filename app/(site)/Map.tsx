@@ -1,5 +1,6 @@
 'use client';
 
+import s from './Map.module.scss';
 import SwedenMap from '@components/map';
 import { MapMarker } from '@components/map/SwedenMap';
 import Link from 'next/link';
@@ -23,13 +24,14 @@ export default function Map({ allWorkshops }: MapProps) {
 	return (
 		<>
 			<div>
-				<SwedenMap items={items} workshopId={workshopId} />
+				<SwedenMap items={items} workshopId={workshopId} onHover={setWorkshopId} />
 			</div>
 			<div>
 				<ul>
 					{allWorkshops.map(({ id, slug, name }) => (
 						<li
 							key={id}
+							className={workshopId === id ? s.active : ''}
 							onMouseEnter={() => setWorkshopId(id)}
 							onMouseLeave={() => setWorkshopId(null)}
 						>
