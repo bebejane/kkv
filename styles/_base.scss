@@ -143,6 +143,11 @@ button {
 		background-color: var(--darkred);
 	}
 
+	&[disabled="true"] {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
 	&:hover:not([disabled]) {
 		background-color: var(--darkred);
 		color: var(--white);

@@ -16,11 +16,7 @@
   .logo {
     flex: 0 0 calc(var(--margin));
 
-    &:hover {
-      img {
-        transform: scaleX(-1);
-      }
-    }
+
   }
 
   ul {

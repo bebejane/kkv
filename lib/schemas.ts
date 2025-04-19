@@ -19,5 +19,6 @@ export const WorkshopSchema = z.object({
   postal_code: z.string().optional(), // Consider adding regex for postal code format if needed
   website: z.string().url({ message: "Ogiltig webbadress" }).optional().or(z.literal('')), // Allow empty string or valid URL
   description: z.string().optional(),
+  image: z.string().optional(),
 });
 

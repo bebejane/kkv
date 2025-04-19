@@ -40,6 +40,7 @@ export const buildMenu = async (): Promise<Menu> => {
     id: 'workshops',
     title: 'Verkstäder',
     slug: '/verkstader',
+    hideSub: true,
   }, {
     id: 'courses',
     title: 'Kurser',
@@ -74,9 +75,9 @@ export const buildMenu = async (): Promise<Menu> => {
     title: 'Medlem',
     slug: '/logga-in',
     sub: [
-      { id: 'member-courses', title: 'Kurser', href: '/medlem' },
-      { id: 'member-profile', title: 'Profil', href: '/medlem/profil' },
-      { id: 'member-logout', title: 'Logga ut', href: '/logga-ut' },
+      { id: 'member-courses', title: 'Kurser', slug: '/medlem' },
+      { id: 'member-profile', title: 'Profil', slug: '/medlem/profil' },
+      { id: 'member-logout', title: 'Logga ut', slug: '/logga-ut' },
     ]
   }]
   return menu

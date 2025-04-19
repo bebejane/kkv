@@ -7,12 +7,14 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Menu, getSelectedMenuItem } from '@/lib/menu';
 import Hamburger from './Hamburger';
+import { Session } from 'next-auth';
 
 export type NavbarMobileProps = {
 	menu: Menu;
+	session: Session;
 };
 
-export default function NavbarMobile({ menu }: NavbarMobileProps) {
+export default function NavbarMobile({ menu, session }: NavbarMobileProps) {
 	const path = usePathname();
 	const qs = useSearchParams().toString();
 	const pathname = `${path}${qs.length > 0 ? `?${qs}` : ''}`;
@@ -20,6 +22,7 @@ export default function NavbarMobile({ menu }: NavbarMobileProps) {
 		getSelectedMenuItem(menu, path, qs)?.id ?? null
 	);
 	const [open, setOpen] = useState(false);
+	const member = menu.find(({ id }) => id === 'member');
 
 	useEffect(() => {
 		setOpen(false);
@@ -31,7 +34,7 @@ export default function NavbarMobile({ menu }: NavbarMobileProps) {
 			<div className={cn(s.topbar, open && s.open)}>
 				<figure className={s.logo}>
 					<Link href={'/'}>
-						<img src={open ? '/images/logo-white.svg' : '/images/logo.svg'} alt='Logo' />
+						<img src={open ? '/images/logo.webp' : '/images/logo.webp'} alt='Logo' />
 					</Link>
 				</figure>
 				<div className={s.hamburger}>
@@ -45,30 +48,31 @@ export default function NavbarMobile({ menu }: NavbarMobileProps) {
 			</div>
 			<nav className={cn(s.navbarMobile, open && s.open)}>
 				<ul className={s.menu}>
-					{menu.map(({ id, title, href, slug, sub, hideSub }) => (
-						<li
-							key={id}
-							className={cn(sub && s.dropdown, pathname.startsWith(slug) && s.active)}
-							onClick={() => setSelected(selected === id ? null : id)}
-						>
-							{sub && (
-								<>
-									{!hideSub ? <span>{title}</span> : <Link href={slug ?? href}>{title}</Link>}
-									{selected === id && !hideSub && (
-										<ul onClick={(e) => e.stopPropagation()}>
-											{sub.map(({ id, title, href, slug }) => (
-												<li key={id} className={cn(pathname === slug && s.active)}>
-													<Link href={slug ?? href}>{title}</Link>
-												</li>
-											))}
-										</ul>
-									)}
-								</>
-							)}
-						</li>
-					))}
-					<li className={cn(pathname === '/english' && s.active)}>
-						<Link href={'/english'}>EN</Link>
+					{menu
+						.filter(({ id }) => id !== 'member')
+						.map(({ id, title, href, slug, sub }) => (
+							<li
+								key={id}
+								className={cn(sub && s.dropdown, pathname.startsWith(slug) && s.active)}
+								onClick={() => setSelected(selected === id ? null : id)}
+							>
+								{sub ? <span>{title}</span> : <Link href={slug ?? href}>{title}</Link>}
+								{selected === id && sub && (
+									<ul onClick={(e) => e.stopPropagation()}>
+										{sub.map(({ id, title, href, slug }) => (
+											<li key={id} className={cn(pathname === slug && s.active)}>
+												<Link href={slug ?? href}>{title}</Link>
+											</li>
+										))}
+									</ul>
+								)}
+							</li>
+						))}
+					<li
+						className={cn(member.slug === pathname && s.active)}
+						onMouseEnter={() => session?.user && setSelected(member.id)}
+					>
+						<Link href={session?.user ? '/medlem' : '/logga-in'}>{member.title}</Link>
 					</li>
 				</ul>
 			</nav>

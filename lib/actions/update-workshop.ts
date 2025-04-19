@@ -29,6 +29,7 @@ export async function updateWorkshop(data: FormData) {
       postal_code: validatedData.data.postal_code,
       website: validatedData.data.website,
       description: validatedData.data.description,
+      image: validatedData.data.image ? { upload_id: validatedData.data.image } : null,
     });
 
     workshop = await client.items.publish(userId);

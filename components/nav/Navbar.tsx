@@ -27,7 +27,7 @@ export default function Navbar({ menu, session }: NavbarProps) {
 			<nav className={s.navbar}>
 				<figure className={s.logo}>
 					<Link href={'/'}>
-						<img src='/images/logo.svg' alt='Logo' />
+						<img src='/images/logo.webp' alt='Logo' />
 					</Link>
 				</figure>
 
@@ -53,11 +53,7 @@ export default function Navbar({ menu, session }: NavbarProps) {
 						className={cn(member.slug === pathname && s.active)}
 						onMouseEnter={() => session?.user && setSelected(member.id)}
 					>
-						{session?.user ? (
-							<Link href={'/medlem'}>Medlem</Link>
-						) : (
-							<Link href={'/logga-in'}>Logga In</Link>
-						)}
+						<Link href={session?.user ? '/medlem' : '/logga-in'}>{member.title}</Link>
 					</li>
 				</ul>
 			</nav>
@@ -69,10 +65,7 @@ export default function Navbar({ menu, session }: NavbarProps) {
 					{sub
 						?.filter(({ hideInDesktop }) => !hideInDesktop)
 						.map(({ id, title, href, slug }) => (
-							<li
-								key={id}
-								className={cn((slug === pathname || pathname.startsWith(slug)) && s.active)}
-							>
+							<li key={id} className={cn(slug === pathname && s.active)}>
 								<Link href={slug ?? href} onClick={() => setSelected(null)}>
 									{title}
 								</Link>

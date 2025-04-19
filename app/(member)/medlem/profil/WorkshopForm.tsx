@@ -1,7 +1,7 @@
 'use client';
 
+import s from './WorkshopForm.module.scss';
 import { useState } from 'react';
-import s from './WorkshopForm.module.scss'; // We'll create this file next
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { WorkshopSchema } from '@/lib/schemas';
@@ -10,17 +10,20 @@ import TipTapEditor from '@components/common/TipTapEditor';
 import Link from '@node_modules/next/link';
 import { useRouter } from 'next/navigation';
 import useSaveKey from '@lib/hooks/useSaveKey';
+import FileUpload from '@components/common/FileUpload';
 
 type FormData = z.infer<typeof WorkshopSchema>;
 
 type WorkshopFormProps = {
-	workshop?: Partial<FormData>; // Allow partial workshop data for initial values
+	data: Partial<FormData>;
+	workshop: WorkshopQuery['workshop'];
 	onSubmit: (data: FormData) => Promise<void>;
 };
 
-export default function WorkshopForm({ workshop, onSubmit }: WorkshopFormProps) {
+export default function WorkshopForm({ data, workshop, onSubmit }: WorkshopFormProps) {
 	const [submitting, setSubmitting] = useState(false);
 	const [error, setError] = useState<string>();
+	const [imageUrl, setImageUrl] = useState<string | null>(workshop?.image?.url ?? null);
 	const router = useRouter();
 	const {
 		register,
@@ -32,13 +35,14 @@ export default function WorkshopForm({ workshop, onSubmit }: WorkshopFormProps) 
 		resolver: zodResolver(WorkshopSchema),
 		mode: 'onBlur',
 		defaultValues: {
-			id: workshop?.id || '',
-			slug: workshop?.slug || '',
-			address: workshop?.address || '',
-			city: workshop?.city || '',
-			postal_code: workshop?.postal_code || '',
-			website: workshop?.website || '',
-			description: workshop?.description || '',
+			id: data?.id || '',
+			slug: data?.slug || '',
+			address: data?.address || '',
+			city: data?.city || '',
+			postal_code: data?.postal_code || '',
+			website: data?.website || '',
+			description: data?.description || '',
+			image: data?.image || '',
 		},
 	});
 
@@ -100,6 +104,32 @@ export default function WorkshopForm({ workshop, onSubmit }: WorkshopFormProps) 
 					)}
 				/>
 				{errors.description && <p className={s.error}>{errors.description.message}</p>}
+			</div>
+
+			<div className={s.field}>
+				<label htmlFor='image'>Bild</label>
+				<Controller
+					name='image'
+					control={control}
+					render={({ field }) => (
+						<div className={s.upload}>
+							<div className={s.dropzone}>
+								<FileUpload
+									ref={field.ref}
+									onChange={(val) => {
+										setImageUrl(val.url);
+										field.onChange(val.id);
+									}}
+									onError={(err) => console.log(err)}
+									accept='image/*'
+								/>
+							</div>
+							{imageUrl && <img src={`${imageUrl}?w=800`} className={s.image} />}
+						</div>
+					)}
+				/>
+
+				{errors.image && <p className={s.error}>{errors.image.message}</p>}
 			</div>
 
 			<div className={s.buttons}>

@@ -7,27 +7,31 @@ import { signIn } from 'next-auth/react';
 
 export default function LoginForm() {
 	const [error, setError] = useState<string | null>(null);
+	const [loading, setLoading] = useState<boolean>(false);
 
 	const handleSignin = async (e) => {
 		e.preventDefault();
-
-		setError(null);
 
 		const url = new URLSearchParams(window.location.search).get('callbackUrl');
 		const callbackUrl = url?.endsWith('/medlem') ? undefined : url ?? '/medlem';
 		const formData = new FormData(e.target);
 
-		signIn('credentials', {
-			callbackUrl,
-			username: formData.get('email'),
-			password: formData.get('password'),
-		})
-			.then((response) => {
-				if (response?.error) setError('Felaktigt användarnamn eller lösenord');
-			})
-			.catch((error) => {
-				setError(`Något gick fel, försök igen. ${error}`);
+		try {
+			setError(null);
+			setLoading(true);
+
+			const res = await signIn('credentials', {
+				callbackUrl,
+				username: formData.get('email'),
+				password: formData.get('password'),
 			});
+
+			if (res?.error) setError('Felaktigt användarnamn eller lösenord');
+		} catch (error) {
+			setError(`Något gick fel, försök igen. ${error}`);
+		} finally {
+			setTimeout(() => setLoading(false), 1000);
+		}
 	};
 
 	useEffect(() => {
@@ -45,7 +49,9 @@ export default function LoginForm() {
 					placeholder='Lösenord'
 					autoComplete='current-password'
 				/>
-				<button type='submit'>Logga in</button>
+				<button type='submit' disabled={loading}>
+					{loading ? 'Loggar in...' : 'Logga in'}
+				</button>
 			</form>
 			{error && <p className={s.error}>{error}</p>}
 		</div>

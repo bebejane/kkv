@@ -1,0 +1,15 @@
+.dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  cursor: pointer;
+
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: 0.7rem;
+  }
+
+}

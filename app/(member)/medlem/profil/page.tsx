@@ -22,7 +22,7 @@ export default async function Workshop({ params }: WorkshopProps) {
 
 	if (!workshop) return notFound();
 
-	const { id, slug, name, description, address, city, postalCode, website } = workshop;
+	const { id, slug, name, description, address, city, postalCode, website, image } = workshop;
 
 	const workshopData = {
 		id,
@@ -32,13 +32,15 @@ export default async function Workshop({ params }: WorkshopProps) {
 		postal_code: postalCode,
 		website,
 		address,
+		image: image?.id,
 	};
 
 	return (
 		<div className={s.page}>
-			<h1 className={s.title}>Min profil</h1>
+			<h1 className={s.title}>{name}</h1>
 			<WorkshopForm
-				workshop={workshopData}
+				data={workshopData}
+				workshop={workshop}
 				onSubmit={async (data) => {
 					'use server';
 					await updateWorkshop(data);

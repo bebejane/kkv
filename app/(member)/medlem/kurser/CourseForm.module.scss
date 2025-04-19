@@ -113,15 +113,6 @@
     button {
       width: 200px;
       margin: 0;
-
-      &[disabled] {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-    }
-
-    .deleteButton {
-      border: 2px solid var(--red);
     }
   }
 }
