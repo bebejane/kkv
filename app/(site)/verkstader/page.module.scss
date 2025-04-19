@@ -1,4 +1,4 @@
-.projects {
+.workshops {
   header {
     flex-direction: row;
     align-items: center;
@@ -42,8 +42,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-left: var(--full-bleed-margin);
-    margin-right: var(--full-bleed-margin);
+    //margin-left: var(--full-bleed-margin);
+    //margin-right: var(--full-bleed-margin);
+    margin-top: var(--space);
     list-style: none;
 
     @include mq($until: desktop) {

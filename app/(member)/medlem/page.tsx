@@ -20,22 +20,20 @@ export default async function AllCourses() {
 
 	return (
 		<>
-			<article className={s.member}>
-				<h2>Kurser</h2>
-				<ul>
-					{allCourses.map((course) => (
-						<li key={course.id}>
-							<Link href={`/medlem/kurser/${course.id}`}>{course.title}</Link>
-						</li>
-					))}
-				</ul>
-				<br />
-				<p>
-					<Link href='/medlem/kurser/ny'>
-						<button>Ny kurs</button>
-					</Link>
-				</p>
-			</article>
+			<h2>Kurser</h2>
+			<ul className={s.courses}>
+				{allCourses.map((course) => (
+					<li key={course.id}>
+						<Link href={`/medlem/kurser/${course.id}`}>{course.title}</Link>
+					</li>
+				))}
+			</ul>
+			<br />
+			<p>
+				<Link href='/medlem/kurser/ny'>
+					<button>Ny kurs</button>
+				</Link>
+			</p>
 		</>
 	);
 }

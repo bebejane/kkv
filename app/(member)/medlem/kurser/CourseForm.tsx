@@ -16,7 +16,7 @@ type FormData = z.infer<typeof CourseSchema>;
 
 type CourseFormProps = {
 	course?: FormData & { id?: string };
-	onSubmit: (data: FormData) => Promise<void>;
+	onSubmit(data: FormData): Promise<void>;
 };
 
 export default function CourseForm({ course, onSubmit }: CourseFormProps) {
@@ -30,7 +30,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 		handleSubmit,
 		control,
 		watch,
-		formState: { errors },
+		formState: { errors, isDirty },
 	} = useForm<FormData>({
 		resolver: zodResolver(CourseSchema),
 		defaultValues: course || {
@@ -110,7 +110,11 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 			</div>
 
 			<div className={s.buttons}>
-				<button type='submit' disabled={submitting || isPending} className={s.submitButton}>
+				<button
+					type='submit'
+					disabled={submitting || isPending || !isDirty}
+					className={s.submitButton}
+				>
 					{submitting ? 'Sparar...' : 'Spara'}
 				</button>
 

@@ -101,9 +101,10 @@
   padding-left: calc(var(--margin) + var(--outer-margin));
 
   &.open {
-    display: flex;
+    @include mq($from: desktop) {
+      display: flex;
+    }
   }
-
 
   a:hover {
     color: var(--darkred-light);

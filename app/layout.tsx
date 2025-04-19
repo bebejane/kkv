@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: LayoutProps) {
 				<body id='root'>
 					<Suspense fallback={null}>
 						<Navbar menu={menu} session={session} />
-						<NavbarMobile menu={menu} />
+						<NavbarMobile menu={menu} session={session} />
 						<main className={s.main}>
 							<NuqsAdapter>{children}</NuqsAdapter>
 						</main>

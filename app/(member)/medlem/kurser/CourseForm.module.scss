@@ -3,6 +3,10 @@
   padding: 0;
   padding-bottom: 1rem;
 
+  @include mq($until: desktop) {
+    max-width: 100%;
+  }
+
   .field {
     margin-bottom: 1.5rem;
     position: relative;

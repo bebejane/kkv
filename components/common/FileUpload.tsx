@@ -4,6 +4,7 @@ import { OnProgressInfo } from '@datocms/cma-client-browser';
 import { buildClient } from '@datocms/cma-client-browser';
 import { SimpleSchemaTypes } from '@datocms/cma-client';
 import { useDropzone } from 'react-dropzone';
+import DotLoader from '@components/common/DotLoader';
 //import { MAX_ALLOWED_IMAGES, MIN_IMAGE_HEIGHT, MIN_IMAGE_WIDTH } from '/lib/constant'
 
 const client = buildClient({
@@ -50,7 +51,7 @@ export default function FileUpload({
 	const [progress, setProgress] = useState<number | null>(null);
 	const [generatingObject, setGeneratingObject] = useState<boolean>(false);
 	const internalInputRef = useRef<HTMLInputElement>(null);
-
+	const loading = generatingObject || progress !== null;
 	const onDrop = useCallback((acceptedFiles) => {
 		createUpload(acceptedFiles[0]).then(setUpload).catch(setError);
 	}, []);
@@ -203,15 +204,17 @@ export default function FileUpload({
 		<>
 			<div {...getRootProps()} className={s.dropzone}>
 				<input {...getInputProps()} accept={accept} multiple={false} />
-				{generatingObject ? (
-					<p>Sparar bilden...</p>
-				) : progress !== null ? (
-					<p>Laddar upp {progress}%</p>
-				) : isDragActive ? (
-					<p>Släpp filerna här...</p>
-				) : (
-					<p>Dra och släpp filen här eller klicka för att välja fil</p>
-				)}
+				<p className={loading ? s.rainbow : undefined}>
+					{generatingObject ? (
+						<>Sparar bilden...</>
+					) : progress !== null ? (
+						<>Laddar upp {progress}%</>
+					) : isDragActive ? (
+						<>Släpp filerna här...</>
+					) : (
+						<>Dra och släpp filen här eller klicka för att välja fil</>
+					)}
+				</p>
 			</div>
 		</>
 	);

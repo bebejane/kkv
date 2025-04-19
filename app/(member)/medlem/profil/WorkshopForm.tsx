@@ -17,7 +17,7 @@ type FormData = z.infer<typeof WorkshopSchema>;
 type WorkshopFormProps = {
 	data: Partial<FormData>;
 	workshop: WorkshopQuery['workshop'];
-	onSubmit: (data: FormData) => Promise<void>;
+	onSubmit(data: FormData): Promise<void>;
 };
 
 export default function WorkshopForm({ data, workshop, onSubmit }: WorkshopFormProps) {
@@ -30,7 +30,7 @@ export default function WorkshopForm({ data, workshop, onSubmit }: WorkshopFormP
 		handleSubmit,
 		watch,
 		control,
-		formState: { errors },
+		formState: { errors, isDirty },
 	} = useForm<FormData>({
 		resolver: zodResolver(WorkshopSchema),
 		mode: 'onBlur',
@@ -60,7 +60,7 @@ export default function WorkshopForm({ data, workshop, onSubmit }: WorkshopFormP
 	};
 
 	useSaveKey(() => onSubmitForm(watch()));
-
+	console.log(isDirty);
 	return (
 		<form onSubmit={handleSubmit(onSubmitForm)} className={s.form}>
 			{error && <div className={s.formError}>{error}</div>}
@@ -124,16 +124,15 @@ export default function WorkshopForm({ data, workshop, onSubmit }: WorkshopFormP
 									accept='image/*'
 								/>
 							</div>
-							{imageUrl && <img src={`${imageUrl}?w=800`} className={s.image} />}
+							{imageUrl && <img src={`${imageUrl}?w=1200`} className={s.image} />}
 						</div>
 					)}
 				/>
-
 				{errors.image && <p className={s.error}>{errors.image.message}</p>}
 			</div>
 
 			<div className={s.buttons}>
-				<button type='submit' disabled={submitting} className={s.submitButton}>
+				<button type='submit' disabled={submitting || !isDirty} className={s.submitButton}>
 					{submitting ? 'Sparar...' : 'Spara'}
 				</button>
 				<Link

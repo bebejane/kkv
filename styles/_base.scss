@@ -143,7 +143,7 @@ button {
 		background-color: var(--darkred);
 	}
 
-	&[disabled="true"] {
+	&[disabled] {
 		opacity: 0.5;
 		cursor: not-allowed;
 	}

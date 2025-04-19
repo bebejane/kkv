@@ -4,7 +4,7 @@ import CourseForm from '../CourseForm';
 
 export default async function CreateCourse() {
 	return (
-		<div className={s.page}>
+		<>
 			<h1 className={s.title}>Ny kurs</h1>
 			<CourseForm
 				onSubmit={async (data) => {
@@ -16,6 +16,6 @@ export default async function CreateCourse() {
 					await createCourse(formData);
 				}}
 			/>
-		</div>
+		</>
 	);
 }

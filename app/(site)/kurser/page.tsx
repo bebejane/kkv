@@ -9,6 +9,7 @@ import { parseAsString } from 'nuqs/server';
 import { DraftMode } from 'next-dato-utils/components';
 import classNames from 'classnames';
 import { Metadata } from 'next';
+import Article from '@components/common/Article';
 
 const filterParser = parseAsString.withDefault('all');
 
@@ -23,21 +24,19 @@ export default async function CoursesPage({ searchParams }) {
 
 	return (
 		<>
-			<article className={s.courses}>
-				<header>
-					<h1>Kurser</h1>
-					<div className={s.filter}>
-						<FilterBar
-							href='/kurser'
-							value={filter}
-							options={[
-								{ id: 'all', label: 'Alla' },
-								{ id: 'active', label: 'Pågående' },
-								{ id: 'finished', label: 'Avslutade' },
-							]}
-						/>
-					</div>
-				</header>
+			<Article title={'Kurser'}>
+				<div className={s.filter}>
+					<FilterBar
+						href='/kurser'
+						value={filter}
+						options={[
+							{ id: 'all', label: 'Alla' },
+							{ id: 'active', label: 'Pågående' },
+							{ id: 'finished', label: 'Avslutade' },
+						]}
+					/>
+				</div>
+
 				{!courses?.length && (
 					<p className={s.empty}>
 						Det finns inga {filter === 'finished' ? 'avslutade' : 'pågående'} kurser för närvarande.
@@ -58,7 +57,7 @@ export default async function CoursesPage({ searchParams }) {
 						</li>
 					))}
 				</ul>
-			</article>
+			</Article>
 			<DraftMode url={draftUrl} path='/kurser' />
 		</>
 	);

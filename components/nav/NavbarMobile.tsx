@@ -49,7 +49,7 @@ export default function NavbarMobile({ menu, session }: NavbarMobileProps) {
 			<nav className={cn(s.navbarMobile, open && s.open)}>
 				<ul className={s.menu}>
 					{menu
-						.filter(({ id }) => id !== 'member')
+						//.filter(({ id }) => id !== 'member')
 						.map(({ id, title, href, slug, sub }) => (
 							<li
 								key={id}
@@ -68,12 +68,6 @@ export default function NavbarMobile({ menu, session }: NavbarMobileProps) {
 								)}
 							</li>
 						))}
-					<li
-						className={cn(member.slug === pathname && s.active)}
-						onMouseEnter={() => session?.user && setSelected(member.id)}
-					>
-						<Link href={session?.user ? '/medlem' : '/logga-in'}>{member.title}</Link>
-					</li>
 				</ul>
 			</nav>
 		</>
