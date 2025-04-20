@@ -5,7 +5,7 @@ import { useEditor, EditorContent, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
 import { useCallback } from 'react';
-import { FaBold, FaItalic, FaLink, FaListOl } from 'react-icons/fa';
+import { FaBold, FaItalic, FaLink, FaListOl, FaListUl } from 'react-icons/fa';
 import { Markdown } from 'tiptap-markdown';
 
 const MenuBar = ({ editor }: { editor: Editor | null }) => {
@@ -40,7 +40,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 				onClick={() => editor.chain().focus().toggleBold().run()}
 				disabled={!editor.can().chain().focus().toggleBold().run()}
 				className={editor.isActive('bold') ? s.isActive : ''}
-				aria-label='Bold'
+				aria-label='Fet'
 			>
 				<FaBold />
 			</button>
@@ -49,7 +49,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 				onClick={() => editor.chain().focus().toggleItalic().run()}
 				disabled={!editor.can().chain().focus().toggleItalic().run()}
 				className={editor.isActive('italic') ? s.isActive : ''}
-				aria-label='Italic'
+				aria-label='Kursiv'
 			>
 				<FaItalic />
 			</button>
@@ -57,7 +57,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 				type='button'
 				onClick={setLink}
 				className={editor.isActive('link') ? s.isActive : ''}
-				aria-label='Link'
+				aria-label='Länk'
 			>
 				<FaLink />
 			</button>
@@ -65,9 +65,17 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 				type='button'
 				onClick={() => editor.chain().focus().toggleOrderedList().run()}
 				className={editor.isActive('orderedList') ? s.isActive : ''}
-				aria-label='Ordered List'
+				aria-label='Numrerad Lista'
 			>
 				<FaListOl />
+			</button>
+			<button
+				type='button'
+				onClick={() => editor.chain().focus().toggleBulletList().run()}
+				className={editor.isActive('bulletList') ? s.isActive : ''}
+				aria-label='Punktlista'
+			>
+				<FaListUl />
 			</button>
 		</div>
 	);

@@ -43,10 +43,13 @@ export interface ColourOption {
 }
 
 const colourStyles: StylesConfig<ColourOption, true> = {
-	control: (styles) => ({ ...styles }),
+	control: (styles) => ({
+		...styles,
+	}),
 	option: (styles, { data, isDisabled, isFocused, isSelected }) => {
 		return {
 			...styles,
+
 			color: 'var(--darkred)',
 			backgroundColor: isFocused ? 'var(--graylight)' : 'white',
 			':active': {
