@@ -13,16 +13,19 @@ export const dynamic = 'force-dynamic';
 
 export default async function Workshop({ params }: WorkshopProps) {
 	const { slug: slugParam } = await params;
-	const { workshop } = await apiQuery<WorkshopQuery, WorkshopQueryVariables>(WorkshopDocument, {
-		variables: {
-			slug: slugParam,
-		},
-		apiToken: process.env.DATOCMS_API_TOKEN,
-	});
+	const { workshop, allWorkshopGears } = await apiQuery<WorkshopQuery, WorkshopQueryVariables>(
+		WorkshopDocument,
+		{
+			variables: {
+				slug: slugParam,
+			},
+			apiToken: process.env.DATOCMS_API_TOKEN,
+		}
+	);
 
 	if (!workshop) return notFound();
 
-	const { id, slug, name, description, address, city, postalCode, website, image } = workshop;
+	const { id, slug, name, description, address, city, postalCode, website, image, gear } = workshop;
 
 	const workshopData = {
 		id,
@@ -33,6 +36,7 @@ export default async function Workshop({ params }: WorkshopProps) {
 		website,
 		address,
 		image: image?.id,
+		gear: gear.map((g) => ({ value: g.id, label: g.title })),
 	};
 
 	return (
@@ -41,6 +45,7 @@ export default async function Workshop({ params }: WorkshopProps) {
 			<WorkshopForm
 				data={workshopData}
 				workshop={workshop}
+				allWorkshopGears={allWorkshopGears}
 				onSubmit={async (data) => {
 					'use server';
 					await updateWorkshop(data);

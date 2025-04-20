@@ -30,10 +30,11 @@ export async function updateWorkshop(data: FormData) {
       website: validatedData.data.website,
       description: validatedData.data.description,
       image: validatedData.data.image ? { upload_id: validatedData.data.image } : null,
+      gear: validatedData.data.gear?.map((g) => g.value) ?? [],
     });
 
-    workshop = await client.items.publish(userId);
-    await sleep(2000);
+    //workshop = await client.items.publish(userId);
+    await sleep(3000);
 
     revalidatePath('/verkstader');
     revalidatePath(`/verkstader/${workshop.slug}`);

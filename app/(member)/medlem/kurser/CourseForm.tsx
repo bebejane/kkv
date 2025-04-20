@@ -1,7 +1,8 @@
 'use client';
 
-import { Key, useEffect, useState, useTransition } from 'react';
 import s from './CourseForm.module.scss';
+import cn from 'classnames';
+import { useState, useTransition } from 'react';
 import Link from 'next/link';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -59,7 +60,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 	useSaveKey(() => onSubmitForm(watch()));
 
 	return (
-		<form onSubmit={handleSubmit(onSubmitForm)} className={s.form}>
+		<form onSubmit={handleSubmit(onSubmitForm)} className={cn(s.form, submitting && s.submitting)}>
 			{error && <div className={s.formError}>{error}</div>}
 
 			<div className={s.field}>
@@ -121,7 +122,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 				{course?.id && (
 					<button
 						type='button'
-						disabled={isPending}
+						disabled={isPending || submitting}
 						className={s.deleteButton}
 						onClick={() => {
 							if (confirm('Är du säker på att du vill radera kursen?')) {

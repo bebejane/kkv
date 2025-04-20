@@ -25,8 +25,8 @@ export async function updateCourse(id: string, formData: FormData) {
     ...validated,
     workshop: session.user.id,
   });
-  await client.items.publish(id);
-  await sleep(2000);
+  //await client.items.publish(id);
+  await sleep(3000);
 
   const paths = [`/medlem/kurser/${course.id}`, '/kurser', `/kurser/${course.slug}`, '/medlem']
 

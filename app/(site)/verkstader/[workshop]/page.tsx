@@ -22,7 +22,8 @@ export default async function WorkshopPage({ params }: WorkshopProps) {
 
 	if (!workshop) return notFound();
 
-	const { id, name, email, image, address, city, postalCode, coordinates, description } = workshop;
+	const { id, name, email, image, address, city, postalCode, coordinates, description, gear } =
+		workshop;
 
 	return (
 		<>
@@ -43,6 +44,12 @@ export default async function WorkshopPage({ params }: WorkshopProps) {
 						<br />
 						<a href={`mailto:${email}`}>{email}</a>
 					</p>
+					<h3>Utrustning</h3>
+					<ul>
+						{gear.map((g) => (
+							<li key={g.id}>{g.title}</li>
+						))}
+					</ul>
 				</section>
 			</Article>
 			<DraftMode url={draftUrl} path={`/verkstader/${slug}`} />

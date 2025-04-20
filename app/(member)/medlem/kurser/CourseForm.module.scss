@@ -7,6 +7,13 @@
     max-width: 100%;
   }
 
+  &.submitting {
+    .field {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
   .field {
     margin-bottom: 1.5rem;
     position: relative;

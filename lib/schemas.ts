@@ -20,5 +20,6 @@ export const WorkshopSchema = z.object({
   website: z.string().url({ message: "Ogiltig webbadress" }).optional().or(z.literal('')), // Allow empty string or valid URL
   description: z.string().optional(),
   image: z.string().optional(),
+  gear: z.array(z.object({ value: z.string(), label: z.string() })),
 });
 

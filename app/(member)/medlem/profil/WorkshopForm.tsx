@@ -1,6 +1,7 @@
 'use client';
 
 import s from './WorkshopForm.module.scss';
+import cn from 'classnames';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,16 +12,23 @@ import Link from '@node_modules/next/link';
 import { useRouter } from 'next/navigation';
 import useSaveKey from '@lib/hooks/useSaveKey';
 import FileUpload from '@components/common/FileUpload';
+import MultiSelect from '@components/common/MultiSelect';
 
 type FormData = z.infer<typeof WorkshopSchema>;
 
 type WorkshopFormProps = {
 	data: Partial<FormData>;
 	workshop: WorkshopQuery['workshop'];
+	allWorkshopGears: WorkshopQuery['allWorkshopGears'];
 	onSubmit(data: FormData): Promise<void>;
 };
 
-export default function WorkshopForm({ data, workshop, onSubmit }: WorkshopFormProps) {
+export default function WorkshopForm({
+	data,
+	workshop,
+	allWorkshopGears,
+	onSubmit,
+}: WorkshopFormProps) {
 	const [submitting, setSubmitting] = useState(false);
 	const [error, setError] = useState<string>();
 	const [imageUrl, setImageUrl] = useState<string | null>(workshop?.image?.url ?? null);
@@ -43,6 +51,7 @@ export default function WorkshopForm({ data, workshop, onSubmit }: WorkshopFormP
 			website: data?.website || '',
 			description: data?.description || '',
 			image: data?.image || '',
+			gear: data?.gear || [],
 		},
 	});
 
@@ -60,9 +69,9 @@ export default function WorkshopForm({ data, workshop, onSubmit }: WorkshopFormP
 	};
 
 	useSaveKey(() => onSubmitForm(watch()));
-	console.log(isDirty);
+
 	return (
-		<form onSubmit={handleSubmit(onSubmitForm)} className={s.form}>
+		<form onSubmit={handleSubmit(onSubmitForm)} className={cn(s.form, submitting && s.submitting)}>
 			{error && <div className={s.formError}>{error}</div>}
 
 			<input type='hidden' id='id' {...register('id')} />
@@ -92,6 +101,25 @@ export default function WorkshopForm({ data, workshop, onSubmit }: WorkshopFormP
 				<label htmlFor='website'>Webbplats</label>
 				<input type='url' id='website' placeholder='https://...' {...register('website')} />
 				{errors.website && <p className={s.error}>{errors.website.message}</p>}
+			</div>
+
+			<div className={s.field}>
+				<label htmlFor='gear'>Utrustning</label>
+				<Controller
+					name='gear'
+					control={control}
+					render={({ field }) => (
+						<MultiSelect
+							value={field.value}
+							options={allWorkshopGears.map((g) => ({ value: g.id, label: g.title }))}
+							onChange={(val) => {
+								console.log(val);
+								field.onChange(val);
+							}}
+						/>
+					)}
+				/>
+				{errors.gear && <p className={s.error}>{errors.gear.message}</p>}
 			</div>
 
 			<div className={s.field}>

@@ -1,3 +1,0 @@
-## Point of You
-
-Website
