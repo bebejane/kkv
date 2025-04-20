@@ -4,7 +4,6 @@ import { OnProgressInfo } from '@datocms/cma-client-browser';
 import { buildClient } from '@datocms/cma-client-browser';
 import { SimpleSchemaTypes } from '@datocms/cma-client';
 import { useDropzone } from 'react-dropzone';
-import DotLoader from '@components/common/DotLoader';
 //import { MAX_ALLOWED_IMAGES, MIN_IMAGE_HEIGHT, MIN_IMAGE_WIDTH } from '/lib/constant'
 
 const client = buildClient({

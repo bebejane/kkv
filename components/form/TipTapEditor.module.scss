@@ -1,5 +1,5 @@
 .editorWrapper {
-  border: 1px solid #ccc;
+  border: 1px solid var(--white);
   border-radius: 4px;
   overflow: hidden; // Keep children within borders
 
@@ -17,22 +17,21 @@
   flex: 0 0;
   gap: 0.5rem;
   padding: 0.5rem;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--white);
   background-color: var(--graylight);
 
   button {
+
     margin: 0;
-    border: 1px solid #ccc;
-    background-color: white;
     cursor: pointer;
-    padding: 0.5rem;
 
     &:hover {
-      background-color: #eee;
+      //background-color: #eee;
     }
 
     &.isActive {
-      background-color: #ddd;
+      background-color: var(--darkred);
+      color: var(--white);
       font-weight: bold;
     }
 
@@ -52,23 +51,8 @@
     outline: none;
   }
 
-  // Basic styling for Tiptap content
-  p {
-    margin: 0 0 1rem;
-  }
-
   a {
-    color: blue;
     text-decoration: underline;
     cursor: pointer;
-  }
-
-  ol {
-    padding-left: 2rem;
-    margin: 0 0 1rem;
-  }
-
-  li {
-    margin-bottom: 0.25rem;
   }
 }

@@ -42,7 +42,7 @@ export default function Navbar({ menu, session }: NavbarProps) {
 									sub && !hideSub && s.dropdown,
 									pathname.startsWith(slug) && s.active
 								)}
-								onMouseEnter={() => sub && setSelected(id)}
+								onMouseEnter={() => setSelected(sub ? id : null)}
 							>
 								{sub && !hideSub ? <span>{title}</span> : <Link href={slug ?? href}>{title}</Link>}
 							</li>
@@ -51,7 +51,7 @@ export default function Navbar({ menu, session }: NavbarProps) {
 				<ul className={s.login}>
 					<li
 						className={cn(member.slug === pathname && s.active)}
-						onMouseEnter={() => session?.user && setSelected(member.id)}
+						onMouseEnter={() => session?.user && setSelected(session?.user ? member.id : null)}
 					>
 						<Link href={session?.user ? '/medlem' : '/logga-in'}>{member.title}</Link>
 					</li>
