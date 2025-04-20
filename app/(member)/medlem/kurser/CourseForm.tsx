@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { deleteCourse } from '@/lib/actions/delete-course';
 import { CourseSchema } from '@/lib/schemas';
 import type { z } from 'zod';
-import TipTapEditor from '@/components/common/TipTapEditor';
+import TipTapEditor from '@/components/form/TipTapEditor';
 import { useRouter } from 'next/navigation';
 import useSaveKey from '@lib/hooks/useSaveKey';
 

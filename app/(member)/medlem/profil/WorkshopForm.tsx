@@ -7,12 +7,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { WorkshopSchema } from '@/lib/schemas';
 import type { z } from 'zod';
-import TipTapEditor from '@components/common/TipTapEditor';
 import Link from '@node_modules/next/link';
 import { useRouter } from 'next/navigation';
 import useSaveKey from '@lib/hooks/useSaveKey';
-import FileUpload from '@components/common/FileUpload';
-import MultiSelect from '@components/common/MultiSelect';
+import TipTapEditor from '@components/form/TipTapEditor';
+import FileUpload from '@components/form/FileUpload';
+import MultiSelect from '@components/form/MultiSelect';
 
 type FormData = z.infer<typeof WorkshopSchema>;
 
@@ -112,6 +112,7 @@ export default function WorkshopForm({
 						<MultiSelect
 							value={field.value}
 							options={allWorkshopGears.map((g) => ({ value: g.id, label: g.title }))}
+							placeholder='Välj utrustning...'
 							onChange={(val) => {
 								console.log(val);
 								field.onChange(val);
