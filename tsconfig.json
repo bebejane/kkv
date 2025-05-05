@@ -30,6 +30,9 @@
     "forceConsistentCasingInFileNames": true,
     "strictNullChecks": false
   },
+  "typeRoots": [
+    "./@types"
+  ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",

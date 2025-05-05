@@ -5,6 +5,7 @@ import { CourseSchema } from '../schemas';
 import client from '@/lib/client';
 import { revalidatePath } from 'next/cache';
 import { sleep } from 'next-dato-utils/utils';
+import { buildRoute } from '@lib/routes';
 
 export async function updateCourse(id: string, formData: FormData) {
   const session = await getSession();
@@ -28,7 +29,7 @@ export async function updateCourse(id: string, formData: FormData) {
   await sleep(3000);
 
   try {
-    const paths = [`/medlem/kurser/${course.id}`, '/kurser', `/kurser/${course.slug}`, '/medlem']
+    const paths = buildRoute('course', course)
     paths.forEach(path => revalidatePath(path));
   } catch (e) {
     console.log(e)

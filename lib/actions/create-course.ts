@@ -5,6 +5,7 @@ import { CourseSchema } from '../schemas';
 import client from '@/lib/client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { buildRoute } from '@lib/routes';
 
 export async function createCourse(formData: FormData) {
   const session = await getSession();
@@ -25,14 +26,11 @@ export async function createCourse(formData: FormData) {
     workshop: session.user.id,
   });
 
-  const path = `/medlem/kurser/${course.slug}`
-
+  const paths = buildRoute('course', course)
   try {
-    revalidatePath('/medlem');
-    revalidatePath(path);
-
+    paths.forEach(p => revalidatePath(p));
   } catch (e) {
     console.log(e)
   }
-  redirect(path);
+  redirect(`/medlem/kurser/${course.slug}`);
 }

@@ -8,13 +8,19 @@ import { startTransition, useState } from 'react';
 
 export type ArticleEditButtonsProps = {
 	id: string;
+	workshopId: string;
 	pathname: string;
 	status: string;
 };
 
-export default function ArticleEditButtons({ id, pathname, status }: ArticleEditButtonsProps) {
+export default function ArticleEditButtons({
+	id,
+	pathname,
+	status,
+	workshopId,
+}: ArticleEditButtonsProps) {
 	const { data: session } = useSession();
-	const editable = id && session?.user?.id === id && pathname;
+	const editable = id && session?.user?.id === workshopId && pathname;
 	const publishable = editable && status === 'updated';
 	const [publishing, setPublishing] = useState(false);
 	const [publishingError, setPublishingError] = useState<string | null>(null);
@@ -38,6 +44,7 @@ export default function ArticleEditButtons({ id, pathname, status }: ArticleEdit
 			>
 				{publishing ? 'Publicerar...' : 'Publicera'}
 			</button>
+			{publishingError && <p className={s.error}>{publishingError}</p>}
 		</div>
 	);
 }

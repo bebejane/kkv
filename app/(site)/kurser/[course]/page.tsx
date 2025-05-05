@@ -7,15 +7,17 @@ import { Metadata } from 'next';
 
 export type CourseProps = {
 	params: Promise<{ course: string }>;
+	draft?: boolean;
 };
 
-export default async function CoursePage({ params }: CourseProps) {
+export default async function CoursePage(props: CourseProps) {
+	const { params, draft } = props;
 	const { course: slug } = await params;
 	const { course, draftUrl } = await apiQuery<CourseQuery, CourseQueryVariables>(CourseDocument, {
 		variables: {
 			slug,
 		},
-		includeDrafts: true,
+		includeDrafts: draft ?? false,
 	});
 
 	if (!course) return notFound();
@@ -30,7 +32,8 @@ export default async function CoursePage({ params }: CourseProps) {
 				intro={intro}
 				markdown={true}
 				edit={{
-					id: workshop?.id,
+					id,
+					workshopId: workshop?.id,
 					pathname: `/medlem/kurser/${id}`,
 					status: _status,
 				}}
@@ -59,8 +62,9 @@ export async function generateStaticParams() {
 	return allCourses.map(({ slug: course }) => ({ course }));
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params }: CourseProps) {
 	const { course: slug } = await params;
+	//@ts-ignore
 	const { course } = await apiQuery<CourseQuery, CourseQueryVariables>(CourseDocument, {
 		variables: {
 			slug,

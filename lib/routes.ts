@@ -15,61 +15,29 @@ type Route = {
 }
 
 const routes: Routes = {
-  "home": {
-    typeName: "HomeRecord",
+  "workshop": {
+    typeName: "WorkshopRecord",
     path: (item) => ['/']
+  },
+  "course": {
+    typeName: "CourseRecord",
+    path: (item) => [`/kurser/${item.slug}`, '/kurser', `/medlem/kurser/${item.id}`, '/medlem', `/kurser/${item.slug}/utkast`]
+  },
+  "workshop_gear": {
+    typeName: "WorkshopGearRecord",
+    path: (item) => [`/verkstader`]
   },
   "about": {
     typeName: "AboutRecord",
     path: (item) => [`/om/${item.slug}`]
   },
-  "education": {
-    typeName: "EducationRecord",
-    path: (item) => [`/utbildning/${item.slug}`]
-  },
-  "project": {
-    typeName: "ProjectRecord",
-    path: (item) => [`/kurser/${item.slug}`]
-  },
-  "research": {
-    typeName: "ResearchRecord",
-    path: (item) => [`/forskning/kunskapsbank`]
-  },
-  "research_about": {
-    typeName: "ResearchAboutRecord",
-    path: (item) => [`/forskning/om`]
-  },
-  "research_category": {
-    typeName: "ResearchCategoryRecord",
-    path: (item) => [`/forskning/kunskapsbank`]
-  },
-  "press": {
-    typeName: "PressRecord",
-    path: (item) => [`/aktuellt/press/${item.slug}`]
-  },
-  "news": {
-    typeName: "NewsRecord",
-    path: (item) => [`/aktuellt/aktuellt/${item.slug}`]
-  },
   "contact": {
     typeName: "ContactRecord",
     path: (item) => [`/kontakt`]
   },
-  "english": {
-    typeName: "EnglishRecord",
-    path: (item) => [`/english`]
-  },
-  "sound": {
-    typeName: "SoundRecord",
-    path: (item) => [`/`]
-  },
-  "support": {
-    typeName: "SupportRecord",
-    path: (item) => [`/`]
-  },
-  "presskit": {
-    typeName: "PresskitRecord",
-    path: (item) => [`/aktuellt/press`]
+  "news": {
+    typeName: "NewsRecord",
+    path: (item) => [`/aktuellt/${item.slug}`]
   },
 }
 

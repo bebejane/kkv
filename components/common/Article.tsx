@@ -22,6 +22,7 @@ export type ArticleProps = {
 	children?: React.ReactNode | React.ReactNode[];
 	edit?: {
 		id: string;
+		workshopId: string;
 		pathname: string;
 		status: string;
 	};
@@ -58,7 +59,14 @@ export default function Article({
 					<button className='medium-weight shortcut'>{link.text}</button>
 				</Link>
 			)}
-			{edit && <ArticleEditButtons id={edit.id} pathname={edit.pathname} status={edit.status} />}
+			{edit && (
+				<ArticleEditButtons
+					id={edit.id}
+					pathname={edit.pathname}
+					status={edit.status}
+					workshopId={edit.workshopId}
+				/>
+			)}
 		</article>
 	);
 }

@@ -59,7 +59,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 	};
 
 	useSaveKey(() => onSubmitForm(watch()));
-	console.log(isDirty);
+
 	return (
 		<form onSubmit={handleSubmit(onSubmitForm)} className={cn(s.form, submitting && s.submitting)}>
 			{error && <div className={s.formError}>{error}</div>}
@@ -154,7 +154,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 				)}
 
 				<Link
-					href={`/kurser/${course?.slug}`}
+					href={`/kurser/${course?.slug}/utkast`}
 					aria-disabled={!course?.id || submitting ? true : false}
 				>
 					<button type='button' disabled={!course?.id || submitting ? true : false}>
