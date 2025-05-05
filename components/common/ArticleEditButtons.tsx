@@ -21,7 +21,7 @@ export default function ArticleEditButtons({
 }: ArticleEditButtonsProps) {
 	const { data: session } = useSession();
 	const editable = id && session?.user?.id === workshopId && pathname;
-	const publishable = editable && status === 'updated';
+	const publishable = editable && status !== 'published';
 	const [publishing, setPublishing] = useState(false);
 	const [publishingError, setPublishingError] = useState<string | null>(null);
 

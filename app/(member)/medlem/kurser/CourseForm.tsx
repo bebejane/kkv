@@ -122,7 +122,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 				<button
 					type='button'
 					disabled={
-						publishing || submitting || isPending || !course?.id || course._status === 'published'
+						publishing || submitting || isPending || !course?.id || course?._status === 'published'
 					}
 					className={s.submitButton}
 					onClick={() => {
@@ -138,20 +138,18 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 				>
 					{publishing ? 'Publicerar...' : 'Publicera'}
 				</button>
-				{course?.id && (
-					<button
-						type='button'
-						disabled={isPending || submitting}
-						className={s.deleteButton}
-						onClick={() => {
-							if (confirm('Är du säker på att du vill radera kursen?')) {
-								startTransition(() => deleteCourse(course.id as string));
-							}
-						}}
-					>
-						{isPending && submitting ? 'Tar bort kurs...' : 'Ta bort'}
-					</button>
-				)}
+				<button
+					type='button'
+					disabled={!course?.id || isPending || submitting}
+					className={s.deleteButton}
+					onClick={() => {
+						if (confirm('Är du säker på att du vill radera kursen?')) {
+							startTransition(() => deleteCourse(course.id as string));
+						}
+					}}
+				>
+					{isPending && submitting ? 'Tar bort kurs...' : 'Ta bort'}
+				</button>
 
 				<Link
 					href={`/kurser/${course?.slug}/utkast`}
@@ -161,10 +159,6 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 						Visa
 					</button>
 				</Link>
-			</div>
-			<div>
-				<br />
-				Status: {course._status}
 			</div>
 		</form>
 	);
