@@ -108,6 +108,7 @@ export default function TipTapEditor({ initialValue = '', onChange }: TipTapEdit
 		onUpdate: ({ editor }) => {
 			onChange(editor.storage.markdown.getMarkdown()); // Pass HTML content up
 		},
+		immediatelyRender: false,
 		editorProps: {
 			attributes: {
 				class: s.editorInput, // Add class for styling the editable area

@@ -6,7 +6,7 @@ import { useState, useTransition } from 'react';
 import Link from 'next/link';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { deleteCourse } from '@/lib/actions/delete-course';
+import { deleteCourse, publishCourse } from '@/lib/actions';
 import { CourseSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import TipTapEditor from '@/components/form/TipTapEditor';
@@ -22,7 +22,8 @@ type CourseFormProps = {
 
 export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 	const [submitting, setSubmitting] = useState(false);
-	const [error, setError] = useState<string>();
+	const [publishing, setPublishing] = useState(false);
+	const [error, setError] = useState<string | null>(null);
 	const [isPending, startTransition] = useTransition();
 	const router = useRouter();
 
@@ -47,7 +48,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 	const onSubmitForm = async (data: FormData) => {
 		try {
 			setSubmitting(true);
-			setError(undefined);
+			setError(null);
 			await onSubmit(data);
 			router.refresh();
 		} catch (err) {
@@ -58,7 +59,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 	};
 
 	useSaveKey(() => onSubmitForm(watch()));
-
+	console.log(isDirty);
 	return (
 		<form onSubmit={handleSubmit(onSubmitForm)} className={cn(s.form, submitting && s.submitting)}>
 			{error && <div className={s.formError}>{error}</div>}
@@ -118,7 +119,25 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 				>
 					{submitting ? 'Sparar...' : 'Spara'}
 				</button>
-
+				<button
+					type='button'
+					disabled={
+						publishing || submitting || isPending || !course?.id || course._status === 'published'
+					}
+					className={s.submitButton}
+					onClick={() => {
+						if (!course?.id) return;
+						setPublishing(true);
+						setError(null);
+						startTransition(() => {
+							publishCourse(course.id as string)
+								.catch((e) => setError(e.message))
+								.finally(() => setPublishing(false));
+						});
+					}}
+				>
+					{publishing ? 'Publicerar...' : 'Publicera'}
+				</button>
 				{course?.id && (
 					<button
 						type='button'
@@ -130,7 +149,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 							}
 						}}
 					>
-						{isPending ? 'Tar bort kurs...' : 'Ta bort'}
+						{isPending && submitting ? 'Tar bort kurs...' : 'Ta bort'}
 					</button>
 				)}
 
@@ -142,6 +161,10 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 						Visa
 					</button>
 				</Link>
+			</div>
+			<div>
+				<br />
+				Status: {course._status}
 			</div>
 		</form>
 	);

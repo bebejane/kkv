@@ -9,6 +9,7 @@ export const CourseSchema = z.object({
     .min(2, { message: "Permalänk måste vara minst 2 bokstaver långt" })
     .regex(/^[a-z](-?[a-z])*$/, { message: "Permalänk får endast innehålla små bokstäver och bindestreck" }),
   open_to_all: z.boolean(),
+  _status: z.string().optional(),
 });
 
 export const WorkshopSchema = z.object({

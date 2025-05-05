@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Image } from 'react-datocms';
 import { Markdown } from 'next-dato-utils/components';
 import Content from './Content';
-import { useSession } from 'next-auth/react';
+import ArticleEditButtons from './ArticleEditButtons';
 
 export type ArticleProps = {
 	title?: string;
@@ -23,6 +23,7 @@ export type ArticleProps = {
 	edit?: {
 		id: string;
 		pathname: string;
+		status: string;
 	};
 };
 
@@ -37,8 +38,6 @@ export default function Article({
 	children,
 	edit,
 }: ArticleProps) {
-	const { data: session } = useSession();
-
 	return (
 		<article className={cn(s.article, className)}>
 			<header className={cn(!image && s.noImage)}>
@@ -59,11 +58,7 @@ export default function Article({
 					<button className='medium-weight shortcut'>{link.text}</button>
 				</Link>
 			)}
-			{edit?.id && session?.user?.id === edit.id && edit.pathname && (
-				<Link href={edit.pathname}>
-					<button className={s.edit}>Redigera</button>
-				</Link>
-			)}
+			{edit && <ArticleEditButtons id={edit.id} pathname={edit.pathname} status={edit.status} />}
 		</article>
 	);
 }

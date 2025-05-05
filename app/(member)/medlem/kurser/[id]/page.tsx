@@ -16,12 +16,13 @@ export default async function Course({ params }: CourseProps) {
 		variables: {
 			id: idParam,
 		},
+		includeDrafts: true,
 		apiToken: process.env.DATOCMS_API_TOKEN,
 	});
 
 	if (!course) return notFound();
 
-	const { id, title, slug, intro, text, date, openToAll } = course;
+	const { id, title, slug, intro, text, date, openToAll, _status } = course;
 
 	const courseData = {
 		id,
@@ -31,6 +32,7 @@ export default async function Course({ params }: CourseProps) {
 		text,
 		date,
 		open_to_all: openToAll,
+		_status,
 	};
 
 	return (

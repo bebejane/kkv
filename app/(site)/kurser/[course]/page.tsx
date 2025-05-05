@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import Article from '@/components/common/Article';
 import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
-import { useSession } from '@node_modules/next-auth/react';
 
 export type CourseProps = {
 	params: Promise<{ course: string }>;
@@ -16,11 +15,12 @@ export default async function CoursePage({ params }: CourseProps) {
 		variables: {
 			slug,
 		},
+		includeDrafts: true,
 	});
 
 	if (!course) return notFound();
 
-	const { id, workshop, title, intro, text, date, openToAll } = course;
+	const { id, workshop, title, intro, text, date, openToAll, _status } = course;
 
 	return (
 		<>
@@ -29,7 +29,11 @@ export default async function CoursePage({ params }: CourseProps) {
 				content={text}
 				intro={intro}
 				markdown={true}
-				edit={{ id: workshop?.id, pathname: `/medlem/kurser/${id}` }}
+				edit={{
+					id: workshop?.id,
+					pathname: `/medlem/kurser/${id}`,
+					status: _status,
+				}}
 			>
 				<section>
 					<p>
