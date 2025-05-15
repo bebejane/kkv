@@ -1,0 +1,18 @@
+.findworkshop {
+	display: flex;
+	flex-direction: row;
+
+	.find {
+		display: flex;
+		flex-direction: column;
+		flex: 0 0 30%;
+	}
+
+	.workshop {
+		background-color: var(--white);
+		padding: 1rem;
+	}
+	.map {
+		flex: 0 0 70%;
+	}
+}

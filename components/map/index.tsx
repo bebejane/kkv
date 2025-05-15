@@ -10,10 +10,12 @@ export default function SwedenMapWrapper({
 	items,
 	workshopId,
 	onHover,
+	onClick,
 }: {
 	items: MapMarker[];
 	workshopId: string | null;
 	onHover?: (id: string | null) => void;
+	onClick?: (id: string | null) => void;
 }) {
-	return <DynamicMap items={items} workshopId={workshopId} onHover={onHover} />;
+	return <DynamicMap items={items} workshopId={workshopId} onHover={onHover} onClick={onClick} />;
 }

@@ -18,6 +18,7 @@ interface SwedenMapProps {
 	items: MapMarker[];
 	workshopId: string | null;
 	onHover?: (id: string | null) => void;
+	onClick?: (id: string | null) => void;
 }
 
 const center: LatLngExpression = [62.0, 15.0];
@@ -27,7 +28,7 @@ const geoJsonStyle = () => ({
 	className: s.border,
 });
 
-const SwedenMap: React.FC<SwedenMapProps> = ({ items, workshopId, onHover }) => {
+const SwedenMap: React.FC<SwedenMapProps> = ({ items, workshopId, onHover, onClick }) => {
 	const [isClient, setIsClient] = useState(false);
 
 	useEffect(() => {
@@ -68,9 +69,10 @@ const SwedenMap: React.FC<SwedenMapProps> = ({ items, workshopId, onHover }) => 
 					eventHandlers={{
 						mouseover: () => onHover?.(id),
 						mouseout: () => onHover?.(null),
+						click: () => onClick?.(id),
 					}}
 				>
-					<Popup className={s.popup}>{label}</Popup>
+					{!onClick && <Popup className={s.popup}>{label}</Popup>}
 				</Marker>
 			))}
 		</MapContainer>

@@ -22,11 +22,11 @@ export default async function KnowledgeBasePage({ params }: KnowledgeBaseProps) 
 
 	if (!knowledgeBase) return notFound();
 
-	const { id, title, image, content } = knowledgeBase;
+	const { id, title, image, content, intro } = knowledgeBase;
 
 	return (
 		<>
-			<Article title={title} content={content} image={image as FileField} />
+			<Article title={title} intro={intro} content={content} image={image as FileField} />
 			<DraftMode url={draftUrl} path={`/kunskapsbank/${slug}`} />
 		</>
 	);

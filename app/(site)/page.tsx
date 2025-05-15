@@ -5,11 +5,16 @@ import { DraftMode } from 'next-dato-utils/components';
 import IntroStart from '@/components/start/IntroStart';
 import Map from '@/components/start/Map';
 import { notFound } from 'next/navigation';
+import Content from '@/components/common/Content';
+import FindWorkshop from '@/components/start/FindWorkshop';
+import ThumbnailContainer from '@/components/common/ThumbnailContainer';
+import Thumbnail from '@/components/common/Thumbnail';
 
 export default async function Home() {
-	const { start, allWorkshops, draftUrl } = await apiQuery<StartQuery, StartQueryVariables>(
-		StartDocument
-	);
+	const { start, allWorkshops, allCourses, allKnowledgeBases, draftUrl } = await apiQuery<
+		StartQuery,
+		StartQueryVariables
+	>(StartDocument);
 
 	if (!start) return notFound();
 
@@ -17,6 +22,33 @@ export default async function Home() {
 		<>
 			<div className={s.page}>
 				<IntroStart images={start.images as FileField[]} />
+				<div className={s.intro}>
+					<Content content={start.intro} />
+				</div>
+				<FindWorkshop workshops={allWorkshops} text={start.findWorkshop} />
+				<ThumbnailContainer header={{ title: 'Kurser för medlemmar', href: '/kurser' }}>
+					{allCourses.map(({ id, title, intro, slug }) => (
+						<Thumbnail
+							key={id}
+							title={title}
+							text={intro}
+							markdown={true}
+							href={`/kurser/${slug}`}
+						/>
+					))}
+				</ThumbnailContainer>
+				<ThumbnailContainer header={{ title: 'Kunskapsbank', href: '/kunskapsbank' }}>
+					{allKnowledgeBases.map(({ id, title, slug, image, intro }) => (
+						<Thumbnail
+							key={id}
+							title={title}
+							text={intro}
+							image={image as FileField}
+							markdown={false}
+							href={`/kunskapsbank/${slug}`}
+						/>
+					))}
+				</ThumbnailContainer>
 			</div>
 			<DraftMode url={draftUrl} path={`/`} />
 		</>

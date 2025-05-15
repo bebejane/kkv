@@ -27,12 +27,12 @@ export default async function WorkshopsPage({ searchParams }) {
 		<>
 			<Article title={'Kunskapsbank'} intro={knowledgebaseStart?.intro} className={s.workshops}>
 				<ThumbnailContainer>
-					{allKnowledgeBases.map(({ id, title, content, slug, image }) => (
+					{allKnowledgeBases.map(({ id, title, intro, slug, image }) => (
 						<Thumbnail
 							key={id}
 							title={title}
 							href={`/kunskapsbank/${slug}`}
-							text={content}
+							text={intro}
 							image={image as FileField}
 						/>
 					))}

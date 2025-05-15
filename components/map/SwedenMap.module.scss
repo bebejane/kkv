@@ -1,7 +1,7 @@
 .container {
-  height: 80%;
-  width: 100%;
-  background-color: transparent
+	height: 80vh;
+	width: 100%;
+	background-color: transparent;
 }
 
 /* Ensure Leaflet's CSS is loaded */
@@ -9,30 +9,30 @@
 
 /* Minimal styling for the map tiles */
 .mapContainer :global(.leaflet-tile-pane) {
-  /* Optionally hide default map tiles if only showing GeoJSON border */
-  /* opacity: 0; */
+	/* Optionally hide default map tiles if only showing GeoJSON border */
+	/* opacity: 0; */
 }
 
 /* Style for the country border */
 .border {
-  fill: #f5f5f5;
-  stroke: #000;
-  stroke-width: 2px;
-  fill-opacity: 0.8;
-  stroke-opacity: 1;
+	fill: #f5f5f5;
+	stroke: #000;
+	stroke-width: 2px;
+	fill-opacity: 0.8;
+	stroke-opacity: 1;
 }
 
 /* Style for the pins/markers */
 .mapContainer :global(.leaflet-marker-icon) {
-  /* Add custom marker styles if needed */
-  /* background-color: red; */
-  /* border-radius: 50%; */
+	/* Add custom marker styles if needed */
+	/* background-color: red; */
+	/* border-radius: 50%; */
 }
 
 .popup {
-  border-radius: 0px;
+	border-radius: 0px;
 
-  div {
-    border-radius: 2px !important;
-  }
+	div {
+		border-radius: 2px !important;
+	}
 }
