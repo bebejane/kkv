@@ -1,0 +1,42 @@
+.thumbnail {
+	display: flex;
+	flex-direction: column;
+	flex: 0 0 50%;
+	background-color: var(--white);
+	margin-bottom: var(--gutter);
+	margin-left: calc(-1 * var(--gutter));
+
+	&:nth-child(odd) {
+		margin-right: calc(2 * var(--gutter));
+	}
+	@include mq($until: desktop) {
+		flex: 0 0 100%;
+		margin-right: 0;
+		margin-left: 0;
+	}
+	.wrap {
+		padding: var(--gutter);
+
+		h3 {
+		}
+
+		.image {
+			height: 30vh;
+			object-fit: cover;
+			aspect-ratio: 4/3;
+		}
+
+		.text {
+		}
+		.meta {
+			list-style: none;
+			display: flex;
+			flex-direction: column;
+			li {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+			}
+		}
+	}
+}

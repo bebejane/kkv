@@ -55,6 +55,8 @@ const SwedenMap: React.FC<SwedenMapProps> = ({ items, workshopId, onHover }) => 
 			attributionControl={false}
 			zoomControl={false}
 			zoomSnap={0.5}
+			maxZoom={4.5}
+			minZoom={4.5}
 			maxBounds={maxBounds}
 		>
 			<GeoJSON data={swedenGeoJson as GeoJSON.FeatureCollection} style={geoJsonStyle} />

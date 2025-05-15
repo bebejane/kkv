@@ -1,5 +1,22 @@
 query Start {
+	start {
+		intro {
+			blocks
+			links
+			value
+		}
+		images {
+			...ImageFragment
+		}
+	}
+
 	allWorkshops(first: 100, skip: 0) {
 		...WorkshopLightFragment
+	}
+	allCourses(first: 2, skip: 0) {
+		...CourseLightFragment
+	}
+	allKnowledgeBases(first: 2, skip: 0) {
+		...KnowledgeBaseLightFragment
 	}
 }

@@ -1,0 +1,77 @@
+.intro {
+	--height: calc(100vh - var(--navbar-height));
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	width: calc(100% + var(--outer-margin) * 2);
+	height: var(--height);
+	margin-left: calc(-1 * var(--outer-margin));
+	margin-right: calc(-1 * var(--outer-margin));
+
+	.images {
+		display: flex;
+		position: relative;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+
+		@include mq($until: desktop) {
+			max-width: 100vw;
+			min-width: 100vw;
+		}
+
+		.slide {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			height: var(--height);
+			cursor: pointer;
+
+			.image {
+				position: relative;
+				margin: 0;
+				object-fit: cover;
+				min-height: var(--height);
+			}
+		}
+	}
+	.logo {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		z-index: 2;
+
+		img {
+			width: 60%;
+			clip-path: inset(0 0 0 0);
+		}
+		h2 {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			color: var(--white);
+			text-transform: uppercase;
+			white-space: pre;
+			font-size: 0.9rem;
+			width: 60%;
+			font-weight: normal;
+
+			span {
+				transition: opacity 0.3s ease-out;
+				&.hide {
+					opacity: 0;
+				}
+			}
+		}
+	}
+}

@@ -114,6 +114,7 @@ declare module '*/knowledge-base.gql' {
 export const AllKnowledgeBases: DocumentNode;
 export const KnowledgeBase: DocumentNode;
 export const KnowledgeBaseFragment: DocumentNode;
+export const KnowledgeBaseLightFragment: DocumentNode;
 
   export default defaultDocument;
 }

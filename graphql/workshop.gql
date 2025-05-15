@@ -74,8 +74,9 @@ fragment WorkshopFragment on WorkshopRecord {
 fragment WorkshopLightFragment on WorkshopRecord {
 	id
 	name
+	description
 	image {
-		...ImageFragment
+		...ImageThumbnailFragment
 	}
 	coordinates {
 		latitude
@@ -89,6 +90,10 @@ fragment WorkshopLightFragment on WorkshopRecord {
 			longitude
 		}
 	}
+	postalCode
+	email
+	website
+	phone
 	gear {
 		...WorkshopGearFragment
 	}

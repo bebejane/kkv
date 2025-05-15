@@ -9,7 +9,6 @@ import { buildMenu } from '../lib/menu';
 import Navbar from '../components/nav/Navbar';
 import NavbarMobile from '../components/nav/NavbarMobile';
 import { Suspense } from 'react';
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 
@@ -28,9 +27,7 @@ export default async function RootLayout({ children }: LayoutProps) {
 					<Suspense fallback={null}>
 						<Navbar menu={menu} session={session} />
 						<NavbarMobile menu={menu} session={session} />
-						<main className={s.main}>
-							<NuqsAdapter>{children}</NuqsAdapter>
-						</main>
+						<main className={s.main}>{children}</main>
 						<Navbar menu={menu} session={session} bottom={true} />
 					</Suspense>
 				</body>

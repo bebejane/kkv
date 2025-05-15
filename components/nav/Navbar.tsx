@@ -4,11 +4,12 @@ import s from './Navbar.module.scss';
 import cn from 'classnames';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { CSSProperties, useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Menu } from '@/lib/menu';
 
 import { Session } from 'next-auth';
 import { useWindowSize } from 'rooks';
+import { useScrollInfo } from 'next-dato-utils/hooks';
 export type NavbarProps = {
 	menu: Menu;
 	session: Session;
@@ -22,9 +23,21 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 	const [selected, setSelected] = useState<string | null>(null);
 	const [subStyle, setSubStyle] = useState<CSSProperties | null>();
 	const { innerHeight, innerWidth } = useWindowSize();
+	const { scrolledPosition, viewportHeight } = useScrollInfo();
+	const logoRef = useRef<HTMLImageElement>(null);
 	const parent = menu.find(({ id }) => id === selected);
 	const sub = parent?.sub;
 	const member = menu.find(({ id }) => id === 'member');
+
+	useEffect(() => {
+		if (!logoRef.current) return;
+		if (pathname !== '/') {
+			logoRef.current.style.clipPath = `inset(0 0 0 0)`;
+			return;
+		}
+		const ratio = 1 - Math.max(0, Math.min(1, (scrolledPosition / viewportHeight) * 4));
+		logoRef.current.style.clipPath = `inset(${ratio * 100}% 0 0 0)`;
+	}, [pathname, scrolledPosition, viewportHeight]);
 
 	menu = menu.map((item) => {
 		if (item.id === 'member') {
@@ -62,7 +75,7 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 				<figure className={s.logo}>
 					{!bottom && (
 						<Link href={'/'}>
-							<img src='/images/logo.svg' alt='Logo' />
+							<img src='/images/logo.svg' alt='Logo' ref={logoRef} />
 						</Link>
 					)}
 				</figure>

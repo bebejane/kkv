@@ -10,7 +10,7 @@ query KnowledgeBaseStart {
 
 query AllKnowledgeBases($first: IntType = 100, $skip: IntType = 0) {
 	allKnowledgeBases(first: $first, skip: $skip) {
-		...KnowledgeBaseFragment
+		...KnowledgeBaseLightFragment
 	}
 	_allKnowledgeBasesMeta {
 		count
@@ -33,6 +33,20 @@ fragment KnowledgeBaseFragment on KnowledgeBaseRecord {
 	}
 	image {
 		...ImageFragment
+	}
+	slug
+}
+
+fragment KnowledgeBaseLightFragment on KnowledgeBaseRecord {
+	id
+	title
+	content {
+		blocks
+		links
+		value
+	}
+	image {
+		...ImageThumbnailFragment
 	}
 	slug
 }

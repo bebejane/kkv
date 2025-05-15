@@ -1,6 +1,20 @@
 import { DatoCmsConfig } from 'next-dato-utils/config';
 import client from './lib/client';
 
+const routes: DatoCmsConfig['routes'] = {
+  "about": async ({ slug }) => [`/om/${slug}`],
+  "city": async ({ id }) => ['/verkstader', ...await references(id)],
+  "contact": async () => ['/kontakt'],
+  "course": async ({ slug }) => [`/kurser/${slug}`, '/kurser'],
+  "courses_start": async () => ['/kurser'],
+  "knowledge_base": async ({ slug }) => [`/kunskapsbank/${slug}`, '/kunskapsbank'],
+  "knowledgebase_start": async () => ['/kunskapsbank'],
+  "start": async () => ['/'],
+  "workshop": async ({ slug }) => [`/verkstader/${slug}`, '/verkstader'],
+  "workshop_gear": async ({ id }) => ['/verkstader', ...await references(id)],
+  "workshops_start": async () => ['/verkstader'],
+}
+
 export default {
   description: 'Kollektiva konstnärsverkstäders Riksorganisation, KKV-Riks, har som syfte att, på olika sätt, stödja sina kollektiva medlemsverkstäder runt om i Sverige.',
   name: 'KKV-Riks',
@@ -12,34 +26,24 @@ export default {
     background: '#efefef',
     color: '#cd3a00',
   },
+  routes,
   sitemap: async () => {
     return []
-  },
-  routes: {
-    "about": async ({ slug }) => [`/om/${slug}`],
-    "city": async () => ['/verkstader'],
-    "contact": async () => ['/kontakt'],
-    "course": async ({ slug }) => [`/kurser/${slug}`, '/kurser'],
-    "courses_start": async () => ['/kurser'],
-    "knowledge_base": async ({ slug }) => [`/kunskapsbank/${slug}`, '/kunskapsbank'],
-    "knowledgebase_start": async () => ['/kunskapsbank'],
-    "start": async () => ['/'],
-    "workshop": async ({ slug }) => [`/verkstader/${slug}`, '/verkstader'],
-    "workshop_gear": async () => ['/verkstader'],
-    "workshops_start": async () => ['/verkstader'],
   }
 } satisfies DatoCmsConfig
 
-async function productReferences(itemId: string): Promise<string[]> {
+async function references(itemId: string): Promise<string[]> {
   if (!itemId) throw new Error('Missing reference: itemId')
   const paths: string[] = []
-  const products = await client.items.references(itemId, { version: 'published', limit: 500 })
-  if (products.length) {
-    paths.push(`/products`)
-    paths.push(`/professionals/downloads`)
-    paths.push(`/support/manuals`)
-    paths.push(`/`)
-    paths.push.apply(paths, products.map(product => `/products/${product.slug}`))
+  const itemTypes = await client.itemTypes.list()
+  const items = await client.items.references(itemId, { version: 'published', limit: 500, nested: true })
+
+  for (const item of items) {
+    const itemType = itemTypes.find(({ id }) => id === item.item_type.id)
+    if (!itemType) continue
+    const p = await routes[itemType.api_key]?.(item)
+    p && paths.push.apply(paths, p)
   }
+  console.log('refs', paths)
   return paths
 }
