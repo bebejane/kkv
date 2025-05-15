@@ -3,7 +3,7 @@ import { CourseDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 import { updateCourse } from '@/lib/actions/update-course';
 import CourseForm from '../CourseForm';
-import notFound from '@app/not-found';
+import { notFound } from 'next/navigation';
 
 export type CourseProps = {
 	params: Promise<{ id: string }>;

@@ -5,7 +5,7 @@ import { CourseSchema } from '../schemas';
 import client from '@/lib/client';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { buildRoute } from '@lib/routes';
+import { buildRoute } from '@/lib/routes';
 
 export async function createCourse(formData: FormData) {
   const session = await getSession();

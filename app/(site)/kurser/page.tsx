@@ -1,15 +1,12 @@
-import { apiQuery } from 'next-dato-utils/api';
-import { AllCoursesDocument } from '@/graphql';
 import s from './page.module.scss';
+import { apiQuery } from 'next-dato-utils/api';
+import { AllCoursesDocument, CoursesStartDocument } from '@/graphql';
 import Link from 'next/link';
-import { Image } from 'react-datocms';
-import Content from '@/components/common/Content';
-import FilterBar from '@/components/common/FilterBar';
 import { parseAsString } from 'nuqs/server';
 import { DraftMode } from 'next-dato-utils/components';
-import classNames from 'classnames';
 import { Metadata } from 'next';
-import Article from '@components/common/Article';
+import Article from '@/components/common/Article';
+import { notFound } from 'next/navigation';
 
 const filterParser = parseAsString.withDefault('all');
 
@@ -20,30 +17,25 @@ export default async function CoursesPage({ searchParams }) {
 		{ all: true, tags: ['course'] }
 	);
 
-	const courses = allCourses;
+	const { coursesStart } = await apiQuery<CoursesStartQuery, CoursesStartQueryVariables>(
+		CoursesStartDocument,
+		{
+			tags: ['courses_start'],
+		}
+	);
+
+	if (!coursesStart) return notFound();
 
 	return (
 		<>
-			<Article title={'Kurser'}>
-				<div className={s.filter}>
-					<FilterBar
-						href='/kurser'
-						value={filter}
-						options={[
-							{ id: 'all', label: 'Alla' },
-							{ id: 'active', label: 'Pågående' },
-							{ id: 'finished', label: 'Avslutade' },
-						]}
-					/>
-				</div>
-
-				{!courses?.length && (
+			<Article title={'Kurser'} intro={coursesStart?.intro}>
+				{!allCourses?.length && (
 					<p className={s.empty}>
 						Det finns inga {filter === 'finished' ? 'avslutade' : 'pågående'} kurser för närvarande.
 					</p>
 				)}
 				<ul>
-					{courses.map(({ id, title, slug }) => (
+					{allCourses.map(({ id, title, slug }) => (
 						<li key={id}>
 							<Link href={`/kurser/${slug}`}>
 								<figure>

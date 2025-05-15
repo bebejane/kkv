@@ -1,8 +1,8 @@
 'use client';
 
 import s from './Map.module.scss';
-import SwedenMap from '@components/map';
-import { MapMarker } from '@components/map/SwedenMap';
+import SwedenMap from '@/components/map';
+import { MapMarker } from '@/components/map/SwedenMap';
 import Link from 'next/link';
 import { useState } from 'react';
 

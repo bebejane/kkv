@@ -4,7 +4,6 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbo & npm run codegen",
-		"dev:https": "next dev --turbo --experimental-https & npm run codegen",
 		"build": "next build",
 		"build:turbo": "next build --turbopack",
 		"clear": "rm -rf ./node_modules && rm -rf .next && pnpm i",
@@ -39,7 +38,7 @@
 		"hamburger-react": "^2.5.2",
 		"is-integer": "^1.0.7",
 		"leaflet": "^1.9.4",
-		"next": "15.3.0",
+		"next": "15.3.2",
 		"next-auth": "4.24.11",
 		"next-dato-utils": "github:bebejane/next-dato-utils#next15",
 		"next-seo": "^5.15.0",

@@ -1,0 +1,38 @@
+query KnowledgeBaseStart {
+	knowledgebaseStart {
+		intro {
+			blocks
+			links
+			value
+		}
+	}
+}
+
+query AllKnowledgeBases($first: IntType = 100, $skip: IntType = 0) {
+	allKnowledgeBases(first: $first, skip: $skip) {
+		...KnowledgeBaseFragment
+	}
+	_allKnowledgeBasesMeta {
+		count
+	}
+}
+
+query KnowledgeBase($slug: String!) {
+	knowledgeBase(filter: { slug: { eq: $slug } }) {
+		...KnowledgeBaseFragment
+	}
+}
+
+fragment KnowledgeBaseFragment on KnowledgeBaseRecord {
+	id
+	title
+	content {
+		blocks
+		links
+		value
+	}
+	image {
+		...ImageFragment
+	}
+	slug
+}

@@ -4,7 +4,7 @@ import { getSession } from '@/lib/auth';
 import client from '@/lib/client';
 import { revalidatePath } from 'next/cache';
 import { sleep } from 'next-dato-utils/utils';
-import { buildRoute } from '@lib/routes';
+import { buildRoute } from '@/lib/routes';
 
 export async function publishCourse(id: string) {
   await getSession();

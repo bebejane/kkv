@@ -26,13 +26,4 @@ query Sitemap($first: IntType = 100, $skip: IntType = 0) {
 	_allCoursesMeta {
 		count
 	}
-	allNews(first: $first, skip: $skip) {
-		id
-		slug
-		title
-		_publishedAt
-	}
-	_allNewsMeta {
-		count
-	}
 }

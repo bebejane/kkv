@@ -23,7 +23,7 @@
       }
     ],
     "paths": {
-      "@*": [
+      "@/*": [
         "./*"
       ]
     },
@@ -31,14 +31,14 @@
     "strictNullChecks": false
   },
   "typeRoots": [
-    "./@types"
+    "./types"
   ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "@types/next-auth.d.ts"
+    "types/next-auth.d.ts"
   ],
   "exclude": [
     "node_modules"

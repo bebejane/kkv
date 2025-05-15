@@ -23,7 +23,8 @@ export const ContactFragment: DocumentNode;
 declare module '*/course.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const AllCourses: DocumentNode;
+  export const CoursesStart: DocumentNode;
+export const AllCourses: DocumentNode;
 export const AllCoursesByWorkshop: DocumentNode;
 export const Course: DocumentNode;
 export const CourseById: DocumentNode;
@@ -106,22 +107,22 @@ declare module '*/global.gql' {
 }
     
 
-declare module '*/menu.gql' {
+declare module '*/knowledge-base.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const Menu: DocumentNode;
+  export const KnowledgeBaseStart: DocumentNode;
+export const AllKnowledgeBases: DocumentNode;
+export const KnowledgeBase: DocumentNode;
+export const KnowledgeBaseFragment: DocumentNode;
 
   export default defaultDocument;
 }
     
 
-declare module '*/news.gql' {
+declare module '*/menu.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const AllNews: DocumentNode;
-export const News: DocumentNode;
-export const NewsFragment: DocumentNode;
-export const NewsLightFragment: DocumentNode;
+  export const Menu: DocumentNode;
 
   export default defaultDocument;
 }
@@ -157,7 +158,8 @@ declare module '*/start.gql' {
 declare module '*/workshop.gql' {
   import { DocumentNode } from 'graphql';
   const defaultDocument: DocumentNode;
-  export const AllWorkshops: DocumentNode;
+  export const WorkshopsStart: DocumentNode;
+export const AllWorkshops: DocumentNode;
 export const Workshop: DocumentNode;
 export const AllWorkshopGear: DocumentNode;
 export const WorkshopGearFragment: DocumentNode;

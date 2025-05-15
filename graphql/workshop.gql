@@ -1,3 +1,13 @@
+query WorkshopsStart {
+	workshopsStart {
+		intro {
+			blocks
+			links
+			value
+		}
+	}
+}
+
 query AllWorkshops($first: IntType = 100, $skip: IntType = 0) {
 	allWorkshops(first: $first, skip: $skip, orderBy: [_firstPublishedAt_DESC]) {
 		...WorkshopLightFragment
@@ -45,14 +55,22 @@ fragment WorkshopFragment on WorkshopRecord {
 		longitude
 	}
 	address
-	city
+	city {
+		title
+		coordinates {
+			latitude
+			longitude
+		}
+	}
 	postalCode
 	password
 	gear {
 		...WorkshopGearFragment
 	}
 	slug
+	_status
 }
+
 fragment WorkshopLightFragment on WorkshopRecord {
 	id
 	name
@@ -64,9 +82,16 @@ fragment WorkshopLightFragment on WorkshopRecord {
 		longitude
 	}
 	address
-	city
+	city {
+		title
+		coordinates {
+			latitude
+			longitude
+		}
+	}
 	gear {
 		...WorkshopGearFragment
 	}
 	slug
+	_status
 }

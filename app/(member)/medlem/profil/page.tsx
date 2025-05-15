@@ -3,7 +3,7 @@ import { WorkshopDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 import { updateWorkshop } from '@/lib/actions/update-workshop';
 import WorkshopForm from './WorkshopForm';
-import notFound from '@app/not-found';
+import { notFound } from 'next/navigation';
 
 export type WorkshopProps = {
 	params: Promise<{ slug: string }>;

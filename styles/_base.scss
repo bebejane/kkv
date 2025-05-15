@@ -1,14 +1,13 @@
-@use "fonts";
-@use "mediaqueries";
+@use 'fonts';
+@use 'mediaqueries';
 
 :root {
-	--black: #1e1e1e;
-	--white: #fffff6;
-	--red: #bf0000;
+	--black: #000000;
+	--white: #fafafa;
+	--gray: #efefef;
+	--red: #cd3a00;
 	--darkred: #b70909;
-	--darkred-light: #aba7d1;
-	--graylight: #f8f8f8;
-	--background: var(--white);
+	--background: var(--gray);
 	--foreground: var(--black);
 
 	--outer-margin: 2rem;
@@ -40,10 +39,10 @@
 	--gradient: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.6));
 	--gradient-light: linear-gradient(0deg, transparent, #ffffe487);
 
-	--body-font: "OceanicText", Times, Serif;
-	--headline-font: "BuzzBlack", Arial, Helvetica, Sans-Serif;
-	--label-font: "Jazz-Medium", Arial, Sans-serif;
-	--sans-font: "Jazz", Arial, Sans-serif;
+	--body-font: 'OceanicText', Times, Serif;
+	--headline-font: 'BuzzBlack', Arial, Helvetica, Sans-Serif;
+	--label-font: 'Jazz-Medium', Arial, Sans-serif;
+	--sans-font: 'Jazz', Arial, Sans-serif;
 
 	@include mq($until: desktop) {
 		--outer-margin: 1.5rem;
@@ -61,7 +60,7 @@ body {
 	background-color: var(--background);
 	font-family: var(--body-font);
 	-webkit-font-smoothing: antialiased;
-	font-feature-settings: "liga", "kern";
+	font-feature-settings: 'liga', 'kern';
 	padding-top: var(--navbar-height);
 }
 
@@ -74,7 +73,6 @@ main {
 	padding-left: var(--outer-margin);
 	padding-right: var(--outer-margin);
 	min-height: 100vh;
-
 }
 
 article {
@@ -117,7 +115,7 @@ a {
 	color: var(--foreground);
 	transition: var(--color-transtion);
 
-	&:has(>button) {
+	&:has(> button) {
 		text-decoration: none !important;
 	}
 }
@@ -126,9 +124,9 @@ button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: var(--darkred);
+	color: var(--black);
 	background-color: var(--white);
-	border: 1px solid var(--darkred);
+	border: 1px solid var(--black);
 	padding: 1em;
 	padding-left: 1.5em;
 	padding-right: 1.5em;
@@ -139,9 +137,9 @@ button {
 	text-decoration: none !important;
 	font-size: 0.7rem;
 
-	&[aria-selected="true"] {
+	&[aria-selected='true'] {
 		color: var(--white);
-		background-color: var(--darkred);
+		background-color: var(--black);
 	}
 
 	&[disabled] {
@@ -150,16 +148,18 @@ button {
 	}
 
 	&:hover:not([disabled]) {
-		background-color: var(--darkred);
+		background-color: var(--black);
 		color: var(--white);
 	}
 }
 
-hr {}
+hr {
+}
 
 input,
 textarea,
-select {}
+select {
+}
 
 select {
 	-webkit-appearance: none;

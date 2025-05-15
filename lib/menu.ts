@@ -1,5 +1,5 @@
 import { apiQuery } from 'next-dato-utils/api';
-import { MenuDocument } from '@graphql';
+import { MenuDocument } from '@/graphql';
 
 export type MenuItem = {
   id: string,
@@ -9,6 +9,8 @@ export type MenuItem = {
   sub?: MenuItem[],
   hideInDesktop?: boolean,
   hideSub?: boolean
+  position?: 'left' | 'right'
+
 }
 
 export type Menu = MenuItem[]
@@ -27,53 +29,40 @@ export const buildMenu = async (): Promise<Menu> => {
     id: 'about',
     title: 'Om',
     slug: '/om',
+    position: 'left',
     sub: allAbouts.map(({ id, slug, title }) => ({
       id,
       title,
       slug: `/om/${slug}`,
     })),
   }, {
-    id: 'news',
-    title: 'Aktuellt',
-    slug: '/aktuellt',
-  }, {
     id: 'workshops',
     title: 'Verkstäder',
     slug: '/verkstader',
+    position: 'left',
     hideSub: true,
   }, {
     id: 'courses',
     title: 'Kurser',
     slug: '/kurser',
-    hideSub: true,
-    sub: [
-      {
-        id: 'all',
-        title: 'Alla',
-        slug: `/kurser`,
-        hideInDesktop: true,
-      },
-      {
-        id: 'active',
-        title: 'Pågående',
-        slug: `/kurser?filter=active`,
-      }, {
-        id: 'finished',
-        title: 'Avslutade',
-        slug: `/kurser?filter=finished`,
-      }],
-  }, {
+    position: 'left',
+  },
+  {
+    id: 'knowledge-base',
+    title: 'Kunskapsbank',
+    slug: '/kunskapsbank',
+    position: 'left',
+  },
+  {
     id: 'contact',
     title: 'Kontakt',
     slug: '/kontakt',
-    sub: [
-      { id: 'contact-us', title: 'Kontakta oss', slug: '/kontakt' },
-      { id: 'instagram', title: 'Instagram', href: 'https://www.instagram.com/pointofyou.se' },
-    ]
+    position: 'right'
   }, {
     id: 'member',
-    title: 'Medlem',
-    slug: '/logga-in',
+    title: 'Logga in',
+    slug: '/medlem',
+    position: 'right',
     sub: [
       { id: 'member-courses', title: 'Kurser', slug: '/medlem' },
       { id: 'member-profile', title: 'Profil', slug: '/medlem/profil' },

@@ -11,7 +11,7 @@ import { CourseSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import TipTapEditor from '@/components/form/TipTapEditor';
 import { useRouter } from 'next/navigation';
-import useSaveKey from '@lib/hooks/useSaveKey';
+import useSaveKey from '@/lib/hooks/useSaveKey';
 
 type FormData = z.infer<typeof CourseSchema>;
 

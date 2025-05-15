@@ -7,12 +7,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { WorkshopSchema } from '@/lib/schemas';
 import type { z } from 'zod';
-import Link from '@node_modules/next/link';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import useSaveKey from '@lib/hooks/useSaveKey';
-import TipTapEditor from '@components/form/TipTapEditor';
-import FileUpload from '@components/form/FileUpload';
-import MultiSelect from '@components/form/MultiSelect';
+import useSaveKey from '@/lib/hooks/useSaveKey';
+import TipTapEditor from '@/components/form/TipTapEditor';
+import FileUpload from '@/components/form/FileUpload';
+import MultiSelect from '@/components/form/MultiSelect';
 
 type FormData = z.infer<typeof WorkshopSchema>;
 
@@ -46,7 +46,6 @@ export default function WorkshopForm({
 			id: data?.id || '',
 			slug: data?.slug || '',
 			address: data?.address || '',
-			city: data?.city || '',
 			postal_code: data?.postal_code || '',
 			website: data?.website || '',
 			description: data?.description || '',
@@ -89,12 +88,6 @@ export default function WorkshopForm({
 				<label htmlFor='postal_code'>Postnummer</label>
 				<input type='text' id='postal_code' {...register('postal_code')} />
 				{errors.postal_code && <p className={s.error}>{errors.postal_code.message}</p>}
-			</div>
-
-			<div className={s.field}>
-				<label htmlFor='city'>Stad</label>
-				<input type='text' id='city' {...register('city')} />
-				{errors.city && <p className={s.error}>{errors.city.message}</p>}
 			</div>
 
 			<div className={s.field}>

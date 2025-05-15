@@ -1,7 +1,7 @@
-import '@styles/index.scss';
+import '@/styles/index.scss';
 import s from './layout.module.scss';
 import { apiQuery } from 'next-dato-utils/api';
-import { GlobalDocument } from '@graphql';
+import { GlobalDocument } from '@/graphql';
 import { Metadata } from 'next';
 import { Icon } from 'next/dist/lib/metadata/types/metadata-types';
 import Footer from '../components/nav/Footer';
@@ -31,7 +31,7 @@ export default async function RootLayout({ children }: LayoutProps) {
 						<main className={s.main}>
 							<NuqsAdapter>{children}</NuqsAdapter>
 						</main>
-						<Footer menu={menu} />
+						<Navbar menu={menu} session={session} bottom={true} />
 					</Suspense>
 				</body>
 			</html>
@@ -39,7 +39,7 @@ export default async function RootLayout({ children }: LayoutProps) {
 	);
 }
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
 	const {
 		site: { globalSeo, faviconMetaTags },
 	} = await apiQuery<GlobalQuery, GlobalQueryVariables>(GlobalDocument, {

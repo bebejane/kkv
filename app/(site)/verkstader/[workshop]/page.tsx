@@ -22,7 +22,7 @@ export default async function WorkshopPage({ params }: WorkshopProps) {
 
 	if (!workshop) return notFound();
 
-	const { id, name, email, image, address, city, postalCode, coordinates, description, gear } =
+	const { id, name, email, image, address, city, postalCode, description, gear, _status } =
 		workshop;
 
 	return (
@@ -32,24 +32,33 @@ export default async function WorkshopPage({ params }: WorkshopProps) {
 				content={description}
 				image={image as FileField}
 				markdown={true}
-				edit={{ id, pathname: `/medlem/profil` }}
+				edit={{
+					id,
+					pathname: `/medlem/profil`,
+					status: 'published',
+					workshopId: workshop?.id,
+				}}
 			>
 				<section>
 					<p>
 						{address}
 						<br />
 						<span>
-							{postalCode} {city}
+							{postalCode} {city.title}
 						</span>
 						<br />
 						<a href={`mailto:${email}`}>{email}</a>
 					</p>
-					<h3>Utrustning</h3>
-					<ul>
-						{gear.map((g) => (
-							<li key={g.id}>{g.title}</li>
-						))}
-					</ul>
+					{gear.length > 0 && (
+						<>
+							<h3>Utrustning</h3>
+							<ul>
+								{gear.map((g) => (
+									<li key={g.id}>{g.title}</li>
+								))}
+							</ul>
+						</>
+					)}
 				</section>
 			</Article>
 			<DraftMode url={draftUrl} path={`/verkstader/${slug}`} />
@@ -68,7 +77,7 @@ export async function generateStaticParams() {
 	return allWorkshops.map(({ slug: workshop }) => ({ workshop }));
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params }): Promise<Metadata> {
 	const { workshop: slug } = await params;
 	const { workshop } = await apiQuery<WorkshopQuery, WorkshopQueryVariables>(WorkshopDocument, {
 		variables: {

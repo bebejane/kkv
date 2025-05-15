@@ -2,7 +2,7 @@
 
 import { getSession } from '@/lib/auth';
 import client from '@/lib/client';
-import { buildRoute } from '@lib/routes';
+import { buildRoute } from '@/lib/routes';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
