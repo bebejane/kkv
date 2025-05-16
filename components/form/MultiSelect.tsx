@@ -45,12 +45,14 @@ export interface ColourOption {
 const colourStyles: StylesConfig<ColourOption, true> = {
 	control: (styles) => ({
 		...styles,
+		padding: 'var(--form-field-padding)',
 	}),
 	option: (styles, { data, isDisabled, isFocused, isSelected }) => {
 		return {
 			...styles,
-
-			color: 'var(--darkred)',
+			height: '2em',
+			color: 'var(--black)',
+			border: '0px solid var(--black)',
 			backgroundColor: isFocused ? 'var(--graylight)' : 'white',
 			':active': {
 				...styles[':active'],
@@ -61,10 +63,18 @@ const colourStyles: StylesConfig<ColourOption, true> = {
 			},
 		};
 	},
+	valueContainer: (styles) => ({
+		...styles,
+		padding: '0',
+	}),
+	placeholder: (styles) => ({
+		...styles,
+	}),
 	multiValue: (styles, { data }) => {
 		return {
 			...styles,
-			color: 'var(--darkred)',
+			color: 'var(--black)',
+			border: '1px solid var(--black)',
 			backgroundColor: 'var(--graylight)',
 		};
 	},
@@ -78,5 +88,13 @@ const colourStyles: StylesConfig<ColourOption, true> = {
 		':hover': {
 			backgroundColor: data.color,
 		},
+	}),
+	menu: (styles) => ({
+		...styles,
+		padding: 'var(--form-field-padding)',
+	}),
+	menuList: (styles) => ({
+		...styles,
+		border: '0px solid transparent !important',
 	}),
 };

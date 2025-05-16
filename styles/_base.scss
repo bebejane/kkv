@@ -17,6 +17,8 @@
 	--space-big: 2.5rem;
 	--space-small: 1rem;
 
+	--form-field-padding: 1em 1em 1em 1em;
+
 	--margin: calc(calc(2 * var(--grid-unit)) + calc(2 * var(--gutter)));
 	--full-margin: calc(-1 * var(--margin));
 	--full-bleed-margin: calc(calc(-1 * var(--margin)) - var(--outer-margin));
@@ -121,19 +123,29 @@ a {
 	}
 }
 
+form label {
+	display: inline-block;
+	font-weight: bold;
+	margin-top: 1.5em;
+	margin-bottom: 0.3em;
+}
+
 button {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	color: var(--black);
 	background-color: var(--white);
-	padding: 1em;
+	padding: var(--form-field-padding);
+	padding-left: 2.5em;
+	padding-right: 2.5em;
 	border-radius: 2rem;
 	border-color: transparent;
 	font-family: var(--label-font);
-	cursor: pointer;
 	text-decoration: none !important;
 	font-size: 0.7rem;
+	white-space: pre;
+	cursor: pointer;
 
 	&[aria-selected='true'],
 	&[data-selected='true'] {
@@ -142,6 +154,7 @@ button {
 	}
 	&[data-type='icon'] {
 		border-radius: 50% !important;
+		padding: 1em;
 	}
 	&[disabled] {
 		opacity: 0.5;
@@ -157,7 +170,42 @@ button {
 
 input,
 textarea,
-select {
+select,
+[contenteditable='true'] {
+	padding: var(--form-field-padding);
+	border: 1px solid transparent;
+	background-color: var(--white);
+
+	&:focus {
+		border: 1px solid var(--black);
+		outline: none;
+	}
+}
+
+input[type='checkbox'] {
+	box-sizing: border-box;
+	width: 1.2em;
+	height: 1.2em;
+	margin-bottom: 0em;
+	padding: 0;
+	border: 0px solid var(--black);
+	appearance: none;
+	outline: none;
+	transition: outline 0.1s;
+}
+
+input[type='checkbox'] + label {
+	display: inline-block;
+	margin-left: 0.5em;
+}
+
+input[type='checkbox']:checked {
+	background-size: cover;
+	padding: 2px;
+}
+
+input[type='checkbox']:checked {
+	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 32 32" xml:space="preserve"><path style="fill: %23274c77" d="M11.941,28.877l-11.941-11.942l5.695-5.696l6.246,6.246l14.364-14.364L32,8.818"/></svg>');
 }
 
 select {
@@ -169,6 +217,12 @@ select {
 	background-position-x: calc(100% - 1em);
 	background-position-y: center;
 	color: var(--black);
+}
+
+.form-error {
+	color: var(--red);
+	font-size: 0.8em;
+	margin-top: 0.5em;
 }
 
 .page-error {

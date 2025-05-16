@@ -47,6 +47,16 @@ export default function Article({
 				<header>
 					<h1>{title}</h1>
 					{headerContent && <div className={s.headerContent}>{headerContent}</div>}
+					{edit && (
+						<div className={s.headerContent}>
+							<ArticleEditButtons
+								id={edit.id}
+								pathname={edit.pathname}
+								status={edit.status}
+								workshopId={edit.workshopId}
+							/>
+						</div>
+					)}
 				</header>
 			)}
 			{intro && markdown && <Markdown content={intro} className={'intro'} />}
@@ -58,14 +68,6 @@ export default function Article({
 				<Link href={link.href}>
 					<button className='medium-weight shortcut'>{link.text}</button>
 				</Link>
-			)}
-			{edit && (
-				<ArticleEditButtons
-					id={edit.id}
-					pathname={edit.pathname}
-					status={edit.status}
-					workshopId={edit.workshopId}
-				/>
 			)}
 		</article>
 	);

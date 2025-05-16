@@ -13,6 +13,7 @@ import useSaveKey from '@/lib/hooks/useSaveKey';
 import TipTapEditor from '@/components/form/TipTapEditor';
 import FileUpload from '@/components/form/FileUpload';
 import MultiSelect from '@/components/form/MultiSelect';
+import { sortSwedish } from 'next-dato-utils/utils';
 
 type FormData = z.infer<typeof WorkshopSchema>;
 
@@ -74,26 +75,26 @@ export default function ProfileForm({
 			{error && <div className={s.formError}>{error}</div>}
 
 			<input type='hidden' id='id' {...register('id')} />
-			{errors.id && <p className={s.error}>{errors.id.message}</p>}
+			{errors.id && <p className='form-error'>{errors.id.message}</p>}
 			<input type='hidden' id='slug' {...register('slug')} />
-			{errors.slug && <p className={s.error}>{errors.slug.message}</p>}
+			{errors.slug && <p className='form-error'>{errors.slug.message}</p>}
 
 			<div className={s.field}>
 				<label htmlFor='address'>Adress</label>
 				<input type='text' id='address' {...register('address')} />
-				{errors.address && <p className={s.error}>{errors.address.message}</p>}
+				{errors.address && <p className='form-error'>{errors.address.message}</p>}
 			</div>
 
 			<div className={s.field}>
 				<label htmlFor='postal_code'>Postnummer</label>
 				<input type='text' id='postal_code' {...register('postal_code')} />
-				{errors.postal_code && <p className={s.error}>{errors.postal_code.message}</p>}
+				{errors.postal_code && <p className='form-error'>{errors.postal_code.message}</p>}
 			</div>
 
 			<div className={s.field}>
 				<label htmlFor='website'>Webbplats</label>
 				<input type='url' id='website' placeholder='https://...' {...register('website')} />
-				{errors.website && <p className={s.error}>{errors.website.message}</p>}
+				{errors.website && <p className='form-error'>{errors.website.message}</p>}
 			</div>
 
 			<div className={s.field}>
@@ -104,7 +105,10 @@ export default function ProfileForm({
 					render={({ field }) => (
 						<MultiSelect
 							value={field.value}
-							options={allWorkshopGears.map((g) => ({ value: g.id, label: g.title }))}
+							options={sortSwedish(allWorkshopGears, 'title').map((g) => ({
+								value: g.id,
+								label: g.title,
+							}))}
 							placeholder='Välj utrustning...'
 							onChange={(val) => {
 								console.log(val);
@@ -113,7 +117,7 @@ export default function ProfileForm({
 						/>
 					)}
 				/>
-				{errors.gear && <p className={s.error}>{errors.gear.message}</p>}
+				{errors.gear && <p className='form-error'>{errors.gear.message}</p>}
 			</div>
 
 			<div className={s.field}>
@@ -125,7 +129,7 @@ export default function ProfileForm({
 						<TipTapEditor initialValue={field.value} onChange={field.onChange} />
 					)}
 				/>
-				{errors.description && <p className={s.error}>{errors.description.message}</p>}
+				{errors.description && <p className='form-error'>{errors.description.message}</p>}
 			</div>
 
 			<div className={s.field}>
@@ -150,7 +154,7 @@ export default function ProfileForm({
 						</div>
 					)}
 				/>
-				{errors.image && <p className={s.error}>{errors.image.message}</p>}
+				{errors.image && <p className='form-error'>{errors.image.message}</p>}
 			</div>
 
 			<div className={s.buttons}>

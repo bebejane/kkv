@@ -34,9 +34,10 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 	}
 
 	return (
-		<div className={s.menuBar}>
+		<div className={s.menubar}>
 			<button
 				type='button'
+				data-type='icon'
 				onClick={() => editor.chain().focus().toggleBold().run()}
 				disabled={!editor.can().chain().focus().toggleBold().run()}
 				className={editor.isActive('bold') ? s.isActive : ''}
@@ -46,6 +47,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 			</button>
 			<button
 				type='button'
+				data-type='icon'
 				onClick={() => editor.chain().focus().toggleItalic().run()}
 				disabled={!editor.can().chain().focus().toggleItalic().run()}
 				className={editor.isActive('italic') ? s.isActive : ''}
@@ -55,6 +57,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 			</button>
 			<button
 				type='button'
+				data-type='icon'
 				onClick={setLink}
 				className={editor.isActive('link') ? s.isActive : ''}
 				aria-label='Länk'
@@ -63,6 +66,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 			</button>
 			<button
 				type='button'
+				data-type='icon'
 				onClick={() => editor.chain().focus().toggleOrderedList().run()}
 				className={editor.isActive('orderedList') ? s.isActive : ''}
 				aria-label='Numrerad Lista'
@@ -71,6 +75,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 			</button>
 			<button
 				type='button'
+				data-type='icon'
 				onClick={() => editor.chain().focus().toggleBulletList().run()}
 				className={editor.isActive('bulletList') ? s.isActive : ''}
 				aria-label='Punktlista'
@@ -117,7 +122,7 @@ export default function TipTapEditor({ initialValue = '', onChange }: TipTapEdit
 	});
 
 	return (
-		<div className={s.editorWrapper}>
+		<div className={s.editor}>
 			<MenuBar editor={editor} />
 			<EditorContent editor={editor} className={s.content} />
 		</div>

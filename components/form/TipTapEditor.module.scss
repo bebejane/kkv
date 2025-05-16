@@ -1,58 +1,19 @@
-.editorWrapper {
-  border: 1px solid var(--white);
-  border-radius: 4px;
-  overflow: hidden; // Keep children within borders
+.editor {
+	border: 1px solid var(--white);
+	overflow: hidden; // Keep children within borders
 
-  .content {
-
-    >div {
-      background-color: white;
-    }
-  }
-
+	.content {
+		> div {
+			background-color: var(--white);
+		}
+	}
 }
 
-.menuBar {
-  display: flex;
-  flex: 0 0;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  border-bottom: 1px solid var(--white);
-  background-color: var(--graylight);
-
-  button {
-
-    margin: 0;
-    cursor: pointer;
-
-    &:hover {
-      //background-color: #eee;
-    }
-
-    &.isActive {
-      background-color: var(--darkred);
-      color: var(--white);
-      font-weight: bold;
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
-}
-
-.editorInput {
-  padding: 0.75rem;
-  min-height: 150px; // Give some space to write
-  background-color: var(--white);
-
-  &:focus {
-    outline: none;
-  }
-
-  a {
-    text-decoration: underline;
-    cursor: pointer;
-  }
+.menubar {
+	display: flex;
+	flex: 0 0;
+	gap: 0.5rem;
+	padding: 0.5rem;
+	border-bottom: 1px solid var(--white);
+	background-color: var(--graylight);
 }

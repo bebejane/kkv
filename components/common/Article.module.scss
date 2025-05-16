@@ -9,27 +9,23 @@
 
 		h1 {
 			flex: 1 1 auto;
+
 			@include mq($until: desktop) {
 				color: var(--white);
 			}
 		}
 		.headerContent {
+			position: absolute;
+			top: 0;
+			right: 0;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
 			margin-left: var(--gutter);
-		}
-	}
-
-	.editButtons {
-		position: absolute;
-		display: flex;
-		flex-direction: row;
-		top: 0;
-		right: calc(var(--full-bleed-margin));
-		margin: var(--outer-margin);
-		z-index: 2;
-		width: auto;
-
-		button {
-			margin: 0;
+			button,
+			a {
+				flex: 0 0;
+			}
 		}
 	}
 }

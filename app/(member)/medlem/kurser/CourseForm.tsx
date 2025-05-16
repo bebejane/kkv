@@ -67,7 +67,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 			<div className={s.field}>
 				<label htmlFor='title'>Titel</label>
 				<input type='text' id='title' {...register('title')} />
-				{errors.title && <p className={s.error}>{errors.title.message}</p>}
+				{errors.title && <p className='form-error'>{errors.title.message}</p>}
 			</div>
 
 			<div className={s.field}>
@@ -79,7 +79,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 						<TipTapEditor initialValue={field.value} onChange={field.onChange} />
 					)}
 				/>
-				{errors.intro && <p className={s.error}>{errors.intro.message}</p>}
+				{errors.intro && <p className='form-error'>{errors.intro.message}</p>}
 			</div>
 
 			<div className={s.field}>
@@ -91,24 +91,24 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 						<TipTapEditor initialValue={field.value} onChange={field.onChange} />
 					)}
 				/>
-				{errors.text && <p className={s.error}>{errors.text.message}</p>}
+				{errors.text && <p className='form-error'>{errors.text.message}</p>}
 			</div>
 
 			<div className={s.field}>
 				<label htmlFor='date'>Datum</label>
 				<input type='date' id='date' {...register('date')} />
-				{errors.date && <p className={s.error}>{errors.date.message}</p>}
-			</div>
-
-			<div className={s.checkbox}>
-				<input type='checkbox' id='open_to_all' {...register('open_to_all')} />
-				<label htmlFor='open_to_all'>Öppen för alla</label>
+				{errors.date && <p className='form-error'>{errors.date.message}</p>}
 			</div>
 
 			<div className={s.field}>
 				<label htmlFor='slug'>Permalänk</label>
 				<input type='text' id='slug' {...register('slug')} />
-				{errors.slug && <p className={s.error}>{errors.slug.message}</p>}
+				{errors.slug && <p className='form-error'>{errors.slug.message}</p>}
+			</div>
+
+			<div className={s.checkbox}>
+				<input type='checkbox' id='open_to_all' {...register('open_to_all')} />
+				<label htmlFor='open_to_all'>Öppen för alla</label>
 			</div>
 
 			<div className={s.buttons}>
