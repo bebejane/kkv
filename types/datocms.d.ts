@@ -3898,7 +3898,7 @@ type SitemapQueryVariables = Exact<{
 }>;
 
 
-type SitemapQuery = { __typename?: 'Query', allAbouts: Array<{ __typename?: 'AboutRecord', id: any, slug?: string | null, title?: string | null, _publishedAt: any }>, _allAboutsMeta: { __typename?: 'CollectionMetadata', count: any }, allWorkshops: Array<{ __typename?: 'WorkshopRecord', id: any, name?: string | null, slug?: string | null, _publishedAt: any }>, _allWorkshopsMeta: { __typename?: 'CollectionMetadata', count: any }, allCourses: Array<{ __typename?: 'CourseRecord', id: any, slug: string, title?: string | null, _publishedAt: any }>, _allCoursesMeta: { __typename?: 'CollectionMetadata', count: any } };
+type SitemapQuery = { __typename?: 'Query', allAbouts: Array<{ __typename?: 'AboutRecord', id: any, slug?: string | null, _publishedAt: any }>, _allAboutsMeta: { __typename?: 'CollectionMetadata', count: any }, allWorkshops: Array<{ __typename?: 'WorkshopRecord', id: any, slug?: string | null, _publishedAt: any }>, _allWorkshopsMeta: { __typename?: 'CollectionMetadata', count: any }, allCourses: Array<{ __typename?: 'CourseRecord', id: any, slug: string, _publishedAt: any }>, _allCoursesMeta: { __typename?: 'CollectionMetadata', count: any }, allKnowledgeBases: Array<{ __typename?: 'KnowledgeBaseRecord', id: any, slug: string, _publishedAt: any }>, _allKnowledgeBasesMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type StartQueryVariables = Exact<{ [key: string]: never; }>;
 

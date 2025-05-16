@@ -7,6 +7,7 @@ import List from '@/components/common/List';
 import { MapMarker } from '@/components/map/SwedenMap';
 import SwedenMap from '@/components/map';
 import { useEffect, useState } from 'react';
+import { Image } from 'react-datocms';
 
 export type WorkshopsByCityProps = {
 	workshops: AllWorkshopsQuery['allWorkshops'];
@@ -47,43 +48,64 @@ export default function WorkshopsByCity({ workshops, display, slug }: WorkshopsB
 					id: cityId,
 					title: workshops.find(({ city }) => city.id === cityId)?.city.title,
 					content: workshopsByCity[cityId].map(
-						({ id, name, description, address, postalCode, city, website, email, phone, gear }) => (
+						({
+							id,
+							name,
+							description,
+							address,
+							postalCode,
+							city,
+							website,
+							email,
+							phone,
+							gear,
+							image,
+						}) => (
 							<div key={id} className={s.workshop}>
-								<h3>{name}</h3>
-								<Markdown content={description} className={s.description} />
-								<ul className={s.meta}>
-									<li>
-										<span>Utrustning</span>
-										<span>{gear.map(({ title }) => title).join(', ')}</span>
-									</li>
-									<li>
-										<span>Kontakt</span>
-										<span>
-											{address}, {postalCode}, {city.title}
-											{website && (
-												<>
-													<br />
-													<a href={website}>
-														{website.replace('https://', '').replace('http://', '')}
-													</a>
-												</>
-											)}
-											{email && (
-												<>
-													<br />
-													<a href={`mailto:${email}`}>{email}</a>
-												</>
-											)}
-											{phone && (
-												<>
-													<br />
-													<a href={`tel:${phone}`}>{phone}</a>
-												</>
-											)}
-											<br />
-										</span>
-									</li>
-								</ul>
+								{image?.responsiveImage && display === 'list' && (
+									<Image
+										data={image.responsiveImage}
+										className={s.imageWrap}
+										imgClassName={s.image}
+									/>
+								)}
+								<div className={s.details}>
+									<h3>{name}</h3>
+									<Markdown content={description} className={s.description} />
+									<ul className={s.meta}>
+										<li>
+											<span>Utrustning</span>
+											<span>{gear.map(({ title }) => title).join(', ')}</span>
+										</li>
+										<li>
+											<span>Kontakt</span>
+											<span>
+												{address}, {postalCode}, {city.title}
+												{website && (
+													<>
+														<br />
+														<a href={website}>
+															{website.replace('https://', '').replace('http://', '')}
+														</a>
+													</>
+												)}
+												{email && (
+													<>
+														<br />
+														<a href={`mailto:${email}`}>{email}</a>
+													</>
+												)}
+												{phone && (
+													<>
+														<br />
+														<a href={`tel:${phone}`}>{phone}</a>
+													</>
+												)}
+												<br />
+											</span>
+										</li>
+									</ul>
+								</div>
 							</div>
 						)
 					),

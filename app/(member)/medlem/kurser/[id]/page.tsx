@@ -4,6 +4,7 @@ import { apiQuery } from 'next-dato-utils/api';
 import { updateCourse } from '@/lib/actions/update-course';
 import CourseForm from '../CourseForm';
 import { notFound } from 'next/navigation';
+import Article from '@/components/common/Article';
 
 export type CourseProps = {
 	params: Promise<{ id: string }>;
@@ -36,8 +37,7 @@ export default async function Course({ params }: CourseProps) {
 	};
 
 	return (
-		<div className={s.page}>
-			<h1 className={s.title}>{title}</h1>
+		<Article title={`Redigera: ${title}`}>
 			<CourseForm
 				course={courseData}
 				onSubmit={async (data) => {
@@ -49,6 +49,6 @@ export default async function Course({ params }: CourseProps) {
 					await updateCourse(id, formData);
 				}}
 			/>
-		</div>
+		</Article>
 	);
 }

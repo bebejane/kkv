@@ -1,13 +1,12 @@
 .form {
-  display: flex;
-  flex-direction: column;
-
-  button {
-    margin-top: 1rem;
-  }
+	display: flex;
+	flex-direction: column;
+	input {
+		margin-bottom: 0.5rem;
+	}
 }
 
 .error {
-  margin-top: 1em;
-  color: var(--red);
+	margin-top: 1em;
+	color: var(--red);
 }

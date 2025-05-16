@@ -5,12 +5,11 @@ import cn from 'classnames';
 import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CSSProperties, useEffect, useRef, useState } from 'react';
-import { Menu } from '@/lib/menu';
-
+import { Menu, MenuItem } from '@/lib/menu';
 import { Session } from 'next-auth';
 import { useWindowSize } from 'rooks';
 import { useScrollInfo } from 'next-dato-utils/hooks';
-import { set } from 'date-fns';
+
 export type NavbarProps = {
 	menu: Menu;
 	session: Session;
@@ -26,10 +25,15 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 	const { innerHeight, innerWidth } = useWindowSize();
 	const { scrolledPosition, viewportHeight } = useScrollInfo();
 	const logoRef = useRef<HTMLImageElement>(null);
-	const leaveTimout = useRef<NodeJS.Timeout | null>(null);
 	const parent = menu.find(({ id }) => id === selected);
 	const sub = parent?.sub;
 	const member = menu.find(({ id }) => id === 'member');
+
+	function isSelected(item: MenuItem) {
+		console.log(item.slug, pathname, pathname.startsWith(item.slug));
+		if (item.id === 'member' && session?.user) return false;
+		else return pathname.startsWith(item.slug) || pathname === item.slug;
+	}
 
 	useEffect(() => {
 		if (!logoRef.current) return;
@@ -90,15 +94,19 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 				</figure>
 
 				<ul className={s.menu} onMouseLeave={handleLeave}>
-					{menu.map(({ id, title, href, slug, sub, hideSub, position }, idx) => (
+					{menu.map((item, idx) => (
 						<li
-							id={`${id}-menu`}
-							key={`${id}-menu`}
-							data-position={position}
-							className={cn(sub && !hideSub && s.dropdown, pathname.startsWith(slug) && s.active)}
-							onMouseEnter={() => handleEnter(sub ? id : null)}
+							id={`${item.id}-menu`}
+							key={`${item.id}-menu`}
+							data-position={item.position}
+							className={cn(item.sub && !item.hideSub && s.dropdown, isSelected(item) && s.active)}
+							onMouseEnter={() => handleEnter(item.sub ? item.id : null)}
 						>
-							{sub && !hideSub ? <span>{title}</span> : <Link href={slug ?? href}>{title}</Link>}
+							{item.sub && !item.hideSub ? (
+								<span>{item.title}</span>
+							) : (
+								<Link href={item.slug ?? item.href}>{item.title}</Link>
+							)}
 						</li>
 					))}
 				</ul>
@@ -113,10 +121,10 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 				<ul>
 					{sub
 						?.filter(({ hideInDesktop }) => !hideInDesktop)
-						.map(({ id, title, href, slug }) => (
-							<li key={id} className={cn(slug === pathname && s.active)}>
-								<Link href={slug ?? href} onClick={() => setSelected(null)}>
-									{title}
+						.map((item) => (
+							<li key={item.id} className={cn(pathname === item.slug && s.active)}>
+								<Link href={item.slug ?? item.href} onClick={() => setSelected(null)}>
+									{item.title}
 								</Link>
 							</li>
 						))}

@@ -1,11 +1,11 @@
 import s from './page.module.scss';
 import { createCourse } from '@/lib/actions/create-course';
 import CourseForm from '../CourseForm';
+import Article from '@/components/common/Article';
 
 export default async function CreateCourse() {
 	return (
-		<>
-			<h1 className={s.title}>Ny kurs</h1>
+		<Article title='Ny kurs'>
 			<CourseForm
 				onSubmit={async (data) => {
 					'use server';
@@ -16,6 +16,6 @@ export default async function CreateCourse() {
 					await createCourse(formData);
 				}}
 			/>
-		</>
+		</Article>
 	);
 }

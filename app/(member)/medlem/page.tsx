@@ -1,8 +1,10 @@
+import Article from '@/components/common/Article';
 import s from './page.module.scss';
 import { AllCoursesByWorkshopDocument } from '@/graphql';
 import { getSession } from '@/lib/auth';
 import { apiQuery } from 'next-dato-utils/api';
 import Link from 'next/link';
+import List from '@/components/common/List';
 
 export default async function AllCourses() {
 	const session = await getSession();
@@ -19,21 +21,22 @@ export default async function AllCourses() {
 	});
 
 	return (
-		<>
-			<h2>Kurser</h2>
-			<ul className={s.courses}>
-				{allCourses.map((course) => (
-					<li key={course.id}>
-						<Link href={`/medlem/kurser/${course.id}`}>{course.title}</Link>
-					</li>
-				))}
-			</ul>
-			<br />
-			<p>
+		<Article
+			title='Kurser'
+			headerContent={
 				<Link href='/medlem/kurser/ny'>
 					<button>Ny kurs</button>
 				</Link>
-			</p>
-		</>
+			}
+		>
+			<List
+				className={s.list}
+				items={allCourses.map(({ id, title }) => ({
+					id,
+					title,
+					href: `/medlem/kurser/${id}`,
+				}))}
+			/>
+		</Article>
 	);
 }

@@ -127,12 +127,11 @@ button {
 	justify-content: center;
 	color: var(--black);
 	background-color: var(--white);
-	border: 1px solid var(--black);
 	padding: 1em;
 	border-radius: 2rem;
+	border-color: transparent;
 	font-family: var(--label-font);
 	cursor: pointer;
-	margin-top: 2rem;
 	text-decoration: none !important;
 	font-size: 0.7rem;
 
@@ -154,9 +153,6 @@ button {
 		background-color: var(--black);
 		color: var(--white);
 	}
-}
-
-hr {
 }
 
 input,

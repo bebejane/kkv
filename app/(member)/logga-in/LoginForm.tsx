@@ -13,12 +13,13 @@ export default function LoginForm() {
 		e.preventDefault();
 
 		const url = new URLSearchParams(window.location.search).get('callbackUrl');
-		const callbackUrl = url?.endsWith('/medlem') ? undefined : url ?? '/medlem';
+		const callbackUrl = url ?? '/medlem';
 		const formData = new FormData(e.target);
-
+		console.log(url);
 		try {
 			setError(null);
 			setLoading(true);
+			console.log(callbackUrl);
 
 			const res = await signIn('credentials', {
 				callbackUrl,

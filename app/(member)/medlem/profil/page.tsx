@@ -2,8 +2,9 @@ import s from './page.module.scss';
 import { WorkshopDocument } from '@/graphql';
 import { apiQuery } from 'next-dato-utils/api';
 import { updateWorkshop } from '@/lib/actions/update-workshop';
-import WorkshopForm from './WorkshopForm';
+import ProfileForm from './ProfileForm';
 import { notFound } from 'next/navigation';
+import Article from '@/components/common/Article';
 
 export type WorkshopProps = {
 	params: Promise<{ slug: string }>;
@@ -31,7 +32,6 @@ export default async function Workshop({ params }: WorkshopProps) {
 		id,
 		slug,
 		description,
-		city,
 		postal_code: postalCode,
 		website,
 		address,
@@ -40,9 +40,8 @@ export default async function Workshop({ params }: WorkshopProps) {
 	};
 
 	return (
-		<div className={s.page}>
-			<h1 className={s.title}>{name}</h1>
-			<WorkshopForm
+		<Article title={'Redigera profil'}>
+			<ProfileForm
 				data={workshopData}
 				workshop={workshop}
 				allWorkshopGears={allWorkshopGears}
@@ -51,6 +50,6 @@ export default async function Workshop({ params }: WorkshopProps) {
 					await updateWorkshop(data);
 				}}
 			/>
-		</div>
+		</Article>
 	);
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import s from './WorkshopForm.module.scss';
+import s from './ProfileForm.module.scss';
 import cn from 'classnames';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -23,7 +23,7 @@ type WorkshopFormProps = {
 	onSubmit(data: FormData): Promise<void>;
 };
 
-export default function WorkshopForm({
+export default function ProfileForm({
 	data,
 	workshop,
 	allWorkshopGears,

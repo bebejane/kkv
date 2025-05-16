@@ -2,6 +2,7 @@
 
 import s from './List.module.scss';
 import cn from 'classnames';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from 'rooks';
 
@@ -11,8 +12,9 @@ export type ListProps = {
 	items: {
 		id: string;
 		title: string;
-		content: any;
+		content?: any;
 		markdown?: boolean;
+		href?: string;
 	}[];
 	onChange?: (id: string | null) => void;
 };
@@ -42,7 +44,7 @@ export default function List({ items, itemId, className, onChange }: ListProps) 
 
 	return (
 		<ul className={cn(s.list, className)}>
-			{items.map(({ id, title, content, markdown }, idx) => (
+			{items.map(({ id, title, content, markdown, href }, idx) => (
 				<li
 					id={`list-${id}`}
 					key={idx}
@@ -51,10 +53,17 @@ export default function List({ items, itemId, className, onChange }: ListProps) 
 						onChange?.(!toggles[id].show ? id : null);
 					}}
 				>
-					<div className={s.item}>
-						<span>{title}</span>
-						<button>{toggles[id].show ? '-' : '+'}</button>
-					</div>
+					{href ? (
+						<Link href={href} className={s.item}>
+							<span>{title}</span>
+							<button>→</button>
+						</Link>
+					) : (
+						<div className={s.item}>
+							<span>{title}</span>
+							<button>{toggles[id].show ? '-' : '+'}</button>
+						</div>
+					)}
 					{content && (
 						<div
 							id={`list-content-${id}`}
