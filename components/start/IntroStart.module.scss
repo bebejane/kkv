@@ -5,10 +5,9 @@
 	align-items: center;
 	justify-content: center;
 	flex-direction: row;
-	width: calc(100% + var(--outer-margin) * 2);
 	height: var(--height);
-	margin-left: calc(-1 * var(--outer-margin));
-	margin-right: calc(-1 * var(--outer-margin));
+	margin-left: var(--full-bleed-margin);
+	margin-right: var(--full-bleed-margin);
 
 	.images {
 		display: flex;
@@ -67,7 +66,6 @@
 			font-weight: normal;
 
 			span {
-				transition: opacity 0.3s ease-out;
 				&.hide {
 					opacity: 0;
 				}

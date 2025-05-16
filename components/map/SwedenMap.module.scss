@@ -1,13 +1,13 @@
-.container {
-	height: 80vh;
-	width: 100%;
-	background-color: transparent;
-}
-
-/* Ensure Leaflet's CSS is loaded */
 @import 'leaflet/dist/leaflet.css';
 
-/* Minimal styling for the map tiles */
+.container {
+	height: 100%;
+	width: 100%;
+	background-color: var(--white);
+}
+
+/* Minimal styling fo
+r the map tiles */
 .mapContainer :global(.leaflet-tile-pane) {
 	/* Optionally hide default map tiles if only showing GeoJSON border */
 	/* opacity: 0; */

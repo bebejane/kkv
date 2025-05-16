@@ -166,6 +166,7 @@ export const AllWorkshopGear: DocumentNode;
 export const WorkshopGearFragment: DocumentNode;
 export const WorkshopFragment: DocumentNode;
 export const WorkshopLightFragment: DocumentNode;
+export const CityFragment: DocumentNode;
 
   export default defaultDocument;
 }

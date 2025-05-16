@@ -2,7 +2,7 @@
 
 import 'leaflet/dist/leaflet.css';
 import s from './SwedenMap.module.scss';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { MapContainer, Marker, Popup, GeoJSON } from 'react-leaflet';
 import L, { type LatLngExpression } from 'leaflet';
 import swedenGeoJson from './sweden.json' assert { type: 'json' };
@@ -16,7 +16,7 @@ export interface MapMarker {
 
 interface SwedenMapProps {
 	items: MapMarker[];
-	workshopId: string | null;
+	markerId: string | null;
 	onHover?: (id: string | null) => void;
 	onClick?: (id: string | null) => void;
 }
@@ -28,8 +28,9 @@ const geoJsonStyle = () => ({
 	className: s.border,
 });
 
-const SwedenMap: React.FC<SwedenMapProps> = ({ items, workshopId, onHover, onClick }) => {
+const SwedenMap: React.FC<SwedenMapProps> = ({ items, markerId, onHover, onClick }) => {
 	const [isClient, setIsClient] = useState(false);
+	const ref = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		setIsClient(true);
@@ -50,30 +51,30 @@ const SwedenMap: React.FC<SwedenMapProps> = ({ items, workshopId, onHover, onCli
 
 	return (
 		<MapContainer
-			center={center}
-			zoom={4.5}
 			className={s.container}
+			center={center}
 			attributionControl={false}
 			zoomControl={false}
-			zoomSnap={0.5}
-			maxZoom={4.5}
-			minZoom={4.5}
+			scrollWheelZoom={false}
+			dragging={false}
+			touchZoom={false}
+			boxZoom={false}
+			doubleClickZoom={false}
 			maxBounds={maxBounds}
+			bounds={maxBounds}
 		>
 			<GeoJSON data={swedenGeoJson as GeoJSON.FeatureCollection} style={geoJsonStyle} />
 			{items.map(({ id, position, label }) => (
 				<Marker
 					key={id}
 					position={position}
-					icon={id === workshopId ? markerIconActive : markerIcon}
+					icon={id === markerId ? markerIconActive : markerIcon}
 					eventHandlers={{
 						mouseover: () => onHover?.(id),
 						mouseout: () => onHover?.(null),
 						click: () => onClick?.(id),
 					}}
-				>
-					{!onClick && <Popup className={s.popup}>{label}</Popup>}
-				</Marker>
+				/>
 			))}
 		</MapContainer>
 	);

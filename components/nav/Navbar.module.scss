@@ -1,5 +1,4 @@
-.navbar,
-.sub {
+.navbar {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -21,17 +20,18 @@
 		}
 	}
 
-	ul {
+	> ul {
 		display: flex;
 		flex-direction: row;
+		align-items: center;
 		list-style: none;
 		flex: 1 1 auto;
+		height: var(--navbar-height);
 
 		li {
 			cursor: pointer;
 			padding-right: 1.5rem;
 			position: relative;
-			transition: var(--color-transtion);
 
 			&:last-child {
 				padding-right: 0;
@@ -103,12 +103,19 @@
 }
 
 .sub {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: var(--z-navbar-sub);
 	display: none;
-	margin-top: var(--navbar-height);
 	background-color: var(--white);
 	color: var(--black);
 	padding: 1rem;
 	width: auto;
+
+	ul {
+		list-style: none;
+	}
 
 	&.open {
 		@include mq($from: desktop) {

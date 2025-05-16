@@ -1,11 +1,13 @@
 .findworkshop {
 	display: flex;
 	flex-direction: row;
+	height: 60vh;
 
 	.find {
 		display: flex;
 		flex-direction: column;
-		flex: 0 0 30%;
+		flex: 0 0 50%;
+		margin-right: var(--gutter);
 	}
 
 	.workshop {
@@ -13,6 +15,7 @@
 		padding: 1rem;
 	}
 	.map {
-		flex: 0 0 70%;
+		height: 100%;
+		flex: 1 1 auto;
 	}
 }

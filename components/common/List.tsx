@@ -1,23 +1,23 @@
 'use client';
 
-import Content from '@/components/common/Content';
 import s from './List.module.scss';
 import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from 'rooks';
-import { Markdown } from 'next-dato-utils/components';
 
 export type ListProps = {
 	className?: string;
+	itemId?: string;
 	items: {
 		id: string;
 		title: string;
 		content: any;
 		markdown?: boolean;
 	}[];
+	onChange?: (id: string | null) => void;
 };
 
-export default function List({ items, className }: ListProps) {
+export default function List({ items, itemId, className, onChange }: ListProps) {
 	const defaultToggles = items.reduce(
 		(acc, k) => ({ ...acc, [k.id]: { show: false, height: 0 } }),
 		{}
@@ -25,15 +25,20 @@ export default function List({ items, className }: ListProps) {
 	const [toggles, setToggles] = useState<{ [key: string]: { show: boolean; height?: number } }>(
 		defaultToggles
 	);
-	const ref = useRef<HTMLUListElement>(null);
 	const { innerHeight, innerWidth } = useWindowSize();
 
 	useEffect(() => {
 		Object.keys(toggles).forEach(
-			(k) => (toggles[k].height = document.getElementById(`list-content-${k}`)?.scrollHeight ?? 0)
+			(id) =>
+				(toggles[id].height = document.getElementById(`list-content-${id}`)?.scrollHeight ?? 0)
 		);
 		setToggles(toggles);
 	}, [innerHeight, innerWidth]);
+
+	useEffect(() => {
+		if (!itemId) return;
+		setToggles((t) => ({ ...defaultToggles, [itemId]: { ...t[itemId], show: true } }));
+	}, [itemId]);
 
 	return (
 		<ul className={cn(s.list, className)}>
@@ -41,9 +46,10 @@ export default function List({ items, className }: ListProps) {
 				<li
 					id={`list-${id}`}
 					key={idx}
-					onClick={() =>
-						setToggles({ ...toggles, [id]: { ...toggles[id], show: !toggles[id].show } })
-					}
+					onClick={() => {
+						setToggles({ ...toggles, [id]: { ...toggles[id], show: !toggles[id].show } });
+						onChange?.(!toggles[id].show ? id : null);
+					}}
 				>
 					<div className={s.item}>
 						<span>{title}</span>
@@ -55,7 +61,7 @@ export default function List({ items, className }: ListProps) {
 							className={cn(s.content, toggles[id].show && s.show)}
 							style={{ height: toggles[id].show ? toggles[id].height : 0 }}
 						>
-							{content}
+							<div className={s.wrap}>{content}</div>
 						</div>
 					)}
 				</li>

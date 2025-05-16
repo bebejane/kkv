@@ -13,6 +13,7 @@ export type ArticleProps = {
 	image?: FileField;
 	intro?: any;
 	content?: any;
+	headerContent?: any;
 	markdown?: boolean;
 	link?: {
 		href: string;
@@ -33,6 +34,7 @@ export default function Article({
 	image,
 	intro,
 	content,
+	headerContent,
 	markdown = false,
 	link,
 	className,
@@ -41,14 +43,12 @@ export default function Article({
 }: ArticleProps) {
 	return (
 		<article className={cn(s.article, className)}>
-			<header className={cn(!image && s.noImage)}>
-				<h1>{title}</h1>
-				{image && (
-					<figure>
-						<Image data={image.responsiveImage} className={s.image} pictureClassName={s.picture} />
-					</figure>
-				)}
-			</header>
+			{title && (
+				<header>
+					<h1>{title}</h1>
+					{headerContent && <div className={s.headerContent}>{headerContent}</div>}
+				</header>
+			)}
 			{intro && markdown && <Markdown content={intro} className={'intro'} />}
 			{content && markdown && <Markdown content={content} className={s.content} />}
 			{intro && !markdown && <Content content={intro} className={'intro'} />}

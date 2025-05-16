@@ -1,6 +1,8 @@
 'use client';
+
 import { MapMarker } from './SwedenMap';
 import dynamic from 'next/dynamic';
+
 const DynamicMap = dynamic(() => import('./SwedenMap'), {
 	loading: () => <></>,
 	ssr: false,
@@ -8,14 +10,14 @@ const DynamicMap = dynamic(() => import('./SwedenMap'), {
 
 export default function SwedenMapWrapper({
 	items,
-	workshopId,
+	markerId,
 	onHover,
 	onClick,
 }: {
 	items: MapMarker[];
-	workshopId: string | null;
+	markerId: string | null;
 	onHover?: (id: string | null) => void;
 	onClick?: (id: string | null) => void;
 }) {
-	return <DynamicMap items={items} workshopId={workshopId} onHover={onHover} onClick={onClick} />;
+	return <DynamicMap items={items} markerId={markerId} onHover={onHover} onClick={onClick} />;
 }

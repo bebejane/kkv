@@ -49,7 +49,7 @@ export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
 						position: [coordinates.latitude, coordinates.longitude],
 						label: name,
 					}))}
-					workshopId={workshop?.id}
+					markerId={workshop?.id}
 					onClick={(id) => setWorkshop(workshops.find((w) => w.id === id) ?? null)}
 				/>
 			</div>

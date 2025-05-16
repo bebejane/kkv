@@ -12,7 +12,7 @@
 
 	--outer-margin: 2rem;
 	--gutter: 1rem;
-	--grid-unit: calc(100vw / 10);
+	--grid-unit: calc(100vw / 16);
 	--space: 2rem;
 	--space-big: 2.5rem;
 	--space-small: 1rem;
@@ -30,6 +30,7 @@
 	--color-transtion: color 0.2s;
 
 	--z-navbar: 1000;
+	--z-navbar-sub: 1001;
 	--z-logo: 1100;
 	--z-hamburger: 1200;
 	--z-copyright: 1300;
@@ -128,8 +129,6 @@ button {
 	background-color: var(--white);
 	border: 1px solid var(--black);
 	padding: 1em;
-	padding-left: 1.5em;
-	padding-right: 1.5em;
 	border-radius: 2rem;
 	font-family: var(--label-font);
 	cursor: pointer;
@@ -137,14 +136,18 @@ button {
 	text-decoration: none !important;
 	font-size: 0.7rem;
 
-	&[aria-selected='true'] {
-		color: var(--white);
-		background-color: var(--black);
+	&[aria-selected='true'],
+	&[data-selected='true'] {
+		color: var(--white) !important;
+		background-color: var(--black) !important;
 	}
-
+	&[data-type='icon'] {
+		border-radius: 50% !important;
+	}
 	&[disabled] {
 		opacity: 0.5;
 		cursor: not-allowed;
+		pointer-events: none;
 	}
 
 	&:hover:not([disabled]) {

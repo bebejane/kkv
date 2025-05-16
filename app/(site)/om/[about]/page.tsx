@@ -19,11 +19,11 @@ export default async function AboutPage({ params }: AboutProps) {
 
 	if (!about) return notFound();
 
-	const { title, content } = about;
+	const { title, content, intro } = about;
 
 	return (
 		<>
-			<Article title={title} content={content}></Article>
+			<Article title={title} content={content} intro={intro}></Article>
 			<DraftMode url={draftUrl} path={`/om/${slug}`} />
 		</>
 	);
@@ -37,7 +37,7 @@ export async function generateStaticParams() {
 	return allAbouts.map(({ slug: about }) => ({ about }));
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params }): Promise<Metadata> {
 	const { about: slug } = await params;
 	const { about } = await apiQuery<AboutQuery, AboutQueryVariables>(AboutDocument, {
 		variables: {

@@ -17,6 +17,19 @@ fragment AboutFragment on AboutRecord {
 	id
 	title
 	content {
+		blocks {
+			__typename
+			... on ImageRecord {
+				id
+				image {
+					...ImageFragment
+				}
+			}
+		}
+		links
+		value
+	}
+	intro {
 		blocks
 		links
 		value
