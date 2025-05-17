@@ -20,6 +20,7 @@ export default function IntroStart({ images }: GalleryProps) {
 	const [hideLogoText, setHideLogoText] = useState(false);
 	const logoRef = useRef<HTMLImageElement>(null);
 	const { scrolledPosition, viewportHeight } = useScrollInfo();
+	const headline = 'Centrum för sveriges konstnärsverkstäder';
 
 	useEffect(() => {
 		if (!logoRef.current) return;
@@ -51,11 +52,13 @@ export default function IntroStart({ images }: GalleryProps) {
 			<div className={s.logo}>
 				<img src='/images/logo.svg' alt='Logo' ref={logoRef} />
 				<h2>
-					{'Centrum för sveriges konstnärsverkstäder'.split('').map((c, i) => (
+					{headline.split('').map((c, i) => (
 						<span
 							key={i}
 							className={cn(hideLogoText && s.hide)}
-							style={{ transitionDelay: `${i * 10}ms` }}
+							style={{
+								transitionDelay: !hideLogoText ? `${i * 10}ms` : `${(headline.length - i) * 10}ms`,
+							}}
 						>
 							{c}
 						</span>
