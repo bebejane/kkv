@@ -32,7 +32,7 @@ export default async function WorkshopsPage({ searchParams, params }: WorkshopPa
 				intro={workshopsStart?.intro}
 				headerContent={<WorkshopFilter />}
 			>
-				<WorkshopsByCity workshops={allWorkshops} display={filter} slug={slug} />
+				<WorkshopsByCity workshops={allWorkshops} filter={filter} slug={slug} />
 			</Article>
 			<DraftMode url={draftUrl} path='/verkstader' />
 		</>

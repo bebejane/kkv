@@ -11,11 +11,11 @@ import { Image } from 'react-datocms';
 
 export type WorkshopsByCityProps = {
 	workshops: AllWorkshopsQuery['allWorkshops'];
-	display: string;
+	filter: string;
 	slug?: string;
 };
 
-export default function WorkshopsByCity({ workshops, display, slug }: WorkshopsByCityProps) {
+export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsByCityProps) {
 	const [cityId, setCityId] = useState<string | null>(null);
 	const workshopsByCity = groupBy(workshops, ({ city }) => city.id);
 	const markers: MapMarker[] = Object.keys(workshopsByCity).map((cityId) => ({
@@ -31,11 +31,15 @@ export default function WorkshopsByCity({ workshops, display, slug }: WorkshopsB
 		if (!slug) return;
 		const cityId = workshops.find(({ slug }) => slug === slug)?.city.id;
 		setCityId(cityId);
+		setTimeout(() => {
+			const element = document.getElementById(slug);
+			element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}, 100);
 	}, [slug]);
 
 	return (
 		<section className={s.workshopsbycity}>
-			{display === 'map' && (
+			{filter === 'map' && (
 				<div className={s.map}>
 					<SwedenMap items={markers} markerId={cityId} onClick={(id) => setCityId(id)} />
 				</div>
@@ -61,8 +65,8 @@ export default function WorkshopsByCity({ workshops, display, slug }: WorkshopsB
 							gear,
 							image,
 						}) => (
-							<div key={id} className={s.workshop}>
-								{image?.responsiveImage && display === 'list' && (
+							<div id={slug} key={id} className={s.workshop}>
+								{image?.responsiveImage && filter === 'list' && (
 									<Image
 										data={image.responsiveImage}
 										className={s.imageWrap}

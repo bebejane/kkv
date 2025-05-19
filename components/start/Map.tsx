@@ -24,7 +24,7 @@ export default function Map({ allWorkshops }: MapProps) {
 	return (
 		<>
 			<div>
-				<SwedenMap items={items} workshopId={workshopId} onHover={setWorkshopId} />
+				<SwedenMap items={items} markerId={workshopId} onHover={setWorkshopId} />
 			</div>
 			<div>
 				<ul>

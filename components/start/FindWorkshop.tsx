@@ -38,7 +38,7 @@ export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
 							</>
 						)}
 						<br />
-						<Link href={`/verkstader/${workshop.id}`}>Läs mer</Link>
+						<Link href={`/verkstader/${workshop.slug}`}>Läs mer</Link>
 					</div>
 				)}
 			</div>

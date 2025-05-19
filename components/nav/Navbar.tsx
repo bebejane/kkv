@@ -30,7 +30,6 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 	const member = menu.find(({ id }) => id === 'member');
 
 	function isSelected(item: MenuItem) {
-		console.log(item.slug, pathname, pathname.startsWith(item.slug));
 		if (item.id === 'member' && session?.user) return false;
 		else return pathname.startsWith(item.slug) || pathname === item.slug;
 	}
