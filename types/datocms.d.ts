@@ -46,6 +46,7 @@ type AboutModelFilter = {
   content?: InputMaybe<StructuredTextFilter>;
   id?: InputMaybe<ItemIdFilter>;
   intro?: InputMaybe<StructuredTextFilter>;
+  position?: InputMaybe<PositionFilter>;
   slug?: InputMaybe<SlugFilter>;
   title?: InputMaybe<StringFilter>;
 };
@@ -77,6 +78,8 @@ enum AboutModelOrderBy {
   _updatedAt_DESC = '_updatedAt_DESC',
   id_ASC = 'id_ASC',
   id_DESC = 'id_DESC',
+  position_ASC = 'position_ASC',
+  position_DESC = 'position_DESC',
   title_ASC = 'title_ASC',
   title_DESC = 'title_DESC'
 }
@@ -100,6 +103,7 @@ type AboutRecord = RecordInterface & {
   content?: Maybe<AboutModelContentField>;
   id: Scalars['ItemId']['output'];
   intro?: Maybe<AboutModelIntroField>;
+  position?: Maybe<Scalars['IntType']['output']>;
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
