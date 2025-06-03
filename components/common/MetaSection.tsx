@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import s from './MetaSection.module.scss';
 import cn from 'classnames';
 
@@ -23,7 +24,15 @@ export default function MetaSection({ items }: Props) {
 					.map(({ id, label, text, href }) => (
 						<li key={id}>
 							<span className={s.label}>{label}</span>
-							<span>{text}</span>
+							{href ? (
+								href.includes('@') ? (
+									<a href={`mailto:${href}`}>{text}</a>
+								) : (
+									<Link href={href}>{text}</Link>
+								)
+							) : (
+								<span>{text}</span>
+							)}
 						</li>
 					))}
 			</ul>

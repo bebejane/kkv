@@ -6,21 +6,26 @@ import cn from 'classnames';
 import React from 'react';
 import { Image } from 'react-datocms';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper as SwiperCore } from 'swiper';
+import { Autoplay } from 'swiper/modules';
 import { useState, useRef, useEffect } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
 import { useScrollInfo } from 'next-dato-utils/hooks';
+import { useInterval } from 'react-use';
+
+SwiperCore.use([Autoplay]);
 
 export type GalleryProps = {
 	images: FileField[];
 };
 
+const headline = 'Centrum för sveriges konstnärsverkstäder';
+
 export default function IntroStart({ images }: GalleryProps) {
-	const swiperRef = useRef<SwiperType | undefined>();
-	const [realIndex, setRealIndex] = useState(0);
 	const [hideLogoText, setHideLogoText] = useState(false);
+	const [index, setIndex] = useState(-1);
 	const logoRef = useRef<HTMLImageElement>(null);
 	const { scrolledPosition, viewportHeight } = useScrollInfo();
-	const headline = 'Centrum för sveriges konstnärsverkstäder';
 
 	useEffect(() => {
 		if (!logoRef.current) return;
@@ -29,25 +34,28 @@ export default function IntroStart({ images }: GalleryProps) {
 		setHideLogoText(scrolledPosition > 0);
 	}, [scrolledPosition, viewportHeight]);
 
+	useInterval(() => {
+		setIndex((index) => (index === images.length - 1 ? 0 : index + 1));
+	}, 2000);
+
 	return (
 		<div className={s.intro}>
 			<div className={s.images}>
-				<Swiper
-					id={`main-gallery`}
-					loop={true}
-					spaceBetween={0}
-					slidesPerView={1}
-					initialSlide={0}
-					onSlideChange={({ realIndex }) => setRealIndex(realIndex)}
-					onSwiper={(swiper) => (swiperRef.current = swiper)}
-					onClick={() => swiperRef.current?.slideNext()}
-				>
-					{images.map((image, idx) => (
-						<SwiperSlide key={idx} className={cn(s.slide)}>
-							<Image imgClassName={s.image} data={image.responsiveImage} usePlaceholder={false} />
-						</SwiperSlide>
-					))}
-				</Swiper>
+				{images.map((image, idx) => (
+					<Image
+						key={idx}
+						data={image.responsiveImage}
+						className={cn(s.imageWrap, index >= idx && s.hide)}
+						imgClassName={s.image}
+						style={{ zIndex: images.length - idx }}
+					/>
+				))}
+				<Image
+					data={images[0].responsiveImage}
+					className={cn(s.imageWrap)}
+					imgClassName={s.image}
+					style={{ zIndex: 0 }}
+				/>
 			</div>
 			<div className={s.logo}>
 				<img src='/images/logo.svg' alt='Logo' ref={logoRef} />

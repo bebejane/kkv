@@ -5,6 +5,9 @@ import Article from '@/components/common/Article';
 import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
 import { MetaSectionItem } from '@/components/common/MetaSection';
+import { format } from 'date-fns';
+import { sv } from 'date-fns/locale';
+import { capitalize } from 'next-dato-utils/utils';
 
 export type CourseProps = {
 	params: Promise<{ course: string }>;
@@ -23,14 +26,14 @@ export default async function CoursePage(props: CourseProps) {
 
 	if (!course) return notFound();
 
-	const { id, workshop, title, intro, text, where, forWhom, eMail, date, openToAll, _status } =
+	const { id, workshop, title, intro, text, where, forMembers, signUp, date, openToAll, _status } =
 		course;
 
 	const meta: MetaSectionItem[] = [
 		{
 			id: 'date',
 			label: 'När',
-			text: date,
+			text: capitalize(format(new Date(date), 'd MMMM yyyy', { locale: sv })),
 		},
 		{
 			id: 'where',
@@ -40,12 +43,13 @@ export default async function CoursePage(props: CourseProps) {
 		{
 			id: 'for',
 			label: 'För',
-			text: forWhom,
+			text: forMembers ? `För medlemmar i ${workshop.name}` : `För alla`,
 		},
 		{
 			id: 'email',
 			label: 'Anmäl',
-			text: eMail,
+			text: signUp,
+			href: signUp,
 		},
 	];
 

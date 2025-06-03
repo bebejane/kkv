@@ -49,8 +49,8 @@ fragment CourseFragment on CourseRecord {
 	intro
 	text
 	where
-	forWhom
-	eMail
+	forMembers
+	signUp
 	workshop {
 		...WorkshopLightFragment
 	}
