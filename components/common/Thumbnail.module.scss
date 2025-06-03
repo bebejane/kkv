@@ -7,9 +7,9 @@
 	transition: all 0.3s;
 
 	&:hover {
-		transform: rotate(-5deg);
+		transform: rotate(-3deg);
 		& .wrap {
-			transform: rotate(5deg);
+			transform: rotate(3deg);
 		}
 	}
 
