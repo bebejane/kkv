@@ -8,6 +8,9 @@ import SwedenMap from '@/components/map';
 import Link from 'next/link';
 import { groupBy } from 'lodash-es';
 import { MapMarker } from '@/components/map/SwedenMap';
+import useIsDesktop from '@/lib/hooks/useIsDesktop';
+import { router } from 'next-dato-utils/config';
+import { useRouter } from 'next/navigation';
 
 export type FindWorkshopProps = {
 	workshops: StartQuery['allWorkshops'];
@@ -15,6 +18,8 @@ export type FindWorkshopProps = {
 };
 
 export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
+	const isDesktop = useIsDesktop();
+	const router = useRouter();
 	const [cityId, setCityId] = useState<string | null>(null);
 	const workshopsByCity = groupBy(workshops, ({ city }) => city.id);
 	const markers: MapMarker[] = Object.keys(workshopsByCity).map((cityId) => ({
@@ -27,7 +32,7 @@ export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
 	}));
 
 	const cityWorkshops = workshops.filter(({ city }) => city.id === cityId);
-	console.log(cityWorkshops, cityId);
+
 	return (
 		<div className={s.findworkshop}>
 			<div className={s.find}>
@@ -36,7 +41,7 @@ export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
 				{cityWorkshops.length > 0 && (
 					<ul className={cn(s.workshops, 'small')}>
 						{cityWorkshops.map((workshop) => (
-							<li>
+							<li key={workshop.id}>
 								{workshop.name}
 								<br />
 								{workshop.address}, {workshop.postalCode}, {workshop.city.title}
@@ -59,10 +64,11 @@ export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
 					</ul>
 				)}
 			</div>
-			<div className={s.map}>
+			<div className={s.map} onClick={() => !isDesktop && router.push('/verkstader')}>
 				<SwedenMap
 					items={markers}
 					markerId={cityId}
+					interactive={isDesktop ? true : false}
 					onClick={(id) => setCityId(id === cityId ? null : id)}
 				/>
 			</div>

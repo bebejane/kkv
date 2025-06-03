@@ -23,4 +23,12 @@
 		flex: 1 1 auto;
 		height: 60vh;
 	}
+
+	@include mq($until: desktop) {
+		.find {
+			display: none;
+		}
+		.map {
+		}
+	}
 }

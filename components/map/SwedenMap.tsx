@@ -10,27 +10,35 @@ import { markerIcon, markerIconActive } from './icons';
 
 export interface MapMarker {
 	id: string;
-	position: [number, number]; // [latitude, longitude]
+	position: [number, number];
 	label: string;
 }
 
 interface SwedenMapProps {
 	items: MapMarker[];
 	markerId: string | null;
+	interactive?: boolean;
 	onHover?: (id: string | null) => void;
 	onClick?: (id: string | null) => void;
 }
 
 const center: LatLngExpression = [62.0, 15.0];
-const maxBounds = L.geoJSON(swedenGeoJson as any).getBounds();
+const maxBounds = L.geoJSON(swedenGeoJson as any)
+	.getBounds()
+	.pad(0.05);
 
 const geoJsonStyle = () => ({
 	className: s.border,
 });
 
-const SwedenMap: React.FC<SwedenMapProps> = ({ items, markerId, onHover, onClick }) => {
+const SwedenMap: React.FC<SwedenMapProps> = ({
+	items,
+	markerId,
+	onHover,
+	onClick,
+	interactive = true,
+}) => {
 	const [isClient, setIsClient] = useState(false);
-	const ref = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		setIsClient(true);
@@ -62,6 +70,7 @@ const SwedenMap: React.FC<SwedenMapProps> = ({ items, markerId, onHover, onClick
 			doubleClickZoom={false}
 			maxBounds={maxBounds}
 			bounds={maxBounds}
+			zoomSnap={0}
 		>
 			<GeoJSON data={swedenGeoJson as GeoJSON.FeatureCollection} style={geoJsonStyle} />
 			{items.map(({ id, position, label }) => (
@@ -69,11 +78,15 @@ const SwedenMap: React.FC<SwedenMapProps> = ({ items, markerId, onHover, onClick
 					key={id}
 					position={position}
 					icon={id === markerId ? markerIconActive : markerIcon}
-					eventHandlers={{
-						mouseover: () => onHover?.(id),
-						mouseout: () => onHover?.(null),
-						click: () => onClick?.(id),
-					}}
+					eventHandlers={
+						interactive
+							? {
+									mouseover: () => onHover?.(id),
+									mouseout: () => onHover?.(null),
+									click: () => onClick?.(id),
+								}
+							: {}
+					}
 				/>
 			))}
 		</MapContainer>
