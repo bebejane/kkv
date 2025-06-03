@@ -6,6 +6,8 @@ import cn from 'classnames';
 import { useState } from 'react';
 import SwedenMap from '@/components/map';
 import Link from 'next/link';
+import { groupBy } from 'lodash-es';
+import { MapMarker } from '@/components/map/SwedenMap';
 
 export type FindWorkshopProps = {
 	workshops: StartQuery['allWorkshops'];
@@ -13,44 +15,55 @@ export type FindWorkshopProps = {
 };
 
 export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
-	const [workshop, setWorkshop] = useState<StartQuery['allWorkshops'][0]>();
+	const [cityId, setCityId] = useState<string | null>(null);
+	const workshopsByCity = groupBy(workshops, ({ city }) => city.id);
+	const markers: MapMarker[] = Object.keys(workshopsByCity).map((cityId) => ({
+		id: cityId,
+		position: [
+			workshopsByCity[cityId][0].coordinates.latitude,
+			workshopsByCity[cityId][0].coordinates.longitude,
+		],
+		label: workshopsByCity[cityId][0].city.title,
+	}));
 
+	const cityWorkshops = workshops.filter(({ city }) => city.id === cityId);
+	console.log(cityWorkshops, cityId);
 	return (
 		<div className={s.findworkshop}>
 			<div className={s.find}>
 				<h2>Hitta verkstad</h2>
 				<p>{text}</p>
-				{workshop && (
-					<div className={cn(s.workshop, "small")}>
-						{workshop.address}, {workshop.postalCode}, {workshop.city.title}
-						{workshop.phone && (
-							<>
+				{cityWorkshops.length > 0 && (
+					<ul className={cn(s.workshops, 'small')}>
+						{cityWorkshops.map((workshop) => (
+							<li>
+								{workshop.name}
 								<br />
-								<a href={`tel:${workshop.phone}`}>{workshop.phone}</a>
-							</>
-						)}
-						{workshop.website && (
-							<>
+								{workshop.address}, {workshop.postalCode}, {workshop.city.title}
+								{workshop.phone && (
+									<>
+										<br />
+										<a href={`tel:${workshop.phone}`}>{workshop.phone}</a>
+									</>
+								)}
+								{workshop.website && (
+									<>
+										<br />
+										{workshop.website.replace('https://', '').replace('http://', '')}
+									</>
+								)}
 								<br />
-								<a href={workshop.website}>
-									{workshop.website.replace('https://', '').replace('http://', '')}
-								</a>
-							</>
-						)}
-						<br />
-						<Link href={`/verkstader/${workshop.slug}`}>Läs mer</Link>
-					</div>
+								<Link href={`/verkstader/${workshop.slug}`}>Läs mer</Link>
+							</li>
+						))}
+					</ul>
 				)}
 			</div>
 			<div className={s.map}>
 				<SwedenMap
-					items={workshops.map(({ id, coordinates, name }) => ({
-						id,
-						position: [coordinates.latitude, coordinates.longitude],
-						label: name,
-					}))}
-					markerId={workshop?.id}
-					onClick={(id) => setWorkshop(workshops.find((w) => w.id === id) ?? null)}
+					items={markers}
+					markerId={cityId}
+					onClick={(id) => setCityId(id === cityId ? null : id)}
 				/>
 			</div>
 		</div>

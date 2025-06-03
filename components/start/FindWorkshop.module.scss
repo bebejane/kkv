@@ -1,7 +1,6 @@
 .findworkshop {
 	display: flex;
 	flex-direction: row;
-	height: 60vh;
 
 	.find {
 		display: flex;
@@ -10,14 +9,18 @@
 		margin-right: var(--gutter);
 	}
 
-	.workshop {
-		margin-top: var(--space-small);
+	.workshops {
+		list-style: none;
 		background-color: var(--white);
 		padding: 1rem;
 		margin-left: calc(-1 * var(--gutter));
+		li {
+			margin-bottom: var(--space-small);
+		}
 	}
 	.map {
 		height: 100%;
 		flex: 1 1 auto;
+		height: 60vh;
 	}
 }

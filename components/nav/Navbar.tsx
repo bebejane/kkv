@@ -35,7 +35,7 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 	}
 
 	function isInactive(item: MenuItem) {
-		return !isSelected(item) && scrolledPosition > 0 && !isScrolledUp;
+		return !isSelected(item) && scrolledPosition > 0 && !isScrolledUp && !bottom;
 	}
 
 	useEffect(() => {
