@@ -12,7 +12,7 @@ export default function WorkshopFilter() {
 
 	return (
 		<div className={s.filter}>
-			<span>Visar som {filter === 'map' ? 'karta' : 'lista'}</span>
+			<span className="small">Visar som {filter === 'map' ? 'karta' : 'lista'}</span>
 			<Link href='?filter=list' prefetch={true}>
 				<button data-selected={filter === 'list'} data-type='icon'>
 					<IoListSharp />

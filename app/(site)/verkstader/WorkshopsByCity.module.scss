@@ -1,6 +1,7 @@
 .workshopsbycity {
 	display: flex;
 	flex-direction: row;
+	margin-top: var(--space);
 
 	.map {
 		flex: 0 0 40%;
@@ -18,8 +19,13 @@
 		align-items: flex-start;
 		margin-bottom: var(--space);
 
+		&:not(:first-of-type) {
+			border-top: 2px solid var(--gray);
+			padding-top: var(--space);
+		}
+
 		.imageWrap {
-			flex: 0 0 50%;
+			flex: 0 0 35%;
 			margin-right: var(--gutter);
 			.image {
 				width: 100%;

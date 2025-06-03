@@ -51,7 +51,7 @@
 		z-index: 2;
 
 		img {
-			width: 60%;
+			width: 75%;
 			clip-path: inset(0 0 0 0);
 		}
 		h2 {
@@ -61,9 +61,10 @@
 			color: var(--white);
 			text-transform: uppercase;
 			white-space: pre;
-			font-size: 0.9rem;
-			width: 60%;
-			font-weight: normal;
+			font-size: 1.7rem;
+			width: 75%;
+			font-weight: bold;
+			margin-top: 1rem;
 
 			span {
 				&.hide {

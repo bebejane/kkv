@@ -17,10 +17,10 @@ export default function ThumbnailContainer({ children, header, className }: Thum
 			{header && (
 				<header className={s.header}>
 					<h2>{header.title}</h2>
-					<Link href={header.href}>Visa alla</Link>
+					<Link href={header.href} className="mid">Visa alla</Link>
 				</header>
 			)}
-			<ul className={cn(s.container, className)}>{children}</ul>
+			<ul className={cn(s.container, className, "small")}>{children}</ul>
 		</>
 	);
 }

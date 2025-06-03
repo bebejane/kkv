@@ -1,6 +1,8 @@
 .image {
 	position: relative;
 	width: 100%;
+	margin-bottom: var(--space);
+	padding-top: var(--space-small);
 
 	figcaption {
 		padding-top: var(--space-small);

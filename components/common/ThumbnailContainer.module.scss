@@ -1,8 +1,8 @@
 .header {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	width: 100%;
+	align-items: baseline;
+
 	h2 {
 		flex: 1 1 auto;
 	}
@@ -17,4 +17,7 @@
 	flex-wrap: wrap;
 	list-style: none;
 	height: auto;
+	width: calc(100% + calc(2 * var(--gutter)));
+	margin-left: calc(-1 * var(--gutter));
+	margin-right: calc(-1 * var(--gutter));
 }

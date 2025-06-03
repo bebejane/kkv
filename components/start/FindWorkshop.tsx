@@ -18,7 +18,7 @@ export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
 	return (
 		<div className={s.findworkshop}>
 			<div className={s.find}>
-				<h3>Hitta verkstad</h3>
+				<h2>Hitta verkstad</h2>
 				<p>{text}</p>
 				{workshop && (
 					<div className={cn(s.workshop)}>

@@ -8,6 +8,7 @@ import { MapMarker } from '@/components/map/SwedenMap';
 import SwedenMap from '@/components/map';
 import { useEffect, useState } from 'react';
 import { Image } from 'react-datocms';
+import cn from 'classnames';
 
 export type WorkshopsByCityProps = {
 	workshops: AllWorkshopsQuery['allWorkshops'];
@@ -73,7 +74,7 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 										imgClassName={s.image}
 									/>
 								)}
-								<div className={s.details}>
+								<div className={cn("small", s.details)}>
 									<h3>{name}</h3>
 									<Markdown content={description} className={s.description} />
 									<ul className={s.meta}>

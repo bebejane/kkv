@@ -3,14 +3,14 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
-	margin-bottom: var(--space-big);
+	padding-top: 0.8rem;
 	button {
 		margin: 0;
 		position: relative;
 		margin-left: 0.5rem;
 	}
 	span {
-		flex: 0 0 200px;
+		flex: 0 0 150px;
 		//text-transform: uppercase;
 		font-weight: bold;
 	}
