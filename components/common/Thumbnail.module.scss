@@ -4,6 +4,14 @@
 	flex: 0 0 calc(50% - (0.5 * var(--gutter)));
 	background-color: var(--white);
 	margin-bottom: var(--gutter);
+	transition: all 0.3s;
+
+	&:hover {
+		transform: rotate(-5deg);
+		& .wrap {
+			transform: rotate(5deg);
+		}
+	}
 
 	&:nth-child(odd) {
 		margin-right: var(--gutter);
@@ -16,6 +24,7 @@
 	}
 	.wrap {
 		padding: var(--gutter);
+		transition: all 0.3s;
 
 		h3 {
 		}
@@ -27,7 +36,8 @@
 		}
 
 		.text {
-			margin-top: 0.5rem;
+			margin-top: 0.8rem;
+			margin-bottom: 0;
 		}
 		.meta {
 			list-style: none;

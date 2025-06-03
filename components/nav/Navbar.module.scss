@@ -12,6 +12,9 @@
 
 	&.bottom {
 		position: relative;
+		@include mq($until: desktop) {
+			display: none;
+		}
 	}
 	.logo {
 		flex: 0 0 calc(var(--margin));
@@ -63,13 +66,13 @@
 			white-space: nowrap;
 			&::after {
 				position: absolute;
-				content: ' ';
+				content: " ";
 				margin-left: 0.1rem;
 			}
 
 			&.dropdown:hover {
 				&::after {
-					content: '›';
+					content: "›";
 					transform: rotate(90deg);
 					padding-left: 0.1em;
 				}
@@ -113,6 +116,7 @@
 	color: var(--black);
 	padding: 1rem;
 	width: auto;
+	line-height: 1.8;
 
 	ul {
 		list-style: none;

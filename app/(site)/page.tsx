@@ -23,7 +23,7 @@ export default async function Home() {
 			<div className={s.page}>
 				<IntroStart images={start.images as FileField[]} />
 				<section className={s.intro}>
-					<Content content={start.intro} />
+					<Content className="intro" content={start.intro} />
 				</section>
 				<section>
 					<FindWorkshop workshops={allWorkshops} text={start.findWorkshop} />

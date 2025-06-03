@@ -11,8 +11,10 @@
 	}
 
 	.workshop {
+		margin-top: var(--space-small);
 		background-color: var(--white);
 		padding: 1rem;
+		margin-left: calc(-1 * var(--gutter));
 	}
 	.map {
 		height: 100%;

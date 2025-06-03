@@ -21,7 +21,7 @@ export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
 				<h2>Hitta verkstad</h2>
 				<p>{text}</p>
 				{workshop && (
-					<div className={cn(s.workshop)}>
+					<div className={cn(s.workshop, "small")}>
 						{workshop.address}, {workshop.postalCode}, {workshop.city.title}
 						{workshop.phone && (
 							<>

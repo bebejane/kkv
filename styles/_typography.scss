@@ -31,14 +31,14 @@ h5 {
 }
 
 h1 {
-	font-size: 1rem;
+	font-size: 2rem;
 	padding-bottom: 1em;
 	padding-top: 0.4em;
 	line-height: 1.25;
 	font-weight: bold;
 
 	@include mq($from: desktop) {
-		font-size: 2rem;
+		font-size: 1.8rem;
 	}
 }
 
@@ -49,10 +49,13 @@ h2 {
 }
 
 h3 {
-	font-size: 0.9rem;
+	font-size: 1.1rem;
 	font-family: var(--label-font);
 	margin-bottom: 0.5em;
 	line-height: var(--line-height);
+	@include mq($from: desktop) {
+		font-size: 0.9rem;
+	}
 }
 
 p {

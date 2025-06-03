@@ -53,6 +53,7 @@
 		img {
 			width: 75%;
 			clip-path: inset(0 0 0 0);
+			filter: invert(1);
 		}
 		h2 {
 			display: flex;
@@ -61,10 +62,14 @@
 			color: var(--white);
 			text-transform: uppercase;
 			white-space: pre;
-			font-size: 1.7rem;
 			width: 75%;
 			font-weight: bold;
-			margin-top: 1rem;
+			margin-top: 0.5em;
+			font-size: 0.65rem;
+
+			@include mq($from: desktop) {
+				font-size: 1.7rem;
+			}
 
 			span {
 				&.hide {

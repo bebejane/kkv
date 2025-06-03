@@ -25,6 +25,9 @@
 		}
 
 		.imageWrap {
+			@include mq($until: desktop) {
+				display: none;
+			}
 			flex: 0 0 35%;
 			margin-right: var(--gutter);
 			.image {
@@ -44,7 +47,11 @@
 					display: flex;
 					flex-direction: row;
 					span:nth-child(1) {
-						flex: 0 0 150px;
+						flex: 0 0 80px;
+
+						@include mq($from: desktop) {
+							flex: 0 0 150px;
+						}
 					}
 				}
 			}

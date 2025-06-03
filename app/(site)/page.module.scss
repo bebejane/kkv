@@ -1,7 +1,12 @@
 .page {
-	margin-left: var(--margin);
-	margin-right: var(--margin);
+	@include mq($from: desktop) {
+		margin-left: var(--margin);
+		margin-right: var(--margin);
+	}
 	section {
 		margin-top: var(--space-big);
+	}
+	.intro {
+		padding-bottom: var(--space-small);
 	}
 }

@@ -17,7 +17,9 @@
 	flex-wrap: wrap;
 	list-style: none;
 	height: auto;
-	width: calc(100% + calc(2 * var(--gutter)));
-	margin-left: calc(-1 * var(--gutter));
-	margin-right: calc(-1 * var(--gutter));
+	@include mq($from: desktop) {
+		width: calc(100% + calc(2 * var(--gutter)));
+		margin-left: calc(-1 * var(--gutter));
+		margin-right: calc(-1 * var(--gutter));
+	}
 }
