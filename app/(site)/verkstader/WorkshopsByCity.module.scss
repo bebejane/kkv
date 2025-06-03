@@ -8,6 +8,9 @@
 		height: 60vh;
 		background-color: var(--white);
 		margin-right: var(--gutter);
+		@include mq($until: desktop) {
+			display: none;
+		}
 	}
 	.workshops {
 		flex: 1 1 auto;

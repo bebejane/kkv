@@ -24,6 +24,14 @@ export default function NavbarMobile({ menu, session }: NavbarMobileProps) {
 	const [open, setOpen] = useState(false);
 	const member = menu.find(({ id }) => id === 'member');
 
+	menu = menu.map((item) => {
+		if (item.id === 'member') {
+			if (!session?.user) return { ...item, sub: null };
+			else return { ...item, title: 'Medlem' };
+		}
+		return item;
+	});
+
 	useEffect(() => {
 		setOpen(false);
 		setSelected(getSelectedMenuItem(menu, path, qs)?.id ?? null);

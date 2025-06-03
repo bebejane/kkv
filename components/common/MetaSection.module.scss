@@ -1,0 +1,23 @@
+.meta {
+	background-color: var(--white);
+	padding: var(--gutter);
+	margin-left: calc(-1 * var(--gutter));
+	margin-bottom: var(--space);
+
+	ul {
+		list-style: none;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		li {
+			display: flex;
+			flex-direction: row;
+			flex: 0 0 50%;
+			margin-bottom: 1rem;
+			.label {
+				text-transform: uppercase;
+				flex: 0 0 100px;
+			}
+		}
+	}
+}

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Article from '@/components/common/Article';
 import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
+import { MetaSectionItem } from '@/components/common/MetaSection';
 
 export type CourseProps = {
 	params: Promise<{ course: string }>;
@@ -22,7 +23,31 @@ export default async function CoursePage(props: CourseProps) {
 
 	if (!course) return notFound();
 
-	const { id, workshop, title, intro, text, date, openToAll, _status } = course;
+	const { id, workshop, title, intro, text, where, forWhom, eMail, date, openToAll, _status } =
+		course;
+
+	const meta: MetaSectionItem[] = [
+		{
+			id: 'date',
+			label: 'När',
+			text: date,
+		},
+		{
+			id: 'where',
+			label: 'Var',
+			text: where,
+		},
+		{
+			id: 'for',
+			label: 'För',
+			text: forWhom,
+		},
+		{
+			id: 'email',
+			label: 'Anmäl',
+			text: eMail,
+		},
+	];
 
 	return (
 		<>
@@ -31,6 +56,7 @@ export default async function CoursePage(props: CourseProps) {
 				content={text}
 				intro={intro}
 				markdown={true}
+				meta={meta}
 				edit={{
 					id,
 					workshopId: workshop?.id,

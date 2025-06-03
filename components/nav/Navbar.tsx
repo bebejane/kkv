@@ -23,7 +23,7 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 	const [selected, setSelected] = useState<string | null>(null);
 	const [subStyle, setSubStyle] = useState<CSSProperties | null>();
 	const { innerHeight, innerWidth } = useWindowSize();
-	const { scrolledPosition, viewportHeight } = useScrollInfo();
+	const { scrolledPosition, viewportHeight, isScrolledUp } = useScrollInfo();
 	const logoRef = useRef<HTMLImageElement>(null);
 	const parent = menu.find(({ id }) => id === selected);
 	const sub = parent?.sub;
@@ -32,6 +32,10 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 	function isSelected(item: MenuItem) {
 		if (item.id === 'member' && session?.user) return false;
 		else return pathname.startsWith(item.slug) || pathname === item.slug;
+	}
+
+	function isInactive(item: MenuItem) {
+		return !isSelected(item) && scrolledPosition > 0 && !isScrolledUp;
 	}
 
 	useEffect(() => {
@@ -98,8 +102,12 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 							id={`${item.id}-menu`}
 							key={`${item.id}-menu`}
 							data-position={item.position}
-							className={cn(item.sub && !item.hideSub && s.dropdown, isSelected(item) && s.active)}
 							onMouseEnter={() => handleEnter(item.sub ? item.id : null)}
+							className={cn(
+								item.sub && !item.hideSub && s.dropdown,
+								isSelected(item) && s.active,
+								isInactive(item) && s.inactive
+							)}
 						>
 							{item.sub && !item.hideSub ? (
 								<span>{item.title}</span>

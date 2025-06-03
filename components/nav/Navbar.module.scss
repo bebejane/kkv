@@ -10,11 +10,12 @@
 	padding: var(--outer-margin);
 	z-index: var(--z-navbar);
 
+	@include mq($until: desktop) {
+		display: none;
+	}
+
 	&.bottom {
 		position: relative;
-		@include mq($until: desktop) {
-			display: none;
-		}
 	}
 	.logo {
 		flex: 0 0 calc(var(--margin));
@@ -44,6 +45,18 @@
 			&.active > * {
 				color: var(--darkred) !important;
 			}
+			a,
+			span {
+				transition: opacity 0.3s ease-out;
+				opacity: 1;
+			}
+
+			&.inactive {
+				a,
+				span {
+					opacity: 0;
+				}
+			}
 		}
 
 		@include mq($until: desktop) {
@@ -66,13 +79,13 @@
 			white-space: nowrap;
 			&::after {
 				position: absolute;
-				content: " ";
+				content: ' ';
 				margin-left: 0.1rem;
 			}
 
 			&.dropdown:hover {
 				&::after {
-					content: "›";
+					content: '›';
 					transform: rotate(90deg);
 					padding-left: 0.1em;
 				}

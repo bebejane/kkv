@@ -263,12 +263,15 @@ type CourseModelFilter = {
   _unpublishingScheduledAt?: InputMaybe<PublishedAtFilter>;
   _updatedAt?: InputMaybe<UpdatedAtFilter>;
   date?: InputMaybe<DateFilter>;
+  eMail?: InputMaybe<StringFilter>;
+  forWhom?: InputMaybe<StringFilter>;
   id?: InputMaybe<ItemIdFilter>;
   intro?: InputMaybe<TextFilter>;
   openToAll?: InputMaybe<BooleanFilter>;
   slug?: InputMaybe<SlugFilter>;
   text?: InputMaybe<TextFilter>;
   title?: InputMaybe<StringFilter>;
+  where?: InputMaybe<StringFilter>;
   workshop?: InputMaybe<LinkFilter>;
 };
 
@@ -291,12 +294,18 @@ enum CourseModelOrderBy {
   _updatedAt_DESC = '_updatedAt_DESC',
   date_ASC = 'date_ASC',
   date_DESC = 'date_DESC',
+  eMail_ASC = 'eMail_ASC',
+  eMail_DESC = 'eMail_DESC',
+  forWhom_ASC = 'forWhom_ASC',
+  forWhom_DESC = 'forWhom_DESC',
   id_ASC = 'id_ASC',
   id_DESC = 'id_DESC',
   openToAll_ASC = 'openToAll_ASC',
   openToAll_DESC = 'openToAll_DESC',
   title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC'
+  title_DESC = 'title_DESC',
+  where_ASC = 'where_ASC',
+  where_DESC = 'where_DESC'
 }
 
 /** Record of type Kurs (course) */
@@ -316,12 +325,15 @@ type CourseRecord = RecordInterface & {
   _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
   _updatedAt: Scalars['DateTime']['output'];
   date?: Maybe<Scalars['Date']['output']>;
+  eMail?: Maybe<Scalars['String']['output']>;
+  forWhom?: Maybe<Scalars['String']['output']>;
   id: Scalars['ItemId']['output'];
   intro?: Maybe<Scalars['String']['output']>;
   openToAll: Scalars['BooleanType']['output'];
   slug: Scalars['String']['output'];
   text?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+  where?: Maybe<Scalars['String']['output']>;
   workshop?: Maybe<WorkshopRecord>;
 };
 
@@ -3820,23 +3832,23 @@ type AllCoursesByWorkshopQueryVariables = Exact<{
 }>;
 
 
-type AllCoursesByWorkshopQuery = { __typename?: 'Query', allCourses: Array<{ __typename?: 'CourseRecord', id: any, title?: string | null, date?: any | null, intro?: string | null, text?: string | null, openToAll: any, slug: string, _status: ItemStatus, workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, description?: string | null, address?: string | null, postalCode?: string | null, email?: string | null, website?: string | null, phone?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', alt?: string | null, basename: string, format: string, height?: any | null, id: any, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null, city: { __typename?: 'CityRecord', id: any, title?: string | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null }>, _allCoursesMeta: { __typename?: 'CollectionMetadata', count: any } };
+type AllCoursesByWorkshopQuery = { __typename?: 'Query', allCourses: Array<{ __typename?: 'CourseRecord', id: any, title?: string | null, date?: any | null, intro?: string | null, text?: string | null, where?: string | null, forWhom?: string | null, eMail?: string | null, openToAll: any, slug: string, _status: ItemStatus, workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, description?: string | null, address?: string | null, postalCode?: string | null, email?: string | null, website?: string | null, phone?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', alt?: string | null, basename: string, format: string, height?: any | null, id: any, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null, city: { __typename?: 'CityRecord', id: any, title?: string | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null }>, _allCoursesMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type CourseQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-type CourseQuery = { __typename?: 'Query', course?: { __typename?: 'CourseRecord', id: any, title?: string | null, date?: any | null, intro?: string | null, text?: string | null, openToAll: any, slug: string, _status: ItemStatus, workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, description?: string | null, address?: string | null, postalCode?: string | null, email?: string | null, website?: string | null, phone?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', alt?: string | null, basename: string, format: string, height?: any | null, id: any, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null, city: { __typename?: 'CityRecord', id: any, title?: string | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null } | null };
+type CourseQuery = { __typename?: 'Query', course?: { __typename?: 'CourseRecord', id: any, title?: string | null, date?: any | null, intro?: string | null, text?: string | null, where?: string | null, forWhom?: string | null, eMail?: string | null, openToAll: any, slug: string, _status: ItemStatus, workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, description?: string | null, address?: string | null, postalCode?: string | null, email?: string | null, website?: string | null, phone?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', alt?: string | null, basename: string, format: string, height?: any | null, id: any, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null, city: { __typename?: 'CityRecord', id: any, title?: string | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null } | null };
 
 type CourseByIdQueryVariables = Exact<{
   id?: InputMaybe<Scalars['ItemId']['input']>;
 }>;
 
 
-type CourseByIdQuery = { __typename?: 'Query', course?: { __typename?: 'CourseRecord', id: any, title?: string | null, date?: any | null, intro?: string | null, text?: string | null, openToAll: any, slug: string, _status: ItemStatus, workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, description?: string | null, address?: string | null, postalCode?: string | null, email?: string | null, website?: string | null, phone?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', alt?: string | null, basename: string, format: string, height?: any | null, id: any, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null, city: { __typename?: 'CityRecord', id: any, title?: string | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null } | null };
+type CourseByIdQuery = { __typename?: 'Query', course?: { __typename?: 'CourseRecord', id: any, title?: string | null, date?: any | null, intro?: string | null, text?: string | null, where?: string | null, forWhom?: string | null, eMail?: string | null, openToAll: any, slug: string, _status: ItemStatus, workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, description?: string | null, address?: string | null, postalCode?: string | null, email?: string | null, website?: string | null, phone?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', alt?: string | null, basename: string, format: string, height?: any | null, id: any, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null, city: { __typename?: 'CityRecord', id: any, title?: string | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null } | null };
 
-type CourseFragment = { __typename?: 'CourseRecord', id: any, title?: string | null, date?: any | null, intro?: string | null, text?: string | null, openToAll: any, slug: string, _status: ItemStatus, workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, description?: string | null, address?: string | null, postalCode?: string | null, email?: string | null, website?: string | null, phone?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', alt?: string | null, basename: string, format: string, height?: any | null, id: any, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null, city: { __typename?: 'CityRecord', id: any, title?: string | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null };
+type CourseFragment = { __typename?: 'CourseRecord', id: any, title?: string | null, date?: any | null, intro?: string | null, text?: string | null, where?: string | null, forWhom?: string | null, eMail?: string | null, openToAll: any, slug: string, _status: ItemStatus, workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, description?: string | null, address?: string | null, postalCode?: string | null, email?: string | null, website?: string | null, phone?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', alt?: string | null, basename: string, format: string, height?: any | null, id: any, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null, city: { __typename?: 'CityRecord', id: any, title?: string | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null };
 
 type CourseLightFragment = { __typename?: 'CourseRecord', id: any, title?: string | null, date?: any | null, intro?: string | null, text?: string | null, openToAll: any, slug: string, workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, description?: string | null, address?: string | null, postalCode?: string | null, email?: string | null, website?: string | null, phone?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', alt?: string | null, basename: string, format: string, height?: any | null, id: any, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null, city: { __typename?: 'CityRecord', id: any, title?: string | null, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null };
 
