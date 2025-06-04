@@ -38,6 +38,13 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 		return !isSelected(item) && scrolledPosition > 0 && !isScrolledUp && !bottom;
 	}
 
+	function handleLeave() {
+		setSelected(null);
+	}
+	function handleEnter(id: string) {
+		setSelected(id);
+	}
+
 	useEffect(() => {
 		if (!logoRef.current) return;
 		if (pathname !== '/') {
@@ -47,21 +54,6 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 		const ratio = 1 - Math.max(0, Math.min(1, (scrolledPosition / viewportHeight) * 4));
 		logoRef.current.style.clipPath = `inset(${ratio * 100}% 0 0 0)`;
 	}, [pathname, scrolledPosition, viewportHeight]);
-
-	menu = menu.map((item) => {
-		if (item.id === 'member') {
-			if (!session?.user) return { ...item, sub: null };
-			else return { ...item, title: 'Medlem' };
-		}
-		return item;
-	});
-
-	function handleLeave() {
-		setSelected(null);
-	}
-	function handleEnter(id: string) {
-		setSelected(id);
-	}
 
 	useEffect(() => {
 		const menuItem = document.getElementById(`${selected}-menu`);
@@ -79,11 +71,19 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 				? menuItemRect.left - padding
 				: `calc(100% - ${outerMargin} - ${subRect.width}px - ${padding}px)`;
 		const marginTop = bottom
-			? `calc(100vh - var(--navbar-height) - ${outerMargin} - ${subRect.height}px - ${padding}px)`
+			? `calc(100vh - calc(var(--navbar-height) * 2) - ${subRect.height}px - ${padding}px)`
 			: 'var(--navbar-height)';
 
 		setSubStyle({ marginLeft, marginTop });
 	}, [selected, bottom, innerHeight, innerWidth]);
+
+	menu = menu.map((item) => {
+		if (item.id === 'member') {
+			if (!session?.user) return { ...item, sub: null };
+			else return { ...item, title: 'Medlem' };
+		}
+		return item;
+	});
 
 	return (
 		<>
@@ -104,8 +104,8 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 								style={{
 									transitionDelay:
 										scrolledPosition > 0 && !isScrolledUp
-											? `${i * 50}ms`
-											: `${(item.title.length - i) * 50}ms`,
+											? `${(item.title.length - i) * 30}ms`
+											: `${i * 30}ms`,
 								}}
 							>
 								{c}
