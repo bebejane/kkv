@@ -97,25 +97,40 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 				</figure>
 
 				<ul className={s.menu} onMouseLeave={handleLeave}>
-					{menu.map((item, idx) => (
-						<li
-							id={`${item.id}-menu`}
-							key={`${item.id}-menu`}
-							data-position={item.position}
-							onMouseEnter={() => handleEnter(item.sub ? item.id : null)}
-							className={cn(
-								item.sub && !item.hideSub && s.dropdown,
-								isSelected(item) && s.active,
-								isInactive(item) && s.inactive
-							)}
-						>
-							{item.sub && !item.hideSub ? (
-								<span>{item.title}</span>
-							) : (
-								<Link href={item.slug ?? item.href}>{item.title}</Link>
-							)}
-						</li>
-					))}
+					{menu.map((item, idx) => {
+						const title = item.title.split('').map((c, i) => (
+							<span
+								key={i}
+								style={{
+									transitionDelay:
+										scrolledPosition > 0 && !isScrolledUp
+											? `${i * 50}ms`
+											: `${(item.title.length - i) * 50}ms`,
+								}}
+							>
+								{c}
+							</span>
+						));
+						return (
+							<li
+								id={`${item.id}-menu`}
+								key={`${item.id}-menu`}
+								data-position={item.position}
+								onMouseEnter={() => handleEnter(item.sub ? item.id : null)}
+								className={cn(
+									item.sub && !item.hideSub && s.dropdown,
+									isSelected(item) && s.active,
+									isInactive(item) && s.inactive
+								)}
+							>
+								{item.sub && !item.hideSub ? (
+									<>{title}</>
+								) : (
+									<Link href={item.slug ?? item.href}>{title}</Link>
+								)}
+							</li>
+						);
+					})}
 				</ul>
 			</nav>
 			<nav

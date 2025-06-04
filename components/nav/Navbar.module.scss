@@ -45,14 +45,16 @@
 			&.active > * {
 				color: var(--darkred) !important;
 			}
-			a,
+
+			a > span,
 			span {
-				transition: opacity 0.3s ease-out;
+				transition: opacity 0s ease-out;
 				opacity: 1;
 			}
 
 			&.inactive {
-				a,
+				pointer-events: none;
+				a > span,
 				span {
 					opacity: 0;
 				}
@@ -67,7 +69,6 @@
 	.menu {
 		span {
 			position: relative;
-			padding-right: 0.2em;
 		}
 
 		a:hover {
@@ -80,14 +81,15 @@
 			&::after {
 				position: absolute;
 				content: ' ';
-				margin-left: 0.1rem;
+				margin-left: 0.3rem;
 			}
 
 			&.dropdown:hover {
 				&::after {
+					display: inline-block;
 					content: '›';
 					transform: rotate(90deg);
-					padding-left: 0.1em;
+					margin-left: 0.3em;
 				}
 			}
 
@@ -103,19 +105,6 @@
 				justify-content: flex-end;
 			}
 		}
-	}
-}
-
-.login {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: flex-end;
-	flex: 0 0 var(--margin);
-	transition: var(--color-transtion);
-
-	a:hover {
-		color: var(--darkred);
 	}
 }
 
