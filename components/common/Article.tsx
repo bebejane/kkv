@@ -66,7 +66,7 @@ export default function Article({
 			)}
 
 			{intro && markdown && <Markdown content={intro} className={cn('intro', s.intro)} />}
-			{intro && !markdown && <Content content={intro} className={'intro'} />}
+			{intro && !markdown && <Content content={intro} className={cn('intro', s.intro)} />}
 			{meta && <MetaSection items={meta} />}
 			{content && !markdown && <Content content={content} className={s.content} />}
 			{content && markdown && <Markdown content={content} className={s.content} />}

@@ -28,7 +28,7 @@
 			object-fit: cover;
 			height: var(--height);
 			width: 100vw;
-			transition: transform 1s ease-out;
+			transition: transform 2s ease-out;
 
 			.image {
 				width: 100%;
@@ -38,7 +38,7 @@
 
 			&.hide {
 				.image {
-					animation: slide 1s linear forwards;
+					animation: slide 2s linear forwards;
 				}
 			}
 		}
@@ -87,13 +87,13 @@
 
 @keyframes slide {
 	0% {
-		clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0% 100%);
+		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 	}
-	5% {
-		clip-path: polygon(29% 0, 100% 0%, 100% 100%, 0% 100%);
+	10% {
+		clip-path: polygon(29% 0%, 100% 0%, 100% 100%, 0% 100%);
 	}
-	60% {
-		clip-path: polygon(100% 0, 100% 0%, 100% 100%, 71% 100%);
+	70% {
+		clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 71% 100%);
 	}
 	100% {
 		clip-path: polygon(100% 100%, 100% 0%, 100% 100%, 100% 100%);

@@ -35,27 +35,21 @@ export default function IntroStart({ images }: GalleryProps) {
 	}, [scrolledPosition, viewportHeight]);
 
 	useInterval(() => {
-		setIndex((index) => (index === images.length - 1 ? 0 : index + 1));
-	}, 2000);
+		setIndex((index) => (index === images.length - 1 ? -1 : index + 1));
+	}, 4000);
 
 	return (
 		<div className={s.intro}>
 			<div className={s.images}>
-				{images.map((image, idx) => (
+				{images.concat(images[0]).map((image, idx) => (
 					<Image
 						key={idx}
 						data={image.responsiveImage}
 						className={cn(s.imageWrap, index >= idx && s.hide)}
 						imgClassName={s.image}
-						style={{ zIndex: images.length - idx }}
+						style={{ zIndex: images.length + 1 - idx }}
 					/>
 				))}
-				<Image
-					data={images[0].responsiveImage}
-					className={cn(s.imageWrap)}
-					imgClassName={s.image}
-					style={{ zIndex: 0 }}
-				/>
 			</div>
 			<div className={s.logo}>
 				<img src='/images/logo.svg' alt='Logo' ref={logoRef} />
