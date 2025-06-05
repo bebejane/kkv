@@ -24,9 +24,11 @@ type Scalars = {
   UploadId: { input: any; output: any; }
 };
 
+type AboutModelContentBlocksField = ImageRecord | KnappRecord;
+
 type AboutModelContentField = {
   __typename?: 'AboutModelContentField';
-  blocks: Array<ImageRecord>;
+  blocks: Array<AboutModelContentBlocksField>;
   inlineBlocks: Array<Scalars['String']['output']>;
   links: Array<Scalars['String']['output']>;
   value: Scalars['JsonField']['output'];
@@ -2455,6 +2457,33 @@ enum ItemStatus {
   updated = 'updated'
 }
 
+/** Block of type Knapp (knapp) */
+type KnappRecord = RecordInterface & {
+  __typename?: 'KnappRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  text: Scalars['String']['output'];
+  url: Scalars['String']['output'];
+};
+
+
+/** Block of type Knapp (knapp) */
+type KnappRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
 type KnowledgeBaseModelContentField = {
   __typename?: 'KnowledgeBaseModelContentField';
   blocks: Array<Scalars['String']['output']>;
@@ -3794,16 +3823,16 @@ type AllAboutsQueryVariables = Exact<{
 }>;
 
 
-type AllAboutsQuery = { __typename?: 'Query', allAbouts: Array<{ __typename?: 'AboutRecord', id: any, title?: string | null, slug?: string | null, content?: { __typename?: 'AboutModelContentField', links: Array<string>, value: any, blocks: Array<{ __typename: 'ImageRecord', id: any, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null }> } | null, intro?: { __typename?: 'AboutModelIntroField', blocks: Array<string>, links: Array<string>, value: any } | null }>, _allAboutsMeta: { __typename?: 'CollectionMetadata', count: any } };
+type AllAboutsQuery = { __typename?: 'Query', allAbouts: Array<{ __typename?: 'AboutRecord', id: any, title?: string | null, slug?: string | null, content?: { __typename?: 'AboutModelContentField', links: Array<string>, value: any, blocks: Array<{ __typename: 'ImageRecord', id: any, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null } | { __typename: 'KnappRecord' }> } | null, intro?: { __typename?: 'AboutModelIntroField', blocks: Array<string>, links: Array<string>, value: any } | null }>, _allAboutsMeta: { __typename?: 'CollectionMetadata', count: any } };
 
 type AboutQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-type AboutQuery = { __typename?: 'Query', about?: { __typename?: 'AboutRecord', id: any, title?: string | null, slug?: string | null, content?: { __typename?: 'AboutModelContentField', links: Array<string>, value: any, blocks: Array<{ __typename: 'ImageRecord', id: any, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null }> } | null, intro?: { __typename?: 'AboutModelIntroField', blocks: Array<string>, links: Array<string>, value: any } | null } | null };
+type AboutQuery = { __typename?: 'Query', about?: { __typename?: 'AboutRecord', id: any, title?: string | null, slug?: string | null, content?: { __typename?: 'AboutModelContentField', links: Array<string>, value: any, blocks: Array<{ __typename: 'ImageRecord', id: any, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null } | { __typename: 'KnappRecord' }> } | null, intro?: { __typename?: 'AboutModelIntroField', blocks: Array<string>, links: Array<string>, value: any } | null } | null };
 
-type AboutFragment = { __typename?: 'AboutRecord', id: any, title?: string | null, slug?: string | null, content?: { __typename?: 'AboutModelContentField', links: Array<string>, value: any, blocks: Array<{ __typename: 'ImageRecord', id: any, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null }> } | null, intro?: { __typename?: 'AboutModelIntroField', blocks: Array<string>, links: Array<string>, value: any } | null };
+type AboutFragment = { __typename?: 'AboutRecord', id: any, title?: string | null, slug?: string | null, content?: { __typename?: 'AboutModelContentField', links: Array<string>, value: any, blocks: Array<{ __typename: 'ImageRecord', id: any, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null } | { __typename: 'KnappRecord' }> } | null, intro?: { __typename?: 'AboutModelIntroField', blocks: Array<string>, links: Array<string>, value: any } | null };
 
 type ContactQueryVariables = Exact<{ [key: string]: never; }>;
 

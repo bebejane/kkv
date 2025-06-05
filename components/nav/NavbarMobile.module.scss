@@ -72,8 +72,9 @@
 			}
 
 			&.active {
-				> a {
-					color: var(--darkred-light);
+				> a,
+				> span {
+					color: var(--black);
 				}
 			}
 		}

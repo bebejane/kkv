@@ -5,6 +5,9 @@ export const CourseSchema = z.object({
   text: z.string().min(0, { message: "Text saknas" }),
   date: z.string().min(10, { message: "Datum saknas" }),
   intro: z.string().min(0, { message: "Intro saknas" }),
+  for_members: z.boolean(),
+  where: z.string().optional(),
+  sign_up: z.string().optional(),
   slug: z.string()
     .min(2, { message: "Permalänk måste vara minst 2 bokstaver långt" })
     .regex(/^[a-z](-?[a-z])*$/, { message: "Permalänk får endast innehålla små bokstäver och bindestreck" }),

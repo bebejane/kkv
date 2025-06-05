@@ -67,15 +67,7 @@ export default async function CoursePage(props: CourseProps) {
 					pathname: `/medlem/kurser/${id}`,
 					status: _status,
 				}}
-			>
-				<section>
-					<p>
-						{date}
-						<br />
-						{openToAll ? 'Öppen för alla' : 'Endast för medlemmar'}
-					</p>
-				</section>
-			</Article>
+			></Article>
 			<DraftMode url={draftUrl} path={`/kurser/${slug}`} />
 		</>
 	);

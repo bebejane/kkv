@@ -17,8 +17,16 @@ export type LayoutProps = {
 };
 
 export default async function RootLayout({ children }: LayoutProps) {
-	const menu = await buildMenu();
+	let menu = await buildMenu();
 	const session = await getServerSession(authOptions);
+
+	menu = menu.map((item) => {
+		if (item.id === 'member') {
+			if (!session?.user) return { ...item, sub: null };
+			else return { ...item, title: 'Medlem', slug: '/medlem' };
+		}
+		return item;
+	});
 
 	return (
 		<>
