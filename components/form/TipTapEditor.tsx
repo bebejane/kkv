@@ -5,8 +5,10 @@ import { useEditor, EditorContent, Editor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Link from '@tiptap/extension-link';
 import { useCallback } from 'react';
-import { FaBold, FaItalic, FaLink, FaListOl, FaListUl } from 'react-icons/fa';
+import { FaBold, FaItalic, FaLink, FaListOl, FaListUl, FaMinus, FaHeading } from 'react-icons/fa';
 import { Markdown } from 'tiptap-markdown';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import Heading from '@tiptap/extension-heading';
 
 const MenuBar = ({ editor }: { editor: Editor | null }) => {
 	const setLink = useCallback(() => {
@@ -35,6 +37,16 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 
 	return (
 		<div className={s.menubar}>
+			<button
+				type='button'
+				data-type='icon'
+				onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+				disabled={!editor.can().chain().focus().toggleHeading({ level: 2 }).run()}
+				className={editor.isActive('heading') ? s.isActive : ''}
+				aria-label='Rubrik'
+			>
+				<FaHeading />
+			</button>
 			<button
 				type='button'
 				data-type='icon'
@@ -82,6 +94,15 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 			>
 				<FaListUl />
 			</button>
+			<button
+				type='button'
+				data-type='icon'
+				onClick={() => editor.chain().focus().setHorizontalRule().run()}
+				className={editor.isActive('horizontalRule') ? s.isActive : ''}
+				aria-label='Horisontell linje'
+			>
+				<FaMinus />
+			</button>
 		</div>
 	);
 };
@@ -107,6 +128,14 @@ export default function TipTapEditor({ initialValue = '', onChange }: TipTapEdit
 			Markdown.configure({
 				// Enables the use of the Markdown shortcuts
 				breaks: true,
+			}),
+			HorizontalRule.configure({
+				HTMLAttributes: {
+					class: 'hr',
+				},
+			}),
+			Heading.configure({
+				levels: [2],
 			}),
 		],
 		content: initialValue,

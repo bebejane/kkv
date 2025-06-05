@@ -15,7 +15,7 @@ export type ListProps = {
 		content?: any;
 		markdown?: boolean;
 		href?: string;
-		status: 'updated' | 'published' | 'new' | 'draft';
+		status?: 'updated' | 'published' | 'new' | 'draft';
 	}[];
 	onChange?: (id: string | null) => void;
 };
@@ -40,9 +40,9 @@ export default function List({ items, itemId, className, onChange }: ListProps) 
 
 	useEffect(() => {
 		if (!itemId) return;
-		setToggles((t) => ({ ...defaultToggles, [itemId]: { ...t[itemId], show: true } }));
+		setToggles((t) => ({ ...toggles, [itemId]: { ...t[itemId], show: true } }));
 	}, [itemId]);
-	console.log(items);
+
 	return (
 		<ul className={cn(s.list, className)}>
 			{items.map(({ id, title, content, markdown, href, status }, idx) => (

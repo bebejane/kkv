@@ -41,11 +41,11 @@
 			}
 
 			&:nth-child(2) {
-				transform: translateY(calc(calc(var(--height) * 0.5) - var(--line-height-half)));
+				transform: translateY(calc(calc(var(--height) * 0.5) + var(--line-height-half)));
 			}
 
 			&:nth-child(3) {
-				transform: translateY(calc(calc(var(--height) * 1) - var(--line-height))) rotate(0deg);
+				transform: translateY(calc(calc(var(--height) * 1) - var(--line-height-half))) rotate(0deg);
 			}
 
 			&.init {

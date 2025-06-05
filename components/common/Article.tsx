@@ -53,7 +53,7 @@ export default function Article({
 					<h1>{title}</h1>
 					{headerContent && <div className={s.headerContent}>{headerContent}</div>}
 					{edit && session?.user.id === edit.workshopId && (
-						<div className={s.headerContent}>
+						<div className={s.edit}>
 							<ArticleEditButtons
 								id={edit.id}
 								pathname={edit.pathname}
