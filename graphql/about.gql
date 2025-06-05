@@ -25,6 +25,11 @@ fragment AboutFragment on AboutRecord {
 					...ImageFragment
 				}
 			}
+			... on ButtonRecord {
+				id
+				text
+				url
+			}
 		}
 		links
 		value

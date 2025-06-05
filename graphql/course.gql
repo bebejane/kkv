@@ -65,6 +65,9 @@ fragment CourseLightFragment on CourseRecord {
 	date
 	intro
 	text
+	where
+	forMembers
+	signUp
 	workshop {
 		...WorkshopLightFragment
 	}

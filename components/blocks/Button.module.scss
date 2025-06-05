@@ -1,15 +1,14 @@
 .wrapper {
-  text-align: center;
+	text-align: center;
 
-  button {
-    font-size: 0.9rem !important;
-    margin-bottom: var(--space);
-    &:hover {
-      color: white !important;
-    }
-  }
+	button {
+		margin-bottom: var(--space);
+		&:hover {
+			color: white !important;
+		}
+	}
 
-  a {
-    text-decoration: none;
-  }
+	a {
+		text-decoration: none;
+	}
 }

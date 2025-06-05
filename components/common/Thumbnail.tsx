@@ -39,12 +39,14 @@ export default function Thumbnail({
 				</Link>
 				{meta && (
 					<ul className={s.meta}>
-						{meta.map(({ label, text, href }, idx) => (
-							<li key={idx}>
-								<span>{label}</span>
-								{href ? <Link href={href}>{text}</Link> : <span>{text}</span>}
-							</li>
-						))}
+						{meta
+							.filter(({ text }) => text)
+							.map(({ label, text, href }, idx) => (
+								<li key={idx}>
+									<span>{label}</span>
+									{href ? <Link href={href}>{text}</Link> : <span>{text}</span>}
+								</li>
+							))}
 					</ul>
 				)}
 			</div>
