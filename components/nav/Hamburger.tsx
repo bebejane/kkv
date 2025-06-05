@@ -21,16 +21,11 @@ export default function Hamburger({ toggled, onToggle, size }: HamburgerProps) {
 	};
 
 	return (
-		<div className={cn(s.hamburger, toggled && s.toggled)} onClick={handleClick}>
-			<div className={s.wrap}>
-				{new Array(3).fill(0).map((_, i) => (
-					<div
-						id={`l${i + 1}`}
-						key={`${key}-${i + 1}`}
-						className={cn(init && s.init, !toggled ? s.opened : s.closed)}
-					></div>
-				))}
-			</div>
+		<div className={cn(s.hamburger, toggled && s.open)} onClick={handleClick}>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
 		</div>
 	);
 }

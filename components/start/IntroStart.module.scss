@@ -38,7 +38,11 @@
 
 			&.hide {
 				.image {
-					animation: slide 2s linear forwards;
+					mask-image: url(/images/intro-mask.png);
+					mask-size: 100% 100%;
+					mask-position: -100% center;
+					mask-repeat: no-repeat;
+					animation: slide-mask 1s linear forwards;
 				}
 			}
 		}
@@ -85,6 +89,15 @@
 	}
 }
 
+@keyframes slide-mask {
+	0% {
+		mask-position: -100% center;
+	}
+
+	100% {
+		mask-position: 2000px center;
+	}
+}
 @keyframes slide {
 	0% {
 		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
