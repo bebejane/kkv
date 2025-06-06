@@ -79,7 +79,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 					name='intro'
 					control={control}
 					render={({ field }) => (
-						<TipTapEditor initialValue={field.value} onChange={field.onChange} />
+						<TipTapEditor initialValue={field.value} onChange={field.onChange} controls={false} />
 					)}
 				/>
 				{errors.intro && <p className='form-error'>{errors.intro.message}</p>}

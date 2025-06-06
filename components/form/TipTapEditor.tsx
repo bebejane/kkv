@@ -10,6 +10,62 @@ import { Markdown } from 'tiptap-markdown';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import Heading from '@tiptap/extension-heading';
 
+type TipTapEditorProps = {
+	initialValue?: string;
+	onChange: (value: string) => void;
+	controls?: boolean;
+};
+
+export default function TipTapEditor({
+	initialValue = '',
+	onChange,
+	controls = true,
+}: TipTapEditorProps) {
+	const editor = useEditor({
+		extensions: [
+			StarterKit.configure({
+				// Disable heading as it's not requested and requires specific handling if needed
+				heading: false,
+				// Keep other StarterKit defaults like paragraph, bold, italic, list items etc.
+				// Ensure orderedList is enabled (it is by default in StarterKit)
+			}),
+			Link.configure({
+				openOnClick: false, // Don't open links when clicking in the editor
+				autolink: true, // Automatically detect links
+			}),
+			Markdown.configure({
+				// Enables the use of the Markdown shortcuts
+				breaks: true,
+			}),
+			HorizontalRule.configure({
+				HTMLAttributes: {
+					class: 'hr',
+				},
+			}),
+			Heading.configure({
+				levels: [2],
+			}),
+		],
+		content: initialValue,
+		onUpdate: ({ editor }) => {
+			onChange(editor.storage.markdown.getMarkdown()); // Pass HTML content up
+		},
+		immediatelyRender: false,
+		editorProps: {
+			attributes: {
+				class: s.editorInput, // Add class for styling the editable area
+			},
+		},
+	});
+
+	return (
+		<div className={s.editor}>
+			{controls && <MenuBar editor={editor} />}
+			<EditorContent editor={editor} className={s.content} />
+		</div>
+	);
+}
+
 const MenuBar = ({ editor }: { editor: Editor | null }) => {
 	const setLink = useCallback(() => {
 		if (!editor) return;
@@ -106,54 +162,3 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
 		</div>
 	);
 };
-
-type TipTapEditorProps = {
-	initialValue?: string;
-	onChange: (value: string) => void;
-};
-
-export default function TipTapEditor({ initialValue = '', onChange }: TipTapEditorProps) {
-	const editor = useEditor({
-		extensions: [
-			StarterKit.configure({
-				// Disable heading as it's not requested and requires specific handling if needed
-				heading: false,
-				// Keep other StarterKit defaults like paragraph, bold, italic, list items etc.
-				// Ensure orderedList is enabled (it is by default in StarterKit)
-			}),
-			Link.configure({
-				openOnClick: false, // Don't open links when clicking in the editor
-				autolink: true, // Automatically detect links
-			}),
-			Markdown.configure({
-				// Enables the use of the Markdown shortcuts
-				breaks: true,
-			}),
-			HorizontalRule.configure({
-				HTMLAttributes: {
-					class: 'hr',
-				},
-			}),
-			Heading.configure({
-				levels: [2],
-			}),
-		],
-		content: initialValue,
-		onUpdate: ({ editor }) => {
-			onChange(editor.storage.markdown.getMarkdown()); // Pass HTML content up
-		},
-		immediatelyRender: false,
-		editorProps: {
-			attributes: {
-				class: s.editorInput, // Add class for styling the editable area
-			},
-		},
-	});
-
-	return (
-		<div className={s.editor}>
-			<MenuBar editor={editor} />
-			<EditorContent editor={editor} className={s.content} />
-		</div>
-	);
-}
