@@ -9,6 +9,7 @@ import Content from '@/components/common/Content';
 import FindWorkshop from '@/components/start/FindWorkshop';
 import ThumbnailContainer from '@/components/common/ThumbnailContainer';
 import Thumbnail from '@/components/common/Thumbnail';
+import { formatDate } from '@/lib/utils';
 
 export default async function Home() {
 	const { start, allWorkshops, allCourses, allKnowledgeBases, draftUrl } = await apiQuery<
@@ -23,19 +24,29 @@ export default async function Home() {
 			<div className={s.page}>
 				<IntroStart images={start.images as FileField[]} />
 				<section className={s.intro}>
-					<Content className="intro" content={start.intro} />
+					<Content className='intro' content={start.intro} />
 				</section>
 				<section>
 					<FindWorkshop workshops={allWorkshops} text={start.findWorkshop} />
 				</section>
 				<section>
 					<ThumbnailContainer header={{ title: 'Kurser för medlemmar', href: '/kurser' }}>
-						{allCourses.map(({ id, title, intro, slug }) => (
+						{allCourses.map(({ id, title, intro, slug, date, where }) => (
 							<Thumbnail
 								key={id}
 								title={title}
 								text={intro}
 								markdown={true}
+								meta={[
+									{
+										label: 'När',
+										text: formatDate(date),
+									},
+									{
+										label: 'Var',
+										text: where,
+									},
+								]}
 								href={`/kurser/${slug}`}
 							/>
 						))}
