@@ -80,11 +80,11 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 										<Markdown content={description} className={s.description} />
 										<ul className={s.meta}>
 											<li>
-												<span>Utrustning</span>
+												<span className="very-small">UTRUSTNING</span>
 												<span>{gear.map(({ title }) => title).join(', ')}</span>
 											</li>
 											<li>
-												<span>Kontakt</span>
+												<span className="very-small">KONTAKT</span>
 												<span>
 													{address}, {postalCode}, {city.title}
 													{website && (

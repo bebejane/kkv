@@ -52,7 +52,7 @@ h3 {
 	font-size: 1.1rem;
 	font-family: var(--label-font);
 	margin-bottom: 0.5em;
-	line-height: var(--line-height);
+	line-height: 1.25;
 	@include mq($from: desktop) {
 		font-size: 0.9rem;
 	}

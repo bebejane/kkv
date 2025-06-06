@@ -39,7 +39,7 @@
 			&.hide {
 				.image {
 					clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-					animation: slide2 2s linear forwards;
+					animation: slide2 1s linear forwards;
 
 					/*
 					mask-image: url(/images/intro-mask.png);
