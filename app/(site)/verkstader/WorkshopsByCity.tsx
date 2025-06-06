@@ -30,7 +30,7 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 
 	useEffect(() => {
 		if (!slug) return;
-		const cityId = workshops.find(({ slug }) => slug === slug)?.city.id;
+		const cityId = workshops.find((item) => item.slug === slug)?.city.id;
 		setCityId(cityId);
 		setTimeout(() => {
 			const element = document.getElementById(slug);
@@ -80,11 +80,11 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 										<Markdown content={description} className={s.description} />
 										<ul className={s.meta}>
 											<li>
-												<span className="very-small">UTRUSTNING</span>
+												<span className='very-small'>UTRUSTNING</span>
 												<span>{gear.map(({ title }) => title).join(', ')}</span>
 											</li>
 											<li>
-												<span className="very-small">KONTAKT</span>
+												<span className='very-small'>KONTAKT</span>
 												<span>
 													{address}, {postalCode}, {city.title}
 													{website && (
