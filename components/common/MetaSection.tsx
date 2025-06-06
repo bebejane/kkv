@@ -18,12 +18,12 @@ type Props = {
 export default function MetaSection({ items }: Props) {
 	return (
 		<div className={cn(s.meta)}>
-			<ul>
+			<ul className="mid">
 				{items
 					.filter((el) => el.text)
 					.map(({ id, label, text, href }) => (
 						<li key={id}>
-							<span className={s.label}>{label}</span>
+							<span className={cn("small", s.label)}>{label}</span>
 							{href ? (
 								href.includes('@') ? (
 									<a href={`mailto:${href}`}>{text}</a>

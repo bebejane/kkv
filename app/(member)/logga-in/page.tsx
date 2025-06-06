@@ -8,6 +8,8 @@ import { Metadata } from 'next';
 export default async function Login() {
 	return (
 		<Article>
+			<h1>Logga in</h1>
+			<p className="intro">Här kan du som medlemsverkstad logga in och administrera dina uppgifter och kurser.</p>
 			<div className={s.form}>
 				<LoginForm />
 			</div>

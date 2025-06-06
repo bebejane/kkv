@@ -20,7 +20,7 @@
 	.logo {
 		flex: 0 0 calc(var(--margin));
 		img {
-			height: 1rem;
+			height: 1.9vw;
 			clip-path: inset(100% 0 0 0);
 		}
 	}
@@ -80,14 +80,14 @@
 			white-space: nowrap;
 			&::after {
 				position: absolute;
-				content: ' ';
+				content: " ";
 				margin-left: 0.3rem;
 			}
 
 			&.dropdown:hover {
 				&::after {
 					display: inline-block;
-					content: '›';
+					content: "›";
 					transform: rotate(90deg);
 					margin-left: 0.3em;
 				}

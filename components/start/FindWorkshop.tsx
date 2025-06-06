@@ -42,8 +42,7 @@ export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
 					<ul className={cn(s.workshops, 'small')}>
 						{cityWorkshops.map((workshop) => (
 							<li key={workshop.id}>
-								{workshop.name}
-								<br />
+								<h3>{workshop.name}</h3>
 								{workshop.address}, {workshop.postalCode}, {workshop.city.title}
 								{workshop.phone && (
 									<>
