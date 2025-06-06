@@ -5,14 +5,14 @@ import client from './lib/client';
 
 const routes: DatoCmsConfig['routes'] = {
   "about": async ({ slug }) => [`/om/${slug}`],
-  "city": async ({ id }) => ['/verkstader', ...await references(id)],
+  "city": async ({ id }) => ['/verkstader', ...await references(id), '/'],
   "contact": async () => ['/kontakt'],
-  "course": async ({ slug }) => [`/kurser/${slug}`, '/kurser'],
+  "course": async ({ slug }) => [`/kurser/${slug}`, '/kurser', '/'],
   "courses_start": async () => ['/kurser'],
-  "knowledge_base": async ({ slug }) => [`/kunskapsbank/${slug}`, '/kunskapsbank'],
+  "knowledge_base": async ({ slug }) => [`/kunskapsbank/${slug}`, '/kunskapsbank', '/'],
   "knowledgebase_start": async () => ['/kunskapsbank'],
   "start": async () => ['/'],
-  "workshop": async ({ slug }) => [`/verkstader/${slug}`, '/verkstader'],
+  "workshop": async ({ slug }) => [`/verkstader/${slug}`, '/verkstader', '/'],
   "workshop_gear": async ({ id }) => ['/verkstader', ...await references(id)],
   "workshops_start": async () => ['/verkstader'],
 }
