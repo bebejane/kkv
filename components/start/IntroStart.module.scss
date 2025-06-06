@@ -38,7 +38,16 @@
 
 			&.hide {
 				.image {
-					animation: slide 2s linear forwards;
+					clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+					animation: slide2 2s linear forwards;
+
+					/*
+					mask-image: url(/images/intro-mask.png);
+					mask-size: cover;
+					mask-position: -50% center;
+					mask-repeat: no-repeat;
+					animation: slide-mask 5s linear forwards;
+					*/
 				}
 			}
 		}
@@ -85,7 +94,25 @@
 	}
 }
 
+@keyframes slide-mask {
+	0% {
+		mask-position: -100% center;
+	}
+
+	100% {
+		mask-position: 50% center;
+	}
+}
 @keyframes slide {
+	0% {
+		clip-path: polygon(calc(-100% - 71vw) 0, 100% 0, 100% 100%, 0% 100%);
+	}
+	100% {
+		clip-path: polygon(calc(100% - 71vw) 0, 100% 0, 100% 100%, 0% 100%);
+	}
+}
+
+@keyframes slide2 {
 	0% {
 		clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
 	}

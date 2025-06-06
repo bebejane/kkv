@@ -30,8 +30,8 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 	const member = menu.find(({ id }) => id === 'member');
 
 	function isSelected(item: MenuItem) {
-		if (item.id === 'member' && session?.user) return false;
-		else return pathname.startsWith(item.slug) || pathname === item.slug;
+		if ((item.id === 'member' && pathname === '/logga-in') || pathname === '/logga-ut') return true;
+		return pathname.startsWith(item.slug) || pathname === item.slug;
 	}
 
 	function isInactive(item: MenuItem) {
@@ -76,14 +76,6 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 
 		setSubStyle({ marginLeft, marginTop });
 	}, [selected, bottom, innerHeight, innerWidth]);
-
-	menu = menu.map((item) => {
-		if (item.id === 'member') {
-			if (!session?.user) return { ...item, sub: null };
-			else return { ...item, title: 'Medlem' };
-		}
-		return item;
-	});
 
 	return (
 		<>

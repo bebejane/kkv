@@ -29,6 +29,20 @@
 			button {
 				all: unset;
 			}
+			.status {
+				margin-right: 1em;
+
+				span {
+					display: inline-block;
+					text-transform: uppercase;
+					//background-color: var(--gray);
+					font-size: 0.5em;
+					padding: 0.5em;
+					padding-left: 1em;
+					padding-right: 1em;
+					border-radius: 2em;
+				}
+			}
 		}
 
 		.content {

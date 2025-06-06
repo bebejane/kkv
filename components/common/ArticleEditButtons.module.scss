@@ -4,7 +4,9 @@
 	flex-direction: row;
 	top: 0;
 	right: calc(var(--full-bleed-margin));
-	margin: var(--outer-margin);
+	margin-right: var(--outer-margin);
 	z-index: 2;
 	width: auto;
+	button {
+	}
 }

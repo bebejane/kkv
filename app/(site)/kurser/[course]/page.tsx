@@ -5,9 +5,7 @@ import Article from '@/components/common/Article';
 import { DraftMode } from 'next-dato-utils/components';
 import { Metadata } from 'next';
 import { MetaSectionItem } from '@/components/common/MetaSection';
-import { format } from 'date-fns';
-import { sv } from 'date-fns/locale';
-import { capitalize } from 'next-dato-utils/utils';
+import { formatDate } from '@/lib/utils';
 
 export type CourseProps = {
 	params: Promise<{ course: string }>;
@@ -33,7 +31,7 @@ export default async function CoursePage(props: CourseProps) {
 		{
 			id: 'date',
 			label: 'När',
-			text: capitalize(format(new Date(date), 'd MMMM yyyy', { locale: sv })),
+			text: formatDate(date),
 		},
 		{
 			id: 'where',
@@ -67,15 +65,7 @@ export default async function CoursePage(props: CourseProps) {
 					pathname: `/medlem/kurser/${id}`,
 					status: _status,
 				}}
-			>
-				<section>
-					<p>
-						{date}
-						<br />
-						{openToAll ? 'Öppen för alla' : 'Endast för medlemmar'}
-					</p>
-				</section>
-			</Article>
+			></Article>
 			<DraftMode url={draftUrl} path={`/kurser/${slug}`} />
 		</>
 	);

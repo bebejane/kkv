@@ -26,7 +26,7 @@ export default function ArticleEditButtons({
 	const [publishingError, setPublishingError] = useState<string | null>(null);
 
 	return (
-		<>
+		<div className={s.editButtons}>
 			<Link href={pathname}>
 				<button>Redigera</button>
 			</Link>
@@ -45,6 +45,6 @@ export default function ArticleEditButtons({
 				{publishing ? 'Publicerar...' : 'Publicera'}
 			</button>
 			{publishingError && <p className={s.error}>{publishingError}</p>}
-		</>
+		</div>
 	);
 }

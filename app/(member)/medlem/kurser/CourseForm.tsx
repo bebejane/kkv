@@ -40,6 +40,9 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 			slug: '',
 			intro: '',
 			text: '',
+			for_members: false,
+			where: '',
+			sign_up: '',
 			date: new Date().toISOString().split('T')[0],
 			open_to_all: false,
 		},
@@ -101,9 +104,26 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 			</div>
 
 			<div className={s.field}>
+				<label htmlFor='where'>Var</label>
+				<input type='text' id='where' {...register('where')} />
+				{errors.where && <p className='form-error'>{errors.where.message}</p>}
+			</div>
+
+			<div className={s.field}>
+				<label htmlFor='sign_up'>Anmäl dig</label>
+				<input type='text' id='sign_up' {...register('sign_up')} />
+				{errors.sign_up && <p className='form-error'>{errors.sign_up.message}</p>}
+			</div>
+
+			<div className={s.field}>
 				<label htmlFor='slug'>Permalänk</label>
 				<input type='text' id='slug' {...register('slug')} />
 				{errors.slug && <p className='form-error'>{errors.slug.message}</p>}
+			</div>
+
+			<div className={s.checkbox}>
+				<input type='checkbox' id='for_members' {...register('for_members')} />
+				<label htmlFor='for_members'>För medlemmar</label>
 			</div>
 
 			<div className={s.checkbox}>

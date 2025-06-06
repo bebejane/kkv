@@ -10,7 +10,8 @@
 		position: relative;
 		display: flex;
 		flex-direction: row;
-		.headerContent {
+		.headerContent,
+		.edit {
 			position: absolute;
 			top: 0;
 			right: 0;
@@ -24,6 +25,13 @@
 			a {
 				flex: 0 0;
 				margin-bottom: 0.25rem;
+			}
+		}
+	}
+	@include mq($until: desktop) {
+		header {
+			.headerContent {
+				display: none;
 			}
 		}
 	}

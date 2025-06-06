@@ -9,7 +9,7 @@ query CoursesStart {
 }
 
 query AllCourses($first: IntType = 100, $skip: IntType = 0) {
-	allCourses(first: $first, skip: $skip, orderBy: [_firstPublishedAt_DESC]) {
+	allCourses(first: $first, skip: $skip, orderBy: [date_DESC]) {
 		...CourseLightFragment
 	}
 	_allCoursesMeta {
@@ -20,7 +20,7 @@ query AllCoursesByWorkshop($workShopId: ItemId!, $first: IntType = 100, $skip: I
 	allCourses(
 		first: $first
 		skip: $skip
-		orderBy: [_firstPublishedAt_DESC]
+		orderBy: [date_DESC]
 		filter: { workshop: { eq: $workShopId } }
 	) {
 		...CourseFragment
@@ -65,6 +65,9 @@ fragment CourseLightFragment on CourseRecord {
 	date
 	intro
 	text
+	where
+	forMembers
+	signUp
 	workshop {
 		...WorkshopLightFragment
 	}

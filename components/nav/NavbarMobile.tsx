@@ -24,14 +24,6 @@ export default function NavbarMobile({ menu, session }: NavbarMobileProps) {
 	const [open, setOpen] = useState(false);
 	const member = menu.find(({ id }) => id === 'member');
 
-	menu = menu.map((item) => {
-		if (item.id === 'member') {
-			if (!session?.user) return { ...item, sub: null };
-			else return { ...item, title: 'Medlem' };
-		}
-		return item;
-	});
-
 	useEffect(() => {
 		setOpen(false);
 		setSelected(getSelectedMenuItem(menu, path, qs)?.id ?? null);
@@ -56,26 +48,24 @@ export default function NavbarMobile({ menu, session }: NavbarMobileProps) {
 			</div>
 			<nav className={cn(s.navbarMobile, open && s.open)}>
 				<ul className={s.menu}>
-					{menu
-						//.filter(({ id }) => id !== 'member')
-						.map(({ id, title, href, slug, sub }) => (
-							<li
-								key={id}
-								className={cn(sub && s.dropdown, pathname.startsWith(slug) && s.active)}
-								onClick={() => setSelected(selected === id ? null : id)}
-							>
-								{sub ? <span>{title}</span> : <Link href={slug ?? href}>{title}</Link>}
-								{selected === id && sub && (
-									<ul onClick={(e) => e.stopPropagation()}>
-										{sub.map(({ id, title, href, slug }) => (
-											<li key={id} className={cn(pathname === slug && s.active)}>
-												<Link href={slug ?? href}>{title}</Link>
-											</li>
-										))}
-									</ul>
-								)}
-							</li>
-						))}
+					{menu.map(({ id, title, href, slug, sub }) => (
+						<li
+							key={id}
+							className={cn(sub && s.dropdown, pathname.startsWith(slug) && s.active)}
+							onClick={() => setSelected(selected === id ? null : id)}
+						>
+							{sub ? <span>{title}</span> : <Link href={slug ?? href}>{title}</Link>}
+							{selected === id && sub && (
+								<ul onClick={(e) => e.stopPropagation()}>
+									{sub.map(({ id, title, href, slug }) => (
+										<li key={id} className={cn(pathname === slug && s.active)}>
+											<Link href={slug ?? href}>{title}</Link>
+										</li>
+									))}
+								</ul>
+							)}
+						</li>
+					))}
 				</ul>
 			</nav>
 		</>

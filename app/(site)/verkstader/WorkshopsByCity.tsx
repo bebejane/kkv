@@ -45,77 +45,79 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 					<SwedenMap items={markers} markerId={cityId} onClick={(id) => setCityId(id)} />
 				</div>
 			)}
-			<List
-				itemId={cityId}
-				onChange={(id) => setCityId(id)}
-				className={s.workshops}
-				items={Object.keys(workshopsByCity).map((cityId) => ({
-					id: cityId,
-					title: workshops.find(({ city }) => city.id === cityId)?.city.title,
-					content: workshopsByCity[cityId].map(
-						({
-							id,
-							name,
-							description,
-							address,
-							postalCode,
-							city,
-							website,
-							email,
-							phone,
-							gear,
-							image,
-						}) => (
-							<div id={slug} key={id} className={s.workshop}>
-								{image?.responsiveImage && filter === 'list' && (
-									<Image
-										data={image.responsiveImage}
-										className={s.imageWrap}
-										imgClassName={s.image}
-									/>
-								)}
-								<div className={cn("small", s.details)}>
-									<h3>{name}</h3>
-									<Markdown content={description} className={s.description} />
-									<ul className={s.meta}>
-										<li>
-											<span>Utrustning</span>
-											<span>{gear.map(({ title }) => title).join(', ')}</span>
-										</li>
-										<li>
-											<span>Kontakt</span>
-											<span>
-												{address}, {postalCode}, {city.title}
-												{website && (
-													<>
-														<br />
-														<a href={website}>
-															{website.replace('https://', '').replace('http://', '')}
-														</a>
-													</>
-												)}
-												{email && (
-													<>
-														<br />
-														<a href={`mailto:${email}`}>{email}</a>
-													</>
-												)}
-												{phone && (
-													<>
-														<br />
-														<a href={`tel:${phone}`}>{phone}</a>
-													</>
-												)}
-												<br />
-											</span>
-										</li>
-									</ul>
+			<div>
+				<List
+					itemId={cityId}
+					onChange={(id) => setCityId(id)}
+					className={s.workshops}
+					items={Object.keys(workshopsByCity).map((cityId) => ({
+						id: cityId,
+						title: workshops.find(({ city }) => city.id === cityId)?.city.title,
+						content: workshopsByCity[cityId].map(
+							({
+								id,
+								name,
+								description,
+								address,
+								postalCode,
+								city,
+								website,
+								email,
+								phone,
+								gear,
+								image,
+							}) => (
+								<div id={slug} key={id} className={s.workshop}>
+									{image?.responsiveImage && filter === 'list' && (
+										<Image
+											data={image.responsiveImage}
+											className={s.imageWrap}
+											imgClassName={s.image}
+										/>
+									)}
+									<div className={cn('small', s.details)}>
+										<h3>{name}</h3>
+										<Markdown content={description} className={s.description} />
+										<ul className={s.meta}>
+											<li>
+												<span>Utrustning</span>
+												<span>{gear.map(({ title }) => title).join(', ')}</span>
+											</li>
+											<li>
+												<span>Kontakt</span>
+												<span>
+													{address}, {postalCode}, {city.title}
+													{website && (
+														<>
+															<br />
+															<a href={website}>
+																{website.replace('https://', '').replace('http://', '')}
+															</a>
+														</>
+													)}
+													{email && (
+														<>
+															<br />
+															<a href={`mailto:${email}`}>{email}</a>
+														</>
+													)}
+													{phone && (
+														<>
+															<br />
+															<a href={`tel:${phone}`}>{phone}</a>
+														</>
+													)}
+													<br />
+												</span>
+											</li>
+										</ul>
+									</div>
 								</div>
-							</div>
-						)
-					),
-				}))}
-			/>
+							)
+						),
+					}))}
+				/>
+			</div>
 		</section>
 	);
 }

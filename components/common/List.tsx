@@ -15,6 +15,7 @@ export type ListProps = {
 		content?: any;
 		markdown?: boolean;
 		href?: string;
+		status?: 'updated' | 'published' | 'new' | 'draft';
 	}[];
 	onChange?: (id: string | null) => void;
 };
@@ -39,12 +40,12 @@ export default function List({ items, itemId, className, onChange }: ListProps) 
 
 	useEffect(() => {
 		if (!itemId) return;
-		setToggles((t) => ({ ...defaultToggles, [itemId]: { ...t[itemId], show: true } }));
+		setToggles((t) => ({ ...toggles, [itemId]: { ...t[itemId], show: true } }));
 	}, [itemId]);
 
 	return (
 		<ul className={cn(s.list, className)}>
-			{items.map(({ id, title, content, markdown, href }, idx) => (
+			{items.map(({ id, title, content, markdown, href, status }, idx) => (
 				<li
 					id={`list-${id}`}
 					key={idx}
@@ -56,6 +57,11 @@ export default function List({ items, itemId, className, onChange }: ListProps) 
 					{href ? (
 						<Link href={href} className={s.item}>
 							<span>{title}</span>
+							{status !== 'published' && (
+								<div className={cn(s.status)}>
+									<span>Not Published</span>
+								</div>
+							)}
 							<button>→</button>
 						</Link>
 					) : (

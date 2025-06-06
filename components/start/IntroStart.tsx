@@ -26,6 +26,7 @@ export default function IntroStart({ images }: GalleryProps) {
 	const [index, setIndex] = useState(-1);
 	const logoRef = useRef<HTMLImageElement>(null);
 	const { scrolledPosition, viewportHeight } = useScrollInfo();
+	const duration = 2000;
 
 	useEffect(() => {
 		if (!logoRef.current) return;
@@ -38,6 +39,10 @@ export default function IntroStart({ images }: GalleryProps) {
 		setIndex((index) => (index === images.length - 1 ? -1 : index + 1));
 	}, 4000);
 
+	useEffect(() => {
+		if (index === images.length - 1) setTimeout(() => setIndex(-1), duration);
+	}, [index]);
+
 	return (
 		<div className={s.intro}>
 			<div className={s.images}>
@@ -47,7 +52,7 @@ export default function IntroStart({ images }: GalleryProps) {
 						data={image.responsiveImage}
 						className={cn(s.imageWrap, index >= idx && s.hide)}
 						imgClassName={s.image}
-						style={{ zIndex: images.length + 1 - idx }}
+						style={{ zIndex: images.length + 1 - idx, animationDuration: `${duration}ms` }}
 					/>
 				))}
 			</div>

@@ -3,6 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import client from '@/lib/client';
 import { getServerSession } from 'next-auth/next';
 import { NextAuthOptions } from 'next-auth';
+import { revalidatePath } from 'next/cache';
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -12,9 +13,6 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/logga-in',
     signOut: '/logga-ut',
-    //error: '/medlem/logga-in?type=error', // Error code passed in query string as ?error=    
-    //verifyRequest: '/auth/verify-request', // (used for check email message)    
-    //newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)  }
   },
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
@@ -38,8 +36,8 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        try {
 
+        try {
           const { username: email, password } = credentials
 
           const user = (await client.items.list({
@@ -65,7 +63,7 @@ export const authOptions: NextAuthOptions = {
             email: email as string,
             image: null
           }
-
+          revalidatePath('/', 'layout')
           return session
         } catch (err) {
           console.error(err)

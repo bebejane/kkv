@@ -16,6 +16,9 @@ export async function updateCourse(id: string, formData: FormData) {
     intro: formData.get('intro'),
     text: formData.get('text'),
     date: formData.get('date'),
+    for_members: formData.get('for_members') === 'true',
+    where: formData.get('where'),
+    sign_up: formData.get('sign_up'),
     open_to_all: formData.get('open_to_all') === 'true',
   };
 

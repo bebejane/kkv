@@ -15,6 +15,9 @@ export async function createCourse(formData: FormData) {
     intro: formData.get('intro'),
     text: formData.get('text'),
     date: formData.get('date'),
+    for_memebers: formData.get('for_memebers') === 'true',
+    where: formData.get('where'),
+    sign_up: formData.get('sign_up'),
     open_to_all: formData.get('open_to_all') === 'true',
   };
 
@@ -32,5 +35,5 @@ export async function createCourse(formData: FormData) {
   } catch (e) {
     console.log(e)
   }
-  redirect(`/medlem/kurser/${course.slug}`);
+  redirect(`/medlem/kurser/${course.id}`);
 }

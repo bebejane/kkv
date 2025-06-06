@@ -17,6 +17,7 @@ export default async function AllCourses() {
 			workShopId: session.user.id,
 		},
 		all: true,
+		includeDrafts: true,
 		apiToken: process.env.DATOCMS_API_TOKEN,
 	});
 
@@ -31,10 +32,11 @@ export default async function AllCourses() {
 		>
 			<List
 				className={s.list}
-				items={allCourses.map(({ id, title }) => ({
+				items={allCourses.map(({ id, title, _status }) => ({
 					id,
 					title,
 					href: `/medlem/kurser/${id}`,
+					status: _status,
 				}))}
 			/>
 		</Article>
