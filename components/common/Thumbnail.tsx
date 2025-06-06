@@ -43,7 +43,7 @@ export default function Thumbnail({
 							.filter(({ text }) => text)
 							.map(({ label, text, href }, idx) => (
 								<li key={idx}>
-									<span>{label}</span>
+									<span className="very-small">{label}</span>
 									{href ? <Link href={href}>{text}</Link> : <span>{text}</span>}
 								</li>
 							))}
