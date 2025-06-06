@@ -2484,9 +2484,11 @@ enum ItemStatus {
   updated = 'updated'
 }
 
+type KnowledgeBaseModelContentBlocksField = ImageRecord | VideoExternalRecord;
+
 type KnowledgeBaseModelContentField = {
   __typename?: 'KnowledgeBaseModelContentField';
-  blocks: Array<Scalars['String']['output']>;
+  blocks: Array<KnowledgeBaseModelContentBlocksField>;
   inlineBlocks: Array<Scalars['String']['output']>;
   links: Array<Scalars['String']['output']>;
   value: Scalars['JsonField']['output'];
@@ -3601,6 +3603,43 @@ type UploadWidthFilter = {
   neq?: InputMaybe<Scalars['IntType']['input']>;
 };
 
+/** Block of type Video (video_external) */
+type VideoExternalRecord = RecordInterface & {
+  __typename?: 'VideoExternalRecord';
+  _createdAt: Scalars['DateTime']['output'];
+  /** Editing URL */
+  _editingUrl?: Maybe<Scalars['String']['output']>;
+  _firstPublishedAt: Scalars['DateTime']['output'];
+  _isValid: Scalars['BooleanType']['output'];
+  _modelApiKey: Scalars['String']['output'];
+  _publicationScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _publishedAt: Scalars['DateTime']['output'];
+  /** Generates SEO and Social card meta tags to be used in your frontend */
+  _seoMetaTags: Array<Tag>;
+  _status: ItemStatus;
+  _unpublishingScheduledAt?: Maybe<Scalars['DateTime']['output']>;
+  _updatedAt: Scalars['DateTime']['output'];
+  id: Scalars['ItemId']['output'];
+  video?: Maybe<VideoField>;
+};
+
+
+/** Block of type Video (video_external) */
+type VideoExternalRecord_seoMetaTagsArgs = {
+  locale?: InputMaybe<SiteLocale>;
+};
+
+type VideoField = {
+  __typename?: 'VideoField';
+  height: Scalars['IntType']['output'];
+  provider: Scalars['String']['output'];
+  providerUid: Scalars['String']['output'];
+  thumbnailUrl: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  url: Scalars['String']['output'];
+  width: Scalars['IntType']['output'];
+};
+
 enum VideoMp4Res {
   high = 'high',
   low = 'low',
@@ -3918,9 +3957,9 @@ type KnowledgeBaseQueryVariables = Exact<{
 }>;
 
 
-type KnowledgeBaseQuery = { __typename?: 'Query', knowledgeBase?: { __typename?: 'KnowledgeBaseRecord', id: any, title?: string | null, slug: string, intro?: { __typename?: 'KnowledgeBaseModelIntroField', blocks: Array<string>, links: Array<string>, value: any } | null, content?: { __typename?: 'KnowledgeBaseModelContentField', blocks: Array<string>, links: Array<string>, value: any } | null, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null } | null };
+type KnowledgeBaseQuery = { __typename?: 'Query', knowledgeBase?: { __typename?: 'KnowledgeBaseRecord', id: any, title?: string | null, slug: string, intro?: { __typename?: 'KnowledgeBaseModelIntroField', blocks: Array<string>, links: Array<string>, value: any } | null, content?: { __typename?: 'KnowledgeBaseModelContentField', links: Array<string>, value: any, blocks: Array<{ __typename: 'ImageRecord' } | { __typename: 'VideoExternalRecord', id: any, video?: { __typename?: 'VideoField', provider: string, providerUid: string, height: any, width: any, url: string, thumbnailUrl: string } | null }> } | null, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null } | null };
 
-type KnowledgeBaseFragment = { __typename?: 'KnowledgeBaseRecord', id: any, title?: string | null, slug: string, intro?: { __typename?: 'KnowledgeBaseModelIntroField', blocks: Array<string>, links: Array<string>, value: any } | null, content?: { __typename?: 'KnowledgeBaseModelContentField', blocks: Array<string>, links: Array<string>, value: any } | null, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null };
+type KnowledgeBaseFragment = { __typename?: 'KnowledgeBaseRecord', id: any, title?: string | null, slug: string, intro?: { __typename?: 'KnowledgeBaseModelIntroField', blocks: Array<string>, links: Array<string>, value: any } | null, content?: { __typename?: 'KnowledgeBaseModelContentField', links: Array<string>, value: any, blocks: Array<{ __typename: 'ImageRecord' } | { __typename: 'VideoExternalRecord', id: any, video?: { __typename?: 'VideoField', provider: string, providerUid: string, height: any, width: any, url: string, thumbnailUrl: string } | null }> } | null, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null };
 
 type KnowledgeBaseLightFragment = { __typename?: 'KnowledgeBaseRecord', id: any, title?: string | null, slug: string, intro?: { __typename?: 'KnowledgeBaseModelIntroField', blocks: Array<string>, links: Array<string>, value: any } | null, image?: { __typename?: 'FileField', alt?: string | null, basename: string, format: string, height?: any | null, id: any, mimeType: string, size: any, title?: string | null, url: string, width?: any | null, responsiveImage?: { __typename?: 'ResponsiveImage', alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, height: any, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null, width: any } | null } | null };
 

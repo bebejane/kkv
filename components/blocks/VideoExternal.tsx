@@ -5,9 +5,13 @@ import { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from 'rooks';
 import Youtube from 'react-youtube';
 import Vimeo from '@u-wave/react-vimeo';
-import classNames from 'classnames';
 
-export default function VideoExternal({ data, editable }) {
+export type VideoExternalProps = {
+	data: VideoExternalRecord;
+	editable?: boolean;
+};
+
+export default function VideoExternal({ data }: VideoExternalProps) {
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [height, setHeight] = useState(360);
 	const { innerWidth, innerHeight } = useWindowSize();
@@ -18,12 +22,11 @@ export default function VideoExternal({ data, editable }) {
 
 	if (!data || !data.video) return null;
 
-	const { caption } = data;
-	const { provider, providerUid, title } = data.video;
+	const { provider, providerUid } = data.video;
 	const style = { height: `${height}px`, width: '100%' };
 
 	return (
-		<section className={s.video} data-editable={editable} ref={ref}>
+		<section className={s.video} ref={ref}>
 			{provider === 'youtube' ? (
 				<Youtube
 					opts={{
@@ -40,11 +43,6 @@ export default function VideoExternal({ data, editable }) {
 			) : provider === 'vimeo' ? (
 				<Vimeo video={providerUid} className={s.player} style={style} />
 			) : null}
-			{caption && (
-				<div className={classNames(s.caption, 'small', 'sans')}>
-					<figcaption>{caption}</figcaption>
-				</div>
-			)}
 		</section>
 	);
 }

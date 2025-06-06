@@ -32,7 +32,20 @@ fragment KnowledgeBaseFragment on KnowledgeBaseRecord {
 		value
 	}
 	content {
-		blocks
+		blocks {
+			__typename
+			... on VideoExternalRecord {
+				id
+				video {
+					provider
+					providerUid
+					height
+					width
+					url
+					thumbnailUrl
+				}
+			}
+		}
 		links
 		value
 	}
