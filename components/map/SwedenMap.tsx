@@ -31,13 +31,7 @@ const geoJsonStyle = () => ({
 	className: s.border,
 });
 
-const SwedenMap: React.FC<SwedenMapProps> = ({
-	items,
-	markerId,
-	onHover,
-	onClick,
-	interactive = true,
-}) => {
+const SwedenMap: React.FC<SwedenMapProps> = ({ items, markerId, onHover, onClick, interactive = true }) => {
 	const [isClient, setIsClient] = useState(false);
 
 	useEffect(() => {

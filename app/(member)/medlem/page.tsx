@@ -9,17 +9,17 @@ import List from '@/components/common/List';
 export default async function AllCourses() {
 	const session = await getSession();
 
-	const { allCourses } = await apiQuery<
-		AllCoursesByWorkshopQuery,
-		AllCoursesByWorkshopQueryVariables
-	>(AllCoursesByWorkshopDocument, {
-		variables: {
-			workShopId: session.user.id,
-		},
-		all: true,
-		includeDrafts: true,
-		apiToken: process.env.DATOCMS_API_TOKEN,
-	});
+	const { allCourses } = await apiQuery<AllCoursesByWorkshopQuery, AllCoursesByWorkshopQueryVariables>(
+		AllCoursesByWorkshopDocument,
+		{
+			variables: {
+				workShopId: session.user.id,
+			},
+			all: true,
+			includeDrafts: true,
+			apiToken: process.env.DATOCMS_API_TOKEN,
+		}
+	);
 
 	return (
 		<Article
@@ -38,6 +38,7 @@ export default async function AllCourses() {
 					href: `/medlem/kurser/${id}`,
 					status: _status,
 				}))}
+				empty='Det finns inga kurser ännu'
 			/>
 		</Article>
 	);

@@ -21,10 +21,7 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 	const workshopsByCity = groupBy(workshops, ({ city }) => city.id);
 	const markers: MapMarker[] = Object.keys(workshopsByCity).map((cityId) => ({
 		id: cityId,
-		position: [
-			workshopsByCity[cityId][0].coordinates.latitude,
-			workshopsByCity[cityId][0].coordinates.longitude,
-		],
+		position: [workshopsByCity[cityId][0].coordinates.latitude, workshopsByCity[cityId][0].coordinates.longitude],
 		label: workshopsByCity[cityId][0].city.title,
 	}));
 
@@ -32,11 +29,16 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 		if (!slug) return;
 		const cityId = workshops.find((item) => item.slug === slug)?.city.id;
 		setCityId(cityId);
+	}, [slug]);
+
+	useEffect(() => {
+		const city = workshops.find((item) => item.city?.id === cityId)?.city;
+
 		setTimeout(() => {
-			const element = document.getElementById(slug);
+			const element = document.getElementById(`list-${city?.id}`);
 			element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		}, 100);
-	}, [slug]);
+	}, [cityId]);
 
 	return (
 		<section className={s.workshopsbycity}>
@@ -54,26 +56,10 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 						id: cityId,
 						title: workshops.find(({ city }) => city.id === cityId)?.city.title,
 						content: workshopsByCity[cityId].map(
-							({
-								id,
-								name,
-								description,
-								address,
-								postalCode,
-								city,
-								website,
-								email,
-								phone,
-								gear,
-								image,
-							}) => (
+							({ id, slug, name, description, address, postalCode, city, website, email, phone, gear, image }, idx) => (
 								<div id={slug} key={id} className={s.workshop}>
 									{image?.responsiveImage && filter === 'list' && (
-										<Image
-											data={image.responsiveImage}
-											className={s.imageWrap}
-											imgClassName={s.image}
-										/>
+										<Image data={image.responsiveImage} className={s.imageWrap} imgClassName={s.image} />
 									)}
 									<div className={cn('small', s.details)}>
 										<h3>{name}</h3>
@@ -90,9 +76,7 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 													{website && (
 														<>
 															<br />
-															<a href={website}>
-																{website.replace('https://', '').replace('http://', '')}
-															</a>
+															<a href={website}>{website.replace('https://', '').replace('http://', '')}</a>
 														</>
 													)}
 													{email && (

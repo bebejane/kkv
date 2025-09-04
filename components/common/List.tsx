@@ -17,23 +17,18 @@ export type ListProps = {
 		href?: string;
 		status?: 'updated' | 'published' | 'new' | 'draft';
 	}[];
+	empty?: string;
 	onChange?: (id: string | null) => void;
 };
 
-export default function List({ items, itemId, className, onChange }: ListProps) {
-	const defaultToggles = items.reduce(
-		(acc, k) => ({ ...acc, [k.id]: { show: false, height: 0 } }),
-		{}
-	);
-	const [toggles, setToggles] = useState<{ [key: string]: { show: boolean; height?: number } }>(
-		defaultToggles
-	);
+export default function List({ items, itemId, className, empty, onChange }: ListProps) {
+	const defaultToggles = items.reduce((acc, k) => ({ ...acc, [k.id]: { show: false, height: 0 } }), {});
+	const [toggles, setToggles] = useState<{ [key: string]: { show: boolean; height?: number } }>(defaultToggles);
 	const { innerHeight, innerWidth } = useWindowSize();
 
 	useEffect(() => {
 		Object.keys(toggles).forEach(
-			(id) =>
-				(toggles[id].height = document.getElementById(`list-content-${id}`)?.scrollHeight ?? 0)
+			(id) => (toggles[id].height = document.getElementById(`list-content-${id}`)?.scrollHeight ?? 0)
 		);
 		setToggles(toggles);
 	}, [innerHeight, innerWidth]);
@@ -42,6 +37,8 @@ export default function List({ items, itemId, className, onChange }: ListProps) 
 		if (!itemId) return;
 		setToggles((t) => ({ ...toggles, [itemId]: { ...t[itemId], show: true } }));
 	}, [itemId]);
+
+	if (!items.length) return <div className={s.empty}>{empty}</div>;
 
 	return (
 		<ul className={cn(s.list, className)}>

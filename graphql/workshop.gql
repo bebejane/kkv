@@ -17,8 +17,8 @@ query AllWorkshops($first: IntType = 100, $skip: IntType = 0) {
 	}
 }
 
-query Workshop($slug: String) {
-	workshop(filter: { slug: { eq: $slug } }) {
+query Workshop($email: String) {
+	workshop(filter: { email: { eq: $email } }) {
 		...WorkshopFragment
 	}
 	allWorkshopGears(first: 500, skip: 0) {

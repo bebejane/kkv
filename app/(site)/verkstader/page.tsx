@@ -14,12 +14,10 @@ export type WorkshopPageProps = {
 export default async function WorkshopsPage({ searchParams, params }: WorkshopPageProps) {
 	const { workshop: slug } = params ? await params : { workshop: null };
 	const filter = (await searchParams).filter ?? 'map';
-	const { workshopsStart } = await apiQuery<WorkshopsStartQuery, WorkshopsStartQueryVariables>(
-		WorkshopsStartDocument,
-		{
-			tags: ['workshops_start'],
-		}
-	);
+	const { workshopsStart } = await apiQuery<WorkshopsStartQuery, WorkshopsStartQueryVariables>(WorkshopsStartDocument, {
+		tags: ['workshops_start'],
+	});
+
 	const { allWorkshops, draftUrl } = await apiQuery<AllWorkshopsQuery, AllWorkshopsQueryVariables>(
 		AllWorkshopsDocument,
 		{ all: true, tags: ['workshop'] }
@@ -27,11 +25,7 @@ export default async function WorkshopsPage({ searchParams, params }: WorkshopPa
 
 	return (
 		<>
-			<Article
-				title={'Verkstäder'}
-				intro={workshopsStart?.intro}
-				headerContent={<WorkshopFilter />}
-			>
+			<Article title={'Verkstäder'} intro={workshopsStart?.intro} headerContent={<WorkshopFilter />}>
 				<WorkshopsByCity workshops={allWorkshops} filter={filter} slug={slug} />
 			</Article>
 			<DraftMode url={draftUrl} path='/verkstader' />

@@ -12,6 +12,7 @@
 		flex-direction: column;
 		flex: 0 0 100%;
 		margin-bottom: 2px;
+		scroll-margin-top: var(--navbar-height);
 
 		.item {
 			display: flex;
