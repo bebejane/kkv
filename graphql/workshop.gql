@@ -26,6 +26,24 @@ query Workshop($email: String) {
 	}
 }
 
+query WorkshopBySlug($slug: String) {
+	workshop(filter: { slug: { eq: $slug } }) {
+		...WorkshopFragment
+	}
+	allWorkshopGears(first: 500, skip: 0) {
+		...WorkshopGearFragment
+	}
+}
+
+query WorkshopByEmail($email: String) {
+	workshop(filter: { email: { eq: $email } }) {
+		...WorkshopFragment
+	}
+	allWorkshopGears(first: 500, skip: 0) {
+		...WorkshopGearFragment
+	}
+}
+
 query AllWorkshopGear($first: IntType = 100, $skip: IntType = 0) {
 	allWorkshopGears(first: $first, skip: $skip) {
 		...WorkshopGearFragment

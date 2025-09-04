@@ -4009,6 +4009,20 @@ type WorkshopQueryVariables = Exact<{
 
 type WorkshopQuery = { __typename?: 'Query', workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, email?: string | null, description?: string | null, website?: string | null, phone?: string | null, address?: string | null, postalCode?: string | null, password?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null, coordinates: { __typename?: 'LatLonField', latitude: any, longitude: any }, city: { __typename?: 'CityRecord', id: any, title: string, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null, allWorkshopGears: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> };
 
+type WorkshopBySlugQueryVariables = Exact<{
+  slug?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+type WorkshopBySlugQuery = { __typename?: 'Query', workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, email?: string | null, description?: string | null, website?: string | null, phone?: string | null, address?: string | null, postalCode?: string | null, password?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null, coordinates: { __typename?: 'LatLonField', latitude: any, longitude: any }, city: { __typename?: 'CityRecord', id: any, title: string, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null, allWorkshopGears: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> };
+
+type WorkshopByEmailQueryVariables = Exact<{
+  email?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+type WorkshopByEmailQuery = { __typename?: 'Query', workshop?: { __typename?: 'WorkshopRecord', id: any, name?: string | null, email?: string | null, description?: string | null, website?: string | null, phone?: string | null, address?: string | null, postalCode?: string | null, password?: string | null, slug?: string | null, _status: ItemStatus, image?: { __typename?: 'FileField', id: any, width?: any | null, height?: any | null, alt?: string | null, basename: string, format: string, mimeType: string, size: any, title?: string | null, url: string, responsiveImage?: { __typename?: 'ResponsiveImage', width: any, height: any, alt?: string | null, aspectRatio: any, base64?: string | null, bgColor?: string | null, sizes: string, src: string, srcSet: string, webpSrcSet: string, title?: string | null } | null } | null, coordinates: { __typename?: 'LatLonField', latitude: any, longitude: any }, city: { __typename?: 'CityRecord', id: any, title: string, coordinates?: { __typename?: 'LatLonField', latitude: any, longitude: any } | null }, gear: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> } | null, allWorkshopGears: Array<{ __typename?: 'WorkshopGearRecord', id: any, title?: string | null }> };
+
 type AllWorkshopGearQueryVariables = Exact<{
   first?: InputMaybe<Scalars['IntType']['input']>;
   skip?: InputMaybe<Scalars['IntType']['input']>;

@@ -1,4 +1,4 @@
-import { AllWorkshopsDocument, WorkshopDocument } from '@/graphql';
+import { AllWorkshopsDocument, WorkshopBySlugDocument, WorkshopDocument } from '@/graphql';
 import { default as page } from '../page';
 import { apiQuery } from 'next-dato-utils/api';
 import { Metadata } from 'next';
@@ -13,19 +13,16 @@ export default async function WorkshopPage({ searchParams, params }: Props) {
 }
 
 export async function generateStaticParams() {
-	const { allWorkshops } = await apiQuery<AllWorkshopsQuery, AllWorkshopsQueryVariables>(
-		AllWorkshopsDocument,
-		{
-			all: true,
-		}
-	);
+	const { allWorkshops } = await apiQuery<AllWorkshopsQuery, AllWorkshopsQueryVariables>(AllWorkshopsDocument, {
+		all: true,
+	});
 
 	return allWorkshops.map(({ slug: workshop }) => ({ workshop }));
 }
 
 export async function generateMetadata({ params }): Promise<Metadata> {
 	const { workshop: slug } = await params;
-	const { workshop } = await apiQuery<WorkshopQuery, WorkshopQueryVariables>(WorkshopDocument, {
+	const { workshop } = await apiQuery<WorkshopBySlugQuery, WorkshopBySlugQueryVariables>(WorkshopBySlugDocument, {
 		variables: {
 			slug,
 		},
