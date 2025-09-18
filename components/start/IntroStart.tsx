@@ -46,15 +46,18 @@ export default function IntroStart({ images }: GalleryProps) {
 	return (
 		<div className={s.intro}>
 			<div className={s.images}>
-				{images.concat(images[0]).map((image, idx) => (
-					<Image
-						key={idx}
-						data={image.responsiveImage}
-						className={cn(s.imageWrap, index >= idx && s.hide)}
-						imgClassName={s.image}
-						style={{ zIndex: images.length + 1 - idx, animationDuration: `${duration}ms` }}
-					/>
-				))}
+				{images
+					.concat(images[0])
+					.filter((image) => image?.responsiveImage)
+					.map((image, idx) => (
+						<Image
+							key={idx}
+							data={image.responsiveImage}
+							className={cn(s.imageWrap, index >= idx && s.hide)}
+							imgClassName={s.image}
+							style={{ zIndex: images.length + 1 - idx, animationDuration: `${duration}ms` }}
+						/>
+					))}
 			</div>
 			<div className={s.logo}>
 				<img src='/images/logo.svg' alt='Logo' ref={logoRef} />

@@ -19,21 +19,13 @@ export type ThumbnailProps = {
 	markdown?: boolean;
 };
 
-export default function Thumbnail({
-	title,
-	image,
-	text,
-	href,
-	meta,
-	markdown,
-	className,
-}: ThumbnailProps) {
+export default function Thumbnail({ title, image, text, href, meta, markdown, className }: ThumbnailProps) {
 	return (
 		<li className={cn(s.thumbnail, className)}>
 			<div className={s.wrap}>
 				<Link href={href}>
 					<h3>{title}</h3>
-					{image && <Image data={image.responsiveImage} imgClassName={s.image} />}
+					{image?.responsiveImage && <Image data={image.responsiveImage} imgClassName={s.image} />}
 					{markdown && <Markdown content={text} className={s.text} />}
 					{!markdown && <Content content={text} className={s.text} />}
 				</Link>
@@ -43,7 +35,7 @@ export default function Thumbnail({
 							.filter(({ text }) => text)
 							.map(({ label, text, href }, idx) => (
 								<li key={idx}>
-									<span className="very-small">{label}</span>
+									<span className='very-small'>{label}</span>
 									{href ? <Link href={href}>{text}</Link> : <span>{text}</span>}
 								</li>
 							))}
