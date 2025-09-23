@@ -33,6 +33,7 @@ const geoJsonStyle = () => ({
 
 const SwedenMap: React.FC<SwedenMapProps> = ({ items, markerId, onHover, onClick, interactive = true }) => {
 	const [isClient, setIsClient] = useState(false);
+	const [hoverId, setHoverId] = useState<string | null>(null);
 
 	useEffect(() => {
 		setIsClient(true);
@@ -71,12 +72,18 @@ const SwedenMap: React.FC<SwedenMapProps> = ({ items, markerId, onHover, onClick
 				<Marker
 					key={id}
 					position={position}
-					icon={id === markerId ? markerIconActive : markerIcon}
+					icon={id === markerId || id === hoverId ? markerIconActive : markerIcon}
 					eventHandlers={
 						interactive
 							? {
-									mouseover: () => onHover?.(id),
-									mouseout: () => onHover?.(null),
+									mouseover: () => {
+										onHover?.(id);
+										setHoverId(id);
+									},
+									mouseout: () => {
+										onHover?.(null);
+										setHoverId(null);
+									},
 									click: () => onClick?.(id),
 								}
 							: {}
