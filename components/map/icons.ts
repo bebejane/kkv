@@ -9,7 +9,7 @@ export const markerIcon = new L.Icon.Default({
 	shadowUrl: null,
 	shadowSize: null,
 	shadowAnchor: null,
-	iconSize: new L.Point(10, 10),
+	iconSize: new L.Point(12, 12),
 });
 
 export const markerIconActive = new L.Icon.Default({
@@ -21,5 +21,5 @@ export const markerIconActive = new L.Icon.Default({
 	shadowUrl: null,
 	shadowSize: null,
 	shadowAnchor: null,
-	iconSize: new L.Point(10, 10),
+	iconSize: new L.Point(16, 16),
 });
