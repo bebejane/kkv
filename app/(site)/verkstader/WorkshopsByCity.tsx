@@ -9,6 +9,7 @@ import SwedenMap from '@/components/map';
 import { useEffect, useState } from 'react';
 import { Image } from 'react-datocms';
 import cn from 'classnames';
+import Link from 'next/link';
 
 export type WorkshopsByCityProps = {
 	workshops: AllWorkshopsQuery['allWorkshops'];
@@ -47,11 +48,12 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 					<SwedenMap items={markers} markerId={cityId} onClick={(id) => setCityId(id)} />
 				</div>
 			)}
-			<div className={s.wrapper}>
+			<div className={cn(s.wrapper, filter === 'list' && s.full)}>
 				<List
 					itemId={cityId}
 					onChange={(id) => setCityId(id)}
 					className={s.workshops}
+					multi={false}
 					items={Object.keys(workshopsByCity).map((cityId) => ({
 						id: cityId,
 						title: workshops.find(({ city }) => city.id === cityId)?.city.title,
@@ -65,10 +67,12 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 										<h3>{name}</h3>
 										<Markdown content={description} className={s.description} />
 										<ul className={s.meta}>
-											<li>
-												<span className='very-small'>UTRUSTNING</span>
-												<span>{gear.map(({ title }) => title).join(', ')}</span>
-											</li>
+											{gear.length > 0 && (
+												<li>
+													<span className='very-small'>UTRUSTNING</span>
+													<span>{gear.map(({ title }) => title).join(', ')}</span>
+												</li>
+											)}
 											<li>
 												<span className='very-small'>KONTAKT</span>
 												<span>
@@ -76,7 +80,7 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 													{website && (
 														<>
 															<br />
-															<a href={website}>{website.replace('https://', '').replace('http://', '')}</a>
+															<Link href={website}>Besök hemsida</Link>
 														</>
 													)}
 													{email && (

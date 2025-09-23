@@ -19,6 +19,9 @@
 	.wrapper {
 		@include mq($from: desktop) {
 			width: 60%;
+			&.full {
+				width: 100%;
+			}
 		}
 	}
 

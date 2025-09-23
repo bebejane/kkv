@@ -22,13 +22,10 @@ export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
 	const router = useRouter();
 	const [cityId, setCityId] = useState<string | null>(null);
 	const workshopsByCity = groupBy(workshops, ({ city }) => city.id);
-	console.log(workshopsByCity);
+
 	const markers: MapMarker[] = Object.keys(workshopsByCity).map((cityId) => ({
 		id: cityId,
-		position: [
-			workshopsByCity[cityId][0].coordinates?.latitude,
-			workshopsByCity[cityId][0].coordinates?.longitude,
-		],
+		position: [workshopsByCity[cityId][0].coordinates?.latitude, workshopsByCity[cityId][0].coordinates?.longitude],
 		label: workshopsByCity[cityId][0].city.title,
 	}));
 
@@ -54,7 +51,7 @@ export default function FindWorkshop({ workshops, text }: FindWorkshopProps) {
 								{workshop.website && (
 									<>
 										<br />
-										{workshop.website.replace('https://', '').replace('http://', '')}
+										<Link href={workshop.website}>Besök hemsida</Link>
 									</>
 								)}
 								<br />

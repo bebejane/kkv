@@ -18,13 +18,23 @@ export type ListProps = {
 		status?: 'updated' | 'published' | 'new' | 'draft';
 	}[];
 	empty?: string;
+	multi: boolean;
 	onChange?: (id: string | null) => void;
 };
 
-export default function List({ items, itemId, className, empty, onChange }: ListProps) {
+export default function List({ items, itemId, className, empty, multi = false, onChange }: ListProps) {
 	const defaultToggles = items.reduce((acc, k) => ({ ...acc, [k.id]: { show: false, height: 0 } }), {});
 	const [toggles, setToggles] = useState<{ [key: string]: { show: boolean; height?: number } }>(defaultToggles);
 	const { innerHeight, innerWidth } = useWindowSize();
+
+	function toggleItem(id: string) {
+		if (multi) setToggles((t) => ({ ...toggles, [id]: { ...t[id], show: !t[id].show } }));
+		else {
+			const t = { ...toggles };
+			Object.keys(t).forEach((k) => (id !== k ? (t[k].show = false) : (t[k].show = t[k].show ? false : true)));
+			setToggles(t);
+		}
+	}
 
 	useEffect(() => {
 		Object.keys(toggles).forEach(
@@ -35,20 +45,20 @@ export default function List({ items, itemId, className, empty, onChange }: List
 
 	useEffect(() => {
 		if (!itemId) return;
-		setToggles((t) => ({ ...toggles, [itemId]: { ...t[itemId], show: true } }));
+		toggleItem(itemId);
 	}, [itemId]);
 
 	if (!items.length) return <div className={s.empty}>{empty}</div>;
-
+	console.log('render');
 	return (
 		<ul className={cn(s.list, className)}>
-			{items.map(({ id, title, content, markdown, href, status }, idx) => (
+			{items.map(({ id, title, content, href, status }, idx) => (
 				<li
 					id={`list-${id}`}
 					key={idx}
 					onClick={() => {
-						setToggles({ ...toggles, [id]: { ...toggles[id], show: !toggles[id].show } });
-						onChange?.(!toggles[id].show ? id : null);
+						toggleItem(id);
+						///onChange?.(!toggles[id].show ? id : null);
 					}}
 				>
 					{href ? (
@@ -64,14 +74,14 @@ export default function List({ items, itemId, className, empty, onChange }: List
 					) : (
 						<div className={s.item}>
 							<span>{title}</span>
-							<button>{toggles[id].show ? '-' : '+'}</button>
+							<button>{toggles[id]?.show ? '-' : '+'}</button>
 						</div>
 					)}
 					{content && (
 						<div
 							id={`list-content-${id}`}
 							className={cn(s.content, toggles[id].show && s.show)}
-							style={{ height: toggles[id].show ? toggles[id].height : 0 }}
+							style={{ height: toggles[id]?.show ? toggles[id].height : 0 }}
 						>
 							<div className={s.wrap}>{content}</div>
 						</div>

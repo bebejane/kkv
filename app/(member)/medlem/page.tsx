@@ -38,6 +38,7 @@ export default async function AllCourses() {
 					href: `/medlem/kurser/${id}`,
 					status: _status,
 				}))}
+				multi={true}
 				empty='Det finns inga kurser ännu'
 			/>
 		</Article>
