@@ -2,15 +2,24 @@
 	display: flex;
 	flex-direction: row;
 	margin-top: var(--space);
+	position: relative;
 
 	.map {
 		flex: 0 0 40%;
-		height: 60vh;
+		height: 80vh;
 		background-color: var(--white);
 		margin-right: var(--gutter);
+		position: sticky;
+		top: var(--navbar-height);
 	}
 	.workshops {
 		flex: 1 1 auto;
+	}
+
+	.wrapper {
+		@include mq($from: desktop) {
+			width: 60%;
+		}
 	}
 
 	@include mq($until: desktop) {
@@ -55,6 +64,7 @@
 				display: flex;
 				flex-direction: column;
 				list-style: none;
+				align-items: baseline;
 				li {
 					display: flex;
 					flex-direction: row;
@@ -62,7 +72,7 @@
 						flex: 0 0 80px;
 
 						@include mq($from: desktop) {
-							flex: 0 0 150px;
+							flex: 0 0 12ch;
 						}
 					}
 				}

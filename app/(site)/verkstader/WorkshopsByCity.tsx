@@ -47,7 +47,7 @@ export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsBy
 					<SwedenMap items={markers} markerId={cityId} onClick={(id) => setCityId(id)} />
 				</div>
 			)}
-			<div>
+			<div className={s.wrapper}>
 				<List
 					itemId={cityId}
 					onChange={(id) => setCityId(id)}
