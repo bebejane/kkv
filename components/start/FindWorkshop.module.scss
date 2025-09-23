@@ -36,6 +36,7 @@
 		height: 100%;
 		flex: 1 1 auto;
 		height: 60vh;
+		margin-right: calc(-1 * var(--gutter));
 	}
 
 	@include mq($until: desktop) {
