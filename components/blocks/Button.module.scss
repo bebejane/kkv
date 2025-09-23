@@ -2,11 +2,14 @@
 	text-align: center;
 
 	button {
-		margin-left: calc(-1 * var(--gutter));
 		margin-top: var(--space);
 		margin-bottom: var(--space);
 		padding-left: var(--gutter);
 		padding-right: var(--gutter);
+
+		@include mq($from: desktop) {
+			margin-left: calc(-1 * var(--gutter));
+		}
 
 		&:hover {
 			color: white !important;

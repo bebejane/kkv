@@ -4,13 +4,20 @@
 	margin-top: var(--space);
 	position: relative;
 
+	@include mq($from: desktop) {
+		margin-left: calc(-1 * var(--gutter));
+		margin-right: calc(-1 * var(--gutter));
+	}
+
 	.map {
 		flex: 0 0 40%;
 		height: 80vh;
 		background-color: var(--white);
 		margin-right: var(--gutter);
-		position: sticky;
-		top: var(--navbar-height);
+		@include mq($from: desktop) {
+			position: sticky;
+			top: var(--navbar-height);
+		}
 	}
 	.workshops {
 		flex: 1 1 auto;
@@ -41,7 +48,7 @@
 		display: flex;
 		flex-direction: row;
 		align-items: flex-start;
-		margin-bottom: var(--space);
+		margin-bottom: var(--space-small);
 
 		&:not(:first-of-type) {
 			border-top: 2px solid var(--gray);
