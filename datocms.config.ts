@@ -16,6 +16,7 @@ const routes: DatoCmsConfig['routes'] = {
 	workshop: async ({ slug }) => [`/verkstader/${slug}`, '/verkstader', '/'],
 	workshop_gear: async ({ id }, locale) => ['/verkstader', ...(await references(id, [locale]))],
 	workshops_start: async () => ['/verkstader'],
+	upload: async ({ id }, locale) => await references(id, [locale], { upload: true }),
 };
 
 export default {
