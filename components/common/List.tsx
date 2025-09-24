@@ -3,7 +3,7 @@
 import s from './List.module.scss';
 import cn from 'classnames';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { use, useEffect, useRef, useState } from 'react';
 import { useWindowSize } from 'rooks';
 
 export type ListProps = {
@@ -23,7 +23,7 @@ export type ListProps = {
 };
 
 export default function List({ items, itemId, className, empty, multi = false, onChange }: ListProps) {
-	const defaultToggles = items.reduce((acc, k) => ({ ...acc, [k.id]: { show: false, height: 0 } }), {});
+	const defaultToggles = items.reduce((acc, k) => ({ ...acc, [k.id]: { show: k.id === itemId, height: 0 } }), {});
 	const [toggles, setToggles] = useState<{ [key: string]: { show: boolean; height?: number } }>(defaultToggles);
 	const { innerHeight, innerWidth } = useWindowSize();
 
@@ -33,34 +33,28 @@ export default function List({ items, itemId, className, empty, multi = false, o
 			const t = { ...toggles };
 			Object.keys(t).forEach((k) => (id !== k ? (t[k].show = false) : (t[k].show = t[k].show ? false : true)));
 			setToggles(t);
+			onChange?.(t[id]?.show ? id : null);
 		}
 	}
 
 	useEffect(() => {
-		Object.keys(toggles).forEach(
-			(id) => (toggles[id].height = document.getElementById(`list-content-${id}`)?.scrollHeight ?? 0)
-		);
-		setToggles(toggles);
+		const t = { ...toggles };
+		Object.keys(t).forEach((id) => (t[id].height = document.getElementById(`list-content-${id}`)?.scrollHeight ?? 0));
+		setToggles(t);
 	}, [innerHeight, innerWidth]);
 
 	useEffect(() => {
-		if (!itemId) return;
-		toggleItem(itemId);
+		const t = { ...toggles };
+		Object.keys(t).forEach((k) => (itemId !== k ? (t[k].show = false) : (t[k].show = true)));
+		setToggles(t);
 	}, [itemId]);
 
 	if (!items.length) return <div className={s.empty}>{empty}</div>;
-	console.log('render');
+
 	return (
 		<ul className={cn(s.list, className)}>
 			{items.map(({ id, title, content, href, status }, idx) => (
-				<li
-					id={`list-${id}`}
-					key={idx}
-					onClick={() => {
-						toggleItem(id);
-						///onChange?.(!toggles[id].show ? id : null);
-					}}
-				>
+				<li id={`list-${id}`} key={idx} onClick={() => toggleItem(id)}>
 					{href ? (
 						<Link href={href} className={s.item}>
 							<span>{title}</span>

@@ -18,7 +18,7 @@ export type WorkshopsByCityProps = {
 };
 
 export default function WorkshopsByCity({ workshops, filter, slug }: WorkshopsByCityProps) {
-	const [cityId, setCityId] = useState<string | null>(null);
+	const [cityId, setCityId] = useState<string | null>(workshops.find((item) => item.slug === slug)?.city.id);
 	const workshopsByCity = groupBy(workshops, ({ city }) => city.id);
 	const markers: MapMarker[] = Object.keys(workshopsByCity).map((cityId) => ({
 		id: cityId,
