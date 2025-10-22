@@ -39,6 +39,9 @@ export default function WorkshopsByCity({ workshops, view, slug }: WorkshopsByCi
 		setTimeout(() => {
 			const element = document.getElementById(`list-${city?.id}`);
 			element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			const workshopSlug = workshops.find((item) => item.city.id === cityId)?.slug;
+
+			workshopSlug && window.history.replaceState(null, '', `/verkstader/${workshopSlug}`);
 		}, 100);
 	}, [cityId]);
 

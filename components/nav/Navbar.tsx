@@ -22,8 +22,10 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 	const pathname = `${path}${qs.length > 0 ? `?${qs}` : ''}`;
 	const [selected, setSelected] = useState<string | null>(null);
 	const [subStyle, setSubStyle] = useState<CSSProperties | null>();
+
 	const { innerHeight, innerWidth } = useWindowSize();
-	const { scrolledPosition, viewportHeight, isScrolledUp } = useScrollInfo();
+	const { scrolledPosition, viewportHeight } = useScrollInfo();
+	const isScrolledUp = scrolledPosition === 0;
 	const logoRef = useRef<HTMLImageElement>(null);
 	const parent = menu.find(({ id }) => id === selected);
 	const sub = parent?.sub;
@@ -79,7 +81,7 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 
 	return (
 		<>
-			<nav className={cn(s.navbar, bottom && s.bottom)}>
+			<nav className={cn(s.navbar, bottom && s.bottom, !isScrolledUp && s.scrolled)}>
 				<figure className={s.logo}>
 					{!bottom && (
 						<Link href={'/'}>
@@ -88,16 +90,14 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 					)}
 				</figure>
 
-				<ul className={s.menu} onMouseLeave={handleLeave}>
+				<ul className={cn(s.menu)} onMouseLeave={handleLeave}>
 					{menu.map((item, idx) => {
 						const title = item.title.split('').map((c, i) => (
 							<span
 								key={i}
 								style={{
 									transitionDelay:
-										scrolledPosition > 0 && !isScrolledUp
-											? `${(item.title.length - i) * 30}ms`
-											: `${i * 30}ms`,
+										scrolledPosition > 0 && !isScrolledUp ? `${(item.title.length - i) * 30}ms` : `${i * 30}ms`,
 								}}
 							>
 								{c}
@@ -115,11 +115,7 @@ export default function Navbar({ menu, session, bottom }: NavbarProps) {
 									isInactive(item) && s.inactive
 								)}
 							>
-								{item.sub && !item.hideSub ? (
-									<>{title}</>
-								) : (
-									<Link href={item.slug ?? item.href}>{title}</Link>
-								)}
+								{item.sub && !item.hideSub ? <>{title}</> : <Link href={item.slug ?? item.href}>{title}</Link>}
 							</li>
 						);
 					})}

@@ -49,6 +49,8 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 	});
 
 	const onSubmitForm = async (data: FormData) => {
+		console.log(data);
+		//return;
 		try {
 			setSubmitting(true);
 			setError(null);
@@ -78,9 +80,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 				<Controller
 					name='intro'
 					control={control}
-					render={({ field }) => (
-						<TipTapEditor initialValue={field.value} onChange={field.onChange} controls={false} />
-					)}
+					render={({ field }) => <TipTapEditor initialValue={field.value} onChange={field.onChange} controls={false} />}
 				/>
 				{errors.intro && <p className='form-error'>{errors.intro.message}</p>}
 			</div>
@@ -90,9 +90,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 				<Controller
 					name='text'
 					control={control}
-					render={({ field }) => (
-						<TipTapEditor initialValue={field.value} onChange={field.onChange} />
-					)}
+					render={({ field }) => <TipTapEditor initialValue={field.value} onChange={field.onChange} />}
 				/>
 				{errors.text && <p className='form-error'>{errors.text.message}</p>}
 			</div>
@@ -132,18 +130,12 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 			</div>
 
 			<div className={s.buttons}>
-				<button
-					type='submit'
-					disabled={submitting || isPending || !isDirty}
-					className={s.submitButton}
-				>
+				<button type='submit' disabled={submitting || isPending || !isDirty} className={s.submitButton}>
 					{submitting ? 'Sparar...' : 'Spara'}
 				</button>
 				<button
 					type='button'
-					disabled={
-						publishing || submitting || isPending || !course?.id || course?._status === 'published'
-					}
+					disabled={publishing || submitting || isPending || !course?.id || course?._status === 'published'}
 					className={s.submitButton}
 					onClick={() => {
 						if (!course?.id) return;
@@ -171,10 +163,7 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 					{isPending && submitting ? 'Tar bort kurs...' : 'Ta bort'}
 				</button>
 
-				<Link
-					href={`/kurser/${course?.slug}/utkast`}
-					aria-disabled={!course?.id || submitting ? true : false}
-				>
+				<Link href={`/kurser/${course?.slug}/utkast`} aria-disabled={!course?.id || submitting ? true : false}>
 					<button type='button' disabled={!course?.id || submitting ? true : false}>
 						Visa
 					</button>
