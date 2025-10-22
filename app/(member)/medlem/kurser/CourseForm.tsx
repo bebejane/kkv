@@ -108,13 +108,13 @@ export default function CourseForm({ course, onSubmit }: CourseFormProps) {
 			</div>
 
 			<div className={s.field}>
-				<label htmlFor='sign_up'>Anmäl dig</label>
+				<label htmlFor='sign_up'>Mailadress eller hemsida till anmälan</label>
 				<input type='text' id='sign_up' {...register('sign_up')} />
 				{errors.sign_up && <p className='form-error'>{errors.sign_up.message}</p>}
 			</div>
 
 			<div className={s.field}>
-				<label htmlFor='slug'>Permalänk</label>
+				<label htmlFor='slug'>Permalänk (Titel på kurs i små bokstäver utan mellanslag)</label>
 				<input type='text' id='slug' {...register('slug')} />
 				{errors.slug && <p className='form-error'>{errors.slug.message}</p>}
 			</div>
