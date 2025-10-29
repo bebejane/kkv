@@ -13,7 +13,7 @@ export default async function WorkshopPage({ searchParams, params }: Props) {
 }
 
 export async function generateStaticParams() {
-	const { allWorkshops } = await apiQuery<AllWorkshopsQuery, AllWorkshopsQueryVariables>(AllWorkshopsDocument, {
+	const { allWorkshops } = await apiQuery(AllWorkshopsDocument, {
 		all: true,
 	});
 
@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }): Promise<Metadata> {
 	const { workshop: slug } = await params;
-	const { workshop } = await apiQuery<WorkshopBySlugQuery, WorkshopBySlugQueryVariables>(WorkshopBySlugDocument, {
+	const { workshop } = await apiQuery(WorkshopBySlugDocument, {
 		variables: {
 			slug,
 		},

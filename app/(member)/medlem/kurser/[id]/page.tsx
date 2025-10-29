@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function Course({ params }: CourseProps) {
 	const { id: courseId } = await params;
-	const { course } = await apiQuery<CourseByIdQuery, CourseByIdQueryVariables>(CourseByIdDocument, {
+	const { course } = await apiQuery(CourseByIdDocument, {
 		variables: {
 			id: courseId,
 		},
@@ -23,8 +23,7 @@ export default async function Course({ params }: CourseProps) {
 
 	if (!course) return notFound();
 
-	const { id, title, slug, intro, text, date, forMembers, where, signUp, openToAll, _status } =
-		course;
+	const { id, title, slug, intro, text, date, forMembers, where, signUp, openToAll, _status } = course;
 
 	const courseData = {
 		id,

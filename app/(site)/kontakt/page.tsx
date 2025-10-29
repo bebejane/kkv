@@ -6,9 +6,7 @@ import Article from '@/components/common/Article';
 import { Metadata } from 'next';
 
 export default async function ContactPage({ searchParams }) {
-	const { contact, draftUrl } = await apiQuery<ContactQuery, ContactQueryVariables>(
-		ContactDocument
-	);
+	const { contact, draftUrl } = await apiQuery(ContactDocument);
 
 	if (!contact) return notFound();
 	const { title, content } = contact;

@@ -14,14 +14,11 @@ export type WorkshopPageProps = {
 export default async function WorkshopsPage({ searchParams, params }: WorkshopPageProps) {
 	const { workshop: slug } = params ? await params : { workshop: null };
 	const view = (await searchParams).view ?? 'map';
-	const { workshopsStart } = await apiQuery<WorkshopsStartQuery, WorkshopsStartQueryVariables>(WorkshopsStartDocument, {
+	const { workshopsStart } = await apiQuery(WorkshopsStartDocument, {
 		tags: ['workshops_start'],
 	});
 
-	const { allWorkshops, draftUrl } = await apiQuery<AllWorkshopsQuery, AllWorkshopsQueryVariables>(
-		AllWorkshopsDocument,
-		{ all: true, tags: ['workshop'] }
-	);
+	const { allWorkshops, draftUrl } = await apiQuery(AllWorkshopsDocument, { all: true, tags: ['workshop'] });
 
 	return (
 		<>

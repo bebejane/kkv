@@ -9,17 +9,14 @@ import List from '@/components/common/List';
 export default async function AllCourses() {
 	const session = await getSession();
 
-	const { allCourses } = await apiQuery<AllCoursesByWorkshopQuery, AllCoursesByWorkshopQueryVariables>(
-		AllCoursesByWorkshopDocument,
-		{
-			variables: {
-				workShopId: session.user.id,
-			},
-			all: true,
-			includeDrafts: true,
-			apiToken: process.env.DATOCMS_API_TOKEN,
-		}
-	);
+	const { allCourses } = await apiQuery(AllCoursesByWorkshopDocument, {
+		variables: {
+			workShopId: session.user.id,
+		},
+		all: true,
+		includeDrafts: true,
+		apiToken: process.env.DATOCMS_API_TOKEN,
+	});
 
 	return (
 		<Article

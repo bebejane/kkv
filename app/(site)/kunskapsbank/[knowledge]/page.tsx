@@ -11,10 +11,7 @@ export type KnowledgeBaseProps = {
 
 export default async function KnowledgeBasePage({ params }: KnowledgeBaseProps) {
 	const { knowledge: slug } = await params;
-	const { knowledgeBase, draftUrl } = await apiQuery<
-		KnowledgeBaseQuery,
-		KnowledgeBaseQueryVariables
-	>(KnowledgeBaseDocument, {
+	const { knowledgeBase, draftUrl } = await apiQuery(KnowledgeBaseDocument, {
 		variables: {
 			slug,
 		},
@@ -22,7 +19,7 @@ export default async function KnowledgeBasePage({ params }: KnowledgeBaseProps) 
 
 	if (!knowledgeBase) return notFound();
 
-	const { id, title, image, content, intro } = knowledgeBase;
+	const { title, image, content, intro } = knowledgeBase;
 
 	return (
 		<>
@@ -33,26 +30,17 @@ export default async function KnowledgeBasePage({ params }: KnowledgeBaseProps) 
 }
 
 export async function generateStaticParams() {
-	const { allKnowledgeBases } = await apiQuery<
-		AllKnowledgeBasesQuery,
-		AllKnowledgeBasesQueryVariables
-	>(AllKnowledgeBasesDocument, {
-		all: true,
-	});
-
+	const { allKnowledgeBases } = await apiQuery(AllKnowledgeBasesDocument, { all: true });
 	return allKnowledgeBases.map(({ slug: knowledge }) => ({ knowledge }));
 }
 
 export async function generateMetadata({ params }): Promise<Metadata> {
 	const { knowledge: slug } = await params;
-	const { knowledgeBase } = await apiQuery<KnowledgeBaseQuery, KnowledgeBaseQueryVariables>(
-		KnowledgeBaseDocument,
-		{
-			variables: {
-				slug,
-			},
-		}
-	);
+	const { knowledgeBase } = await apiQuery(KnowledgeBaseDocument, {
+		variables: {
+			slug,
+		},
+	});
 
 	return {
 		title: knowledgeBase?.title,

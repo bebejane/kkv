@@ -12,10 +12,7 @@ import Thumbnail from '@/components/common/Thumbnail';
 import { formatDate } from '@/lib/utils';
 
 export default async function Home() {
-	const { start, allWorkshops, allCourses, allKnowledgeBases, draftUrl } = await apiQuery<
-		StartQuery,
-		StartQueryVariables
-	>(StartDocument);
+	const { start, allWorkshops, allCourses, allKnowledgeBases, draftUrl } = await apiQuery(StartDocument);
 
 	if (!start) return notFound();
 

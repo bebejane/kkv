@@ -25,20 +25,19 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "datocms.config": [
+        "./datocms.config.ts"
       ]
     },
     "forceConsistentCasingInFileNames": true,
     "strictNullChecks": false
   },
-  "typeRoots": [
-    "./types"
-  ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "types/next-auth.d.ts"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

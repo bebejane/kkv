@@ -9,17 +9,8 @@ import Thumbnail from '@/components/common/Thumbnail';
 import ThumbnailContainer from '@/components/common/ThumbnailContainer';
 
 export default async function WorkshopsPage({ searchParams }) {
-	const { allKnowledgeBases, draftUrl } = await apiQuery<
-		AllKnowledgeBasesQuery,
-		AllKnowledgeBasesQueryVariables
-	>(AllKnowledgeBasesDocument, { all: true, tags: ['knowledge_base'] });
-
-	const { knowledgebaseStart } = await apiQuery<
-		KnowledgeBaseStartQuery,
-		KnowledgeBaseStartQueryVariables
-	>(KnowledgeBaseStartDocument, {
-		tags: ['knowledgebase_start'],
-	});
+	const { allKnowledgeBases, draftUrl } = await apiQuery(AllKnowledgeBasesDocument);
+	const { knowledgebaseStart } = await apiQuery(KnowledgeBaseStartDocument);
 
 	if (!knowledgebaseStart) return notFound();
 
@@ -28,13 +19,7 @@ export default async function WorkshopsPage({ searchParams }) {
 			<Article title={'Kunskapsbank'} intro={knowledgebaseStart?.intro} className={s.workshops}>
 				<ThumbnailContainer>
 					{allKnowledgeBases.map(({ id, title, intro, slug, image }) => (
-						<Thumbnail
-							key={id}
-							title={title}
-							href={`/kunskapsbank/${slug}`}
-							text={intro}
-							image={image as FileField}
-						/>
+						<Thumbnail key={id} title={title} href={`/kunskapsbank/${slug}`} text={intro} image={image as FileField} />
 					))}
 				</ThumbnailContainer>
 			</Article>

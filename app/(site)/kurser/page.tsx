@@ -14,17 +14,11 @@ const filterParser = parseAsString.withDefault('all');
 
 export default async function CoursesPage({ searchParams }) {
 	const filter = filterParser.parseServerSide((await searchParams).filter);
-	const { allCourses, draftUrl } = await apiQuery<AllCoursesQuery, AllCoursesQueryVariables>(
-		AllCoursesDocument,
-		{ all: true, tags: ['course'] }
-	);
+	const { allCourses, draftUrl } = await apiQuery(AllCoursesDocument, { all: true, tags: ['course'] });
 
-	const { coursesStart } = await apiQuery<CoursesStartQuery, CoursesStartQueryVariables>(
-		CoursesStartDocument,
-		{
-			tags: ['courses_start'],
-		}
-	);
+	const { coursesStart } = await apiQuery(CoursesStartDocument, {
+		tags: ['courses_start'],
+	});
 
 	if (!coursesStart) return notFound();
 

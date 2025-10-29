@@ -16,7 +16,7 @@ export const dynamic = 'force-dynamic';
 export default async function Workshop({}: WorkshopProps) {
 	const session = await getSession();
 
-	const { workshop, allWorkshopGears } = await apiQuery<WorkshopQuery, WorkshopQueryVariables>(WorkshopDocument, {
+	const { workshop, allWorkshopGears } = await apiQuery(WorkshopDocument, {
 		variables: {
 			email: session?.user?.email,
 		},

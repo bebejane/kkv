@@ -15,7 +15,7 @@ export type CourseProps = {
 export default async function CoursePage(props: CourseProps) {
 	const { params, draft } = props;
 	const { course: slug } = await params;
-	const { course, draftUrl } = await apiQuery<CourseQuery, CourseQueryVariables>(CourseDocument, {
+	const { course, draftUrl } = await apiQuery(CourseDocument, {
 		variables: {
 			slug,
 		},
@@ -24,8 +24,7 @@ export default async function CoursePage(props: CourseProps) {
 
 	if (!course) return notFound();
 
-	const { id, workshop, title, intro, text, where, forMembers, signUp, date, openToAll, _status } =
-		course;
+	const { id, workshop, title, intro, text, where, forMembers, signUp, date, openToAll, _status } = course;
 
 	const meta: MetaSectionItem[] = [
 		{
@@ -72,12 +71,9 @@ export default async function CoursePage(props: CourseProps) {
 }
 
 export async function generateStaticParams() {
-	const { allCourses } = await apiQuery<AllCoursesQuery, AllCoursesQueryVariables>(
-		AllCoursesDocument,
-		{
-			all: true,
-		}
-	);
+	const { allCourses } = await apiQuery(AllCoursesDocument, {
+		all: true,
+	});
 
 	return allCourses.map(({ slug: course }) => ({ course }));
 }
@@ -85,7 +81,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: CourseProps) {
 	const { course: slug } = await params;
 	//@ts-ignore
-	const { course } = await apiQuery<CourseQuery, CourseQueryVariables>(CourseDocument, {
+	const { course } = await apiQuery(CourseDocument, {
 		variables: {
 			slug,
 		},
