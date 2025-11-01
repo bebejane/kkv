@@ -34,7 +34,7 @@
 		"lodash-es": "^4.17.21",
 		"next": "15.5.6",
 		"next-auth": "4.24.11",
-		"next-dato-utils": "github:bebejane/next-dato-utils#latest",
+		"next-dato-utils": "github:bebejane/next-dato-utils#v2.0.68",
 		"nuqs": "^2.3.1",
 		"react-datocms": "^8.0.0-1",
 		"react-dom": "^18.3.1",
