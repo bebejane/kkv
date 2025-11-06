@@ -9,6 +9,8 @@ export type KnowledgeBaseProps = {
 	params: Promise<{ knowledge: string }>;
 };
 
+export const dynamic = 'force-static';
+
 export default async function KnowledgeBasePage({ params }: KnowledgeBaseProps) {
 	const { knowledge: slug } = await params;
 	const { knowledgeBase, draftUrl } = await apiQuery(KnowledgeBaseDocument, {

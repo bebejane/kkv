@@ -9,6 +9,8 @@ export type AboutProps = {
 	params: Promise<{ about: string }>;
 };
 
+export const dynamic = 'force-static';
+
 export default async function AboutPage({ params }: AboutProps) {
 	const { about: slug } = await params;
 	const { about, draftUrl } = await apiQuery(AboutDocument, {

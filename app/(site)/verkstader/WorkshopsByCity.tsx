@@ -41,7 +41,7 @@ export default function WorkshopsByCity({ workshops, view, slug }: WorkshopsByCi
 			element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 			const workshopSlug = workshops.find((item) => item.city.id === cityId)?.slug;
 
-			workshopSlug && window.history.replaceState(null, '', `/verkstader/${workshopSlug}`);
+			workshopSlug && window.history.replaceState(null, '', `/verkstader/${workshopSlug}?view=${view}`);
 		}, 100);
 	}, [cityId]);
 

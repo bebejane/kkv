@@ -11,6 +11,8 @@ import ThumbnailContainer from '@/components/common/ThumbnailContainer';
 import Thumbnail from '@/components/common/Thumbnail';
 import { formatDate } from '@/lib/utils';
 
+export const dynamic = 'force-static';
+
 export default async function Home() {
 	const { start, allWorkshops, allCourses, allKnowledgeBases, draftUrl } = await apiQuery(StartDocument);
 

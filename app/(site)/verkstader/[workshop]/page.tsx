@@ -1,14 +1,11 @@
-import { AllWorkshopsDocument, WorkshopBySlugDocument, WorkshopDocument } from '@/graphql';
+import { AllWorkshopsDocument, WorkshopBySlugDocument } from '@/graphql';
 import { default as page } from '../page';
 import { apiQuery } from 'next-dato-utils/api';
 import { Metadata } from 'next';
 
-export type Props = {
-	searchParams: Promise<{ filter?: string }>;
-	params: Promise<{ workshop: string }>;
-};
+export const dynamic = 'force-dynamic';
 
-export default async function WorkshopPage({ searchParams, params }: Props) {
+export default async function WorkshopPage({ searchParams, params }: PageProps<'/verkstader/[workshop]'>) {
 	return page({ params, searchParams });
 }
 

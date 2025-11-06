@@ -12,6 +12,8 @@ import { formatDate } from '@/lib/utils';
 
 const filterParser = parseAsString.withDefault('all');
 
+export const dynamic = 'force-static';
+
 export default async function CoursesPage({ searchParams }) {
 	const filter = filterParser.parseServerSide((await searchParams).filter);
 	const { allCourses, draftUrl } = await apiQuery(AllCoursesDocument, { all: true, tags: ['course'] });

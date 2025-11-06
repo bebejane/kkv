@@ -13,12 +13,12 @@ export default function WorkshopView() {
 	return (
 		<div className={s.view}>
 			<span className='small'>Visar som {view === 'map' ? 'karta' : 'lista'}</span>
-			<Link href='?view=list' prefetch={true}>
+			<Link href={{ pathname: '/verkstader', query: { view: 'list' } }} prefetch={true}>
 				<button data-selected={view === 'list'} data-type='icon'>
 					<IoListSharp />
 				</button>
 			</Link>
-			<Link href='?view=map' prefetch={true}>
+			<Link href={{ pathname: '/verkstader', query: { view: 'map' } }} prefetch={true}>
 				<button data-selected={view === 'map'} data-type='icon'>
 					<RiMapPin5Line />
 				</button>

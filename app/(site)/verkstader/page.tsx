@@ -11,6 +11,8 @@ export type WorkshopPageProps = {
 	params: Promise<{ workshop: string }>;
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function WorkshopsPage({ searchParams, params }: WorkshopPageProps) {
 	const { workshop: slug } = params ? await params : { workshop: null };
 	const view = (await searchParams).view ?? 'map';
